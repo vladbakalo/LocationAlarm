@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "767245089798",
+    "firebase_url": "https://location-alarm-1498930988183.firebaseio.com",
+    "project_id": "location-alarm-1498930988183",
+    "storage_bucket": "location-alarm-1498930988183.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767245089798:android:675eb295f907ec65",
+        "android_client_info": {
+          "package_name": "com.vladbakalo.location_alarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "767245089798-gi8b0trmi7g3mb0roq5si5nv45p632og.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB5Ph0xbDDH3_RHpRoSuVJ_2QS7XLaPfg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
