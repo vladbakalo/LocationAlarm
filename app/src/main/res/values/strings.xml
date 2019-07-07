@@ -1,8 +1,12 @@
 <resources>
+    <string name="facebook_app_id">674294519680182</string>
+    <string name="fb_login_protocol_scheme">fb674294519680182</string>
+
     <string name="app_name">Location Alarm</string>
     <string name="title_activity_maps">Map</string>
 
     <string name="title_activity_start">StartActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>
