@@ -13,4 +13,12 @@
     <color name="mainColorBBg">#689AD3</color>
 
     <color name="white">#FFFF</color>
+    <color name="dark">#000</color>
+    <color name="hint_text">#000</color>
+    <color name="red">#d81920</color>
+    <color name="google_bg">#CD2A00</color>
+
+    <color name="inputTextColor">#DE000000</color>
+    <color name="labelTextColor">#99000000</color>
+    <color name="containerTextColor">#1F000000</color>
 </resources>

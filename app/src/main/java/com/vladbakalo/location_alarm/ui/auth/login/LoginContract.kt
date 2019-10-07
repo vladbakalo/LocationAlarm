@@ -1,6 +1,6 @@
-package com.vladbakalo.location_alarm.ui.login
+package com.vladbakalo.location_alarm.ui.auth.login
 
-import com.vladbakalo.location_alarm.application.BaseContract
+import com.vladbakalo.location_alarm.mvp.BaseContract
 
 interface LoginContract {
 

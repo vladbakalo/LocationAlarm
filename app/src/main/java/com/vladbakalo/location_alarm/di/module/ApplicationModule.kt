@@ -1,16 +1,14 @@
 package com.vladbakalo.location_alarm.di.module
 
-import com.vladbakalo.location_alarm.application.BaseApplication
-import com.vladbakalo.location_alarm.di.scope.ApplicationScope
+import com.vladbakalo.location_alarm.application.App
 import dagger.Module
 import dagger.Provides
 
 @Module
-class ApplicationModule(private val baseApplication: BaseApplication) {
+class ApplicationModule(private val app: App) {
 
     @Provides
-    @ApplicationScope
-    fun provideApplication() : BaseApplication{
-        return baseApplication
+    fun provideApplication() : App{
+        return app
     }
 }

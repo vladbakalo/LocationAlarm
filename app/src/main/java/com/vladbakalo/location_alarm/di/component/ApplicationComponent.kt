@@ -1,10 +1,13 @@
 package com.vladbakalo.location_alarm.di.component
 
-import com.vladbakalo.location_alarm.application.BaseApplication
+import com.vladbakalo.location_alarm.di.module.ActivityModule
 import com.vladbakalo.location_alarm.di.module.ApplicationModule
+import com.vladbakalo.location_alarm.navigation.di.NavigationModule
 import dagger.Component
+import javax.inject.Singleton
 
-@Component(modules = arrayOf(ApplicationModule::class))
+@Singleton
+@Component(modules = [ApplicationModule::class, NavigationModule::class])
 interface ApplicationComponent {
-    fun inject(application: BaseApplication)
+    fun plusActivityComponent(activityModule: ActivityModule): ActivityComponent
 }

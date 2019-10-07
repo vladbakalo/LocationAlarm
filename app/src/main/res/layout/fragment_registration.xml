@@ -5,8 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
         android:background="@color/white"
+        android:scrollbars="none"
         tools:context=".ui.auth.login.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,10 +16,9 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:orientation="vertical"
-                android:padding="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -34,10 +33,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/app_name"
+                    android:text="@string/registration"
                     android:textColor="@color/colorPrimary"
                     android:textSize="30sp"
                     android:textStyle="bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/LocationAlarm.Login.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name"
+                    app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/authRegisterEtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                     style="@style/LocationAlarm.Login.TextInputLayout"
@@ -47,10 +59,9 @@
                     app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/authLoginEtEmail"
+                        android:id="@+id/authRegisterEtEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:textInputStyle="@style/LocationAlarm.Login.EditText"/>
+                        android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -61,65 +72,33 @@
                     app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/authLoginEtPassword"
+                        android:id="@+id/authRegisterEtPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        app:textInputStyle="@style/LocationAlarm.Login.EditText"/>
+                        android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/LocationAlarm.Login.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password_re"
+                    app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/authRegisterEtRePassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/loginButtonMain"
+                    android:id="@+id/authRegisterBtnRegister"
                     style="@style/LocationAlarm.Login.LoginButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/login"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/registerButtonMain"
-                    style="@style/LocationAlarm.Login.RegisterButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/register"/>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
-
-                <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="4dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_login_google_button"
-                        android:elevation="@dimen/button_elevation">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            app:srcCompat="@drawable/ic_google"/>
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="4dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_login_facebook_button"
-                        android:elevation="@dimen/button_elevation">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            app:srcCompat="@drawable/ic_facebook"/>
-                </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

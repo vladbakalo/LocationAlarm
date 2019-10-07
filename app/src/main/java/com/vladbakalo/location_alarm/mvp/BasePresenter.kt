@@ -1,8 +1,10 @@
-package com.vladbakalo.location_alarm.application
+package com.vladbakalo.location_alarm.mvp
 
 import androidx.annotation.CallSuper
+import ru.terrakok.cicerone.Router
 
-abstract class BasePresenter<T: BaseContract.View>: BaseContract.Presenter<T> {
+abstract class BasePresenter<T: BaseContract.View>(val router: Router):
+    BaseContract.Presenter<T> {
 
     var view: T? = null
         private set

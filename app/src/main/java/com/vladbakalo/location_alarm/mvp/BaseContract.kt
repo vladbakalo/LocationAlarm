@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.application
+package com.vladbakalo.location_alarm.mvp
 
 class BaseContract{
     interface Presenter<in T: View>{

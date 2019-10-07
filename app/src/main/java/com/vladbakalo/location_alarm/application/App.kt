@@ -1,28 +1,31 @@
 package com.vladbakalo.location_alarm.application
 
 import android.app.Application
+import com.crashlytics.android.Crashlytics
 import com.vladbakalo.location_alarm.di.component.ApplicationComponent
 import com.vladbakalo.location_alarm.di.component.DaggerApplicationComponent
 import com.vladbakalo.location_alarm.di.module.ApplicationModule
-import com.vladbakalo.location_alarm.di.module.FragmentModule
+import io.fabric.sdk.android.Fabric
 
-class BaseApplication : Application() {
+class App : Application() {
+    companion object{
+        lateinit var appComponent: ApplicationComponent private set
+    }
 
     override fun onCreate() {
         super.onCreate()
 
-        setupDI()
+        initDaggerDI()
+        initFabric()
     }
 
-    private fun setupDI(){
-        component = DaggerApplicationComponent.builder()
+    private fun initDaggerDI(){
+        appComponent = DaggerApplicationComponent.builder()
             .applicationModule(ApplicationModule(this))
             .build()
-
-        component.inject(this)
     }
 
-    companion object{
-        lateinit var component: ApplicationComponent private set
+    private fun initFabric(){
+        Fabric.with(this, Crashlytics())
     }
 }

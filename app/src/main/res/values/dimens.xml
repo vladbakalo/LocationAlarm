@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="login_launcher_icon_height_width">160dp</dimen>
+
+    <dimen name="text_xxl">20sp</dimen>     <!-- header -->
+    <dimen name="text_xl">18sp</dimen>      <!-- title -->
+    <dimen name="text_x">16sp</dimen>       <!-- subtitle -->
+    <dimen name="text_l">14sp</dimen>       <!-- labels -->
+    <dimen name="text_m">12sp</dimen>       <!-- message & buttons & main links -->
+    <dimen name="text_s">10sp</dimen>       <!-- hint & input fields & additional links & errors -->
+    <dimen name="text_xs">8sp</dimen>       <!-- additional unimportant information -->
+
+    <dimen name="button_elevation">2dp</dimen>
+</resources>

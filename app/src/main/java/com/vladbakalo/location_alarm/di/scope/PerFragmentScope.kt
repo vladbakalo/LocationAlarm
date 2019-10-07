@@ -1,7 +1,7 @@
 package com.vladbakalo.location_alarm.di.scope
 
-import javax.inject.Qualifier
+import javax.inject.Scope
 
-@Qualifier
+@Scope
 @Retention(AnnotationRetention.RUNTIME)
-annotation class ApplicationScope
+annotation class PerFragmentScope
