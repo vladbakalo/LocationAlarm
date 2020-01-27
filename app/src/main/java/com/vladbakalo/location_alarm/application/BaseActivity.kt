@@ -1,22 +1,14 @@
 package com.vladbakalo.location_alarm.application
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import dagger.android.support.DaggerAppCompatActivity
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-abstract class BaseActivity: AppCompatActivity(){
+abstract class BaseActivity: DaggerAppCompatActivity(){
 
-    @Inject
-    lateinit var navigationHolder: NavigatorHolder
-
+    @Inject lateinit var navigationHolder: NavigatorHolder
     protected abstract val navigator: Navigator
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        injectDaggerDependencies()
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onResume() {
         super.onResume()
@@ -27,6 +19,4 @@ abstract class BaseActivity: AppCompatActivity(){
         navigationHolder.removeNavigator()
         super.onPause()
     }
-
-    abstract fun injectDaggerDependencies()
 }

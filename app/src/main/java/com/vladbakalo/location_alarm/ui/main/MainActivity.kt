@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.application
+package com.vladbakalo.location_alarm.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

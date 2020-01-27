@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.BaseFragment
-import com.vladbakalo.location_alarm.di.component.ActivityComponent
-import com.vladbakalo.location_alarm.di.module.FragmentModule
-import ru.terrakok.cicerone.Router
-import javax.inject.Inject
 
-class RegistrationFragment: BaseFragment(), RegistrationContract.View {
+class RegistrationFragment: BaseFragment(){
 
-    @Inject
-    lateinit var presenter: RegistrationPresenter
+    lateinit var viewModel: RegistrationFragmentViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(RegistrationFragmentViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,12 +26,8 @@ class RegistrationFragment: BaseFragment(), RegistrationContract.View {
     }
 
     override fun onBackPressed() {
-        presenter.onBackPressed()
     }
 
-    override fun injectDependencies() {
-        ActivityComponent.activityComponent?.plusFragmentComponent(FragmentModule())?.inject(this)
-    }
 
     companion object{
         fun newInstance(): RegistrationFragment{
