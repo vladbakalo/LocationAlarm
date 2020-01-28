@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.application
+package com.vladbakalo.location_alarm.base
 
 import androidx.fragment.app.Fragment
 import com.vladbakalo.location_alarm.common.BackButtonListener

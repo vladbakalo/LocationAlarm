@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.application.BaseFragment
+import com.vladbakalo.location_alarm.base.BaseFragment
 import com.vladbakalo.location_alarm.databinding.FragmentLoginBinding
 
 class LoginFragment : BaseFragment(){

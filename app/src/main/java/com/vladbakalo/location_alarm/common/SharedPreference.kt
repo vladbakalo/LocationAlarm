@@ -17,5 +17,4 @@ class SharedPreference @Inject constructor(var context: Context){
         private const val USER_FIRST_NAME_KEY = "USER_FIRST_NAME_KEY"
         private const val USER_EMAIL_KEY = "USER_EMAIL_KEY"
     }
-
 }

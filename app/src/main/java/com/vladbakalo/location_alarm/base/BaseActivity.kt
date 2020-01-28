@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.application
+package com.vladbakalo.location_alarm.base
 
 import dagger.android.support.DaggerAppCompatActivity
 import ru.terrakok.cicerone.Navigator

@@ -3,8 +3,8 @@ package com.vladbakalo.location_alarm.ui.auth.auth
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.application.BaseActivity
-import com.vladbakalo.location_alarm.application.BaseFragment
+import com.vladbakalo.location_alarm.base.BaseActivity
+import com.vladbakalo.location_alarm.base.BaseFragment
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject

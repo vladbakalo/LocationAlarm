@@ -1,7 +1,7 @@
 package com.vladbakalo.location_alarm.ui.auth.login
 
 import androidx.databinding.ObservableField
-import com.vladbakalo.location_alarm.application.BaseViewModel
+import com.vladbakalo.location_alarm.base.BaseViewModel
 
 class LoginFragmentViewModel: BaseViewModel() {
     val isLoading = ObservableField<Boolean>()
