@@ -11,15 +11,14 @@ import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.base.BaseFragment
 import com.vladbakalo.location_alarm.databinding.FragmentLoginBinding
 
-class LoginFragment : BaseFragment(){
+class LoginFragment : BaseFragment<LoginFragmentViewModel>(){
 
-    lateinit var viewModel: LoginFragmentViewModel
     lateinit var binding: FragmentLoginBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LoginFragmentViewModel::class.java)
+    override fun createViewModel(): LoginFragmentViewModel {
+        return ViewModelProviders.of(this).get(LoginFragmentViewModel::class.java)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +27,7 @@ class LoginFragment : BaseFragment(){
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         binding.executePendingBindings()
         return binding.root
     }

@@ -29,8 +29,8 @@
                         android:id="@+id/loginFragmentPbLoadingView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:indeterminate="true"
                         android:layout_centerInParent="true"
+                        android:indeterminate="true"
                         android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"/>
             </RelativeLayout>
 
@@ -71,6 +71,7 @@
                             android:id="@+id/authLoginEtEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@={viewModel.emailData}"
                             app:textInputStyle="@style/LocationAlarm.Login.EditText"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,6 +87,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
+                            android:text="@={viewModel.passwordData}"
                             app:textInputStyle="@style/LocationAlarm.Login.EditText"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,9 +97,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/login"
+                        android:enabled="@{viewModel.isLoading ? false : true}"
                         android:onClick="@{() -> viewModel.onEmailLoginClick()}"
-                        android:clickable="@{viewModel.isLoading ? false : true}"/>
+                        android:text="@string/login"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/registerButtonMain"
@@ -105,8 +107,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="@string/register"
-                        android:onClick="@{() -> viewModel.onRegisterClick()}"/>
+                        android:enabled="@{viewModel.isLoading ? false : true}"
+                        android:onClick="@{() -> viewModel.onRegisterClick()}"
+                        android:text="@string/register"/>
 
                 <LinearLayout
                         android:layout_width="match_parent"
