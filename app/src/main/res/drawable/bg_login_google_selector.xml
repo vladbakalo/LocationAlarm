@@ -2,13 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <layer-list>
-            <item android:drawable="@drawable/bg_login_button_pressed"/>
-            <item android:drawable="@drawable/ic_google_corrected"/>
+            <item android:drawable="@drawable/bg_login_button_pressed" />
+            <item android:drawable="@drawable/ic_google_corrected" />
         </layer-list>
     </item>
     <item>
         <layer-list>
-            <item android:drawable="@drawable/bg_login_button_pressed"/>
+            <item android:drawable="@drawable/bg_login_button_pressed" />
             <item android:drawable="@drawable/ic_google_corrected" />
         </layer-list>
     </item>

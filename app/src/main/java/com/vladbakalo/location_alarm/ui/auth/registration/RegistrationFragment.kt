@@ -8,29 +8,26 @@ import androidx.lifecycle.ViewModelProviders
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.base.BaseFragment
 
-class RegistrationFragment: BaseFragment(){
+class RegistrationFragment :BaseFragment() {
 
     lateinit var viewModel: RegistrationFragmentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RegistrationFragmentViewModel::class.java)
+        viewModel = ViewModelProviders.of(this)
+            .get(RegistrationFragmentViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_registration, container, false)
     }
 
-    override fun onBackPressed() {
-    }
 
-
-    companion object{
-        fun newInstance(): RegistrationFragment{
+    companion object {
+        fun create(): RegistrationFragment {
             return RegistrationFragment()
         }
     }

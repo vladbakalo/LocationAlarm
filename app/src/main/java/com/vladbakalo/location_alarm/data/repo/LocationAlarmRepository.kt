@@ -5,6 +5,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LocationAlarmRepository @Inject constructor(var context: Context){
+class LocationAlarmRepository @Inject constructor(var context: Context) {
     //
 }

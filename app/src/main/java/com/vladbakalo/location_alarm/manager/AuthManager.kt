@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Singleton
 class AuthManager @Inject constructor(private val firebaseAuth: FirebaseAuth) {
 
-    fun isUserAuthorized(): Boolean{
+    fun isUserAuthorized(): Boolean {
         return firebaseAuth.currentUser != null
     }
 

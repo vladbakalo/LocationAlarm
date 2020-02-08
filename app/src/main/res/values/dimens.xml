@@ -11,4 +11,13 @@
     <dimen name="text_xs">8sp</dimen>       <!-- additional unimportant information -->
 
     <dimen name="button_elevation">2dp</dimen>
+    <dimen name="button_text_size">14sp</dimen>
+
+    <dimen name="list_item_margin">16dp</dimen>
+    <dimen name="half_list_item_margin">8dp</dimen>
+
+    <dimen name="card_image_size">50dp</dimen>
+    <dimen name="card_view_margin">16dp</dimen>
+    <dimen name="card_view_tittle_text_size">16dp</dimen>
+    <dimen name="card_view_body_text_size">16dp</dimen>
 </resources>

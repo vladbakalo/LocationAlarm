@@ -8,27 +8,26 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.base.BaseFragment
+import com.vladbakalo.location_alarm.base.BaseVMFragment
 import com.vladbakalo.location_alarm.databinding.FragmentLoginBinding
 
-class LoginFragment : BaseFragment<LoginFragmentViewModel>(){
+class LoginFragment :BaseVMFragment<LoginFragmentViewModel>() {
 
     lateinit var binding: FragmentLoginBinding
 
     override fun createViewModel(): LoginFragmentViewModel {
-        return ViewModelProviders.of(this).get(LoginFragmentViewModel::class.java)
+        return ViewModelProviders.of(this)
+            .get(LoginFragmentViewModel::class.java)
     }
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.executePendingBindings()
         return binding.root
     }
 
@@ -53,10 +52,6 @@ class LoginFragment : BaseFragment<LoginFragmentViewModel>(){
 //        registerButtonMain.setOnClickListener { presenter.onRegisterClick() }
     }
 
-    override fun onBackPressed() {
-//        presenter.onBackPressed()
-    }
-
 
 //    fun getEmailText(): String {
 //    }
@@ -67,8 +62,8 @@ class LoginFragment : BaseFragment<LoginFragmentViewModel>(){
 //    fun validateInputFields(): Boolean {
 //    }
 
-    companion object{
-        fun newInstance(): LoginFragment{
+    companion object {
+        fun create(): LoginFragment {
             return LoginFragment()
         }
     }

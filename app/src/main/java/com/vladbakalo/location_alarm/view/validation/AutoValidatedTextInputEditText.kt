@@ -4,23 +4,22 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import com.google.android.material.textfield.TextInputEditText
 import android.view.View
+import com.google.android.material.textfield.TextInputEditText
 
 
-class AutoValidatedTextInputEditText : TextInputEditText,
-    AutoValidatedUserInputComponent {
+class AutoValidatedTextInputEditText :TextInputEditText, AutoValidatedUserInputComponent {
 
     private var validatorList: MutableList<TextValidator> = ArrayList()
     private var isValid = false
 
-    constructor(context: Context) : super(context) {
+    constructor(context: Context) :super(context) {
 //        val callback: SimpleCallback =
 //        onFocusChangeListener = OnFocusChangeListener(callback)
 //        addTextChangedListener(OnTextChangeListener(callback))
     }
 
-    constructor(context: Context, vararg validators: TextValidator) : super(context) {
+    constructor(context: Context, vararg validators: TextValidator) :super(context) {
 //        val callback = { payload -> validate() }
 //        onFocusChangeListener = OnFocusChangeListener(callback)
 //        addTextChangedListener(OnTextChangeListener(callback))
@@ -28,13 +27,10 @@ class AutoValidatedTextInputEditText : TextInputEditText,
         addValidators(*validators)
     }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet) :super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) :super(context, attrs,
+        defStyleAttr)
 
     /* Could not use streams to ensure backwards compatibility */
     private fun validate() {

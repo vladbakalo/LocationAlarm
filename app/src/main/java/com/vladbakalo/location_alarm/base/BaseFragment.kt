@@ -1,46 +1,50 @@
 package com.vladbakalo.location_alarm.base
 
+import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
-import androidx.annotation.RawRes
-import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.vladbakalo.location_alarm.common.BackButtonListener
-import com.vladbakalo.location_alarm.data.ErrorState
+import com.vladbakalo.location_alarm.utils.Logger
+import dagger.android.support.DaggerFragment
 
-abstract class BaseFragment<T: BaseViewModel> : Fragment(),
-    BackButtonListener{
 
-    lateinit var viewModel: T
+abstract class BaseFragment :DaggerFragment(), BackButtonListener {
 
-    abstract fun createViewModel(): T
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Logger.dt(TAG, "onAttach : $this")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = createViewModel()
-
-        setObservers()
+        Logger.dt(TAG, "onCreate : $this")
     }
 
-    private fun setObservers() {
-        viewModel.loadingStateLiveData.observe(this, Observer {
-
-        })
-        viewModel.errorStateLiveData.observe(this, Observer {
-
-        })
+    override fun onStart() {
+        super.onStart()
+        Logger.dt(TAG, "onStart : $this")
     }
 
-    private fun showToast(text: String){
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+    override fun onStop() {
+        super.onStop()
+        Logger.dt(TAG, "onStop : $this")
     }
 
-    private fun showToast(@StringRes textResId: Int){
-        Toast.makeText(context, textResId, Toast.LENGTH_SHORT).show()
+    override fun onDetach() {
+        super.onDetach()
+        Logger.dt(TAG, "onDetach : $this")
     }
 
-    private fun showError(error: ErrorState){
+    override fun onDestroy() {
+        super.onDestroy()
+        Logger.dt(TAG, "onDestroy : $this")
+    }
 
+    override fun onBackPressed(): Boolean {
+        return false
+    }
+
+    companion object {
+        private const val TAG = "BaseFragment"
     }
 }

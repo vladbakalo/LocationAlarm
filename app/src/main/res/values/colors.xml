@@ -21,4 +21,12 @@
     <color name="inputTextColor">#DE000000</color>
     <color name="labelTextColor">#99000000</color>
     <color name="containerTextColor">#1F000000</color>
+
+    <color name="textDark">#DE000000</color>
+    <color name="textGrey">#99000000</color>
+    <color name="textDisabled">#61000000</color>
+
+    <color name="primaryActionTextColor">@color/colorPrimary</color>
+    <color name="primaryTextColor">@color/textDark</color>
+    <color name="secondaryTextColor">@color/textGrey</color>
 </resources>

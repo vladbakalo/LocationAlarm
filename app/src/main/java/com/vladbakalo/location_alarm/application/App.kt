@@ -6,7 +6,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import io.fabric.sdk.android.Fabric
 
-class App : DaggerApplication() {
+class App :DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -14,11 +14,12 @@ class App : DaggerApplication() {
         initFabric()
     }
 
-    private fun initFabric(){
+    private fun initFabric() {
         Fabric.with(this, Crashlytics())
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerApplicationComponent.builder().create(this)
+        return DaggerApplicationComponent.builder()
+            .create(this)
     }
 }
