@@ -2,7 +2,7 @@ package com.vladbakalo.location_alarm.di.module
 
 import android.content.Context
 import com.vladbakalo.location_alarm.application.App
-import com.vladbakalo.location_alarm.common.SharedPreference
+import com.vladbakalo.location_alarm.application.SharedPreference
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,6 +19,7 @@ class AppModule {
     @Singleton
     @Provides
     fun provideSharedPreference(context: Context): SharedPreference {
-        return SharedPreference(context)
+        return SharedPreference(
+            context)
     }
 }

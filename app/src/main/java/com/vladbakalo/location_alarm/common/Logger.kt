@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.utils
+package com.vladbakalo.location_alarm.common
 
 import android.util.Log
 import com.crashlytics.android.Crashlytics

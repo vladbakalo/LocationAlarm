@@ -3,7 +3,7 @@ package com.vladbakalo.location_alarm.base
 import android.content.Context
 import android.os.Bundle
 import com.vladbakalo.location_alarm.common.BackButtonListener
-import com.vladbakalo.location_alarm.utils.Logger
+import com.vladbakalo.location_alarm.common.Logger
 import dagger.android.support.DaggerFragment
 
 

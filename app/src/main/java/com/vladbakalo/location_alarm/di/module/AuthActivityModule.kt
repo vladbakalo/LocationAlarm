@@ -1,6 +1,6 @@
 package com.vladbakalo.location_alarm.di.module
 
-import com.vladbakalo.location_alarm.manager.AuthManager
+import com.vladbakalo.location_alarm.common.manager.AuthManager
 import com.vladbakalo.location_alarm.ui.auth.auth.AuthActivityViewModelFactory
 import dagger.Module
 import dagger.Provides

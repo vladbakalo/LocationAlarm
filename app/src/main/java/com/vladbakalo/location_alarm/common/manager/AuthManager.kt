@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.manager
+package com.vladbakalo.location_alarm.common.manager
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult

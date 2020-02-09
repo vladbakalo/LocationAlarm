@@ -27,6 +27,12 @@ class MainNavigationActivity :BaseActivity() {
         setListeners()
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     override fun onBackPressed() {
         val fm = supportFragmentManager
         var fragment: Fragment? = null

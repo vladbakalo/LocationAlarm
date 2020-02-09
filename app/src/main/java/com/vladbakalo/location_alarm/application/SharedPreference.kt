@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.common
+package com.vladbakalo.location_alarm.application
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -7,7 +7,8 @@ private const val NAME = "mainSharedPreferences"
 
 class SharedPreference constructor(var context: Context) {
 
-    private val sharedPreferences = context.getSharedPreferences(NAME, MODE_PRIVATE)
+    private val sharedPreferences = context.getSharedPreferences(
+        NAME, MODE_PRIVATE)
 
 
     companion object {

@@ -5,6 +5,7 @@ import com.vladbakalo.location_alarm.data.di.DatabaseModule
 import com.vladbakalo.location_alarm.di.builders.ActivityBuilder
 import com.vladbakalo.location_alarm.di.module.AppModule
 import com.vladbakalo.location_alarm.di.module.AuthModule
+import com.vladbakalo.location_alarm.di.module.ManagerModule
 import com.vladbakalo.location_alarm.navigation.di.LocalNavigationModule
 import com.vladbakalo.location_alarm.navigation.di.NavigationModule
 import dagger.Component
@@ -19,6 +20,7 @@ import javax.inject.Singleton
     DatabaseModule::class,
     NavigationModule::class,
     LocalNavigationModule::class,
+    ManagerModule::class,
     AuthModule::class,
     ActivityBuilder::class])
 interface ApplicationComponent :AndroidInjector<App> {

@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.base.BaseVMFragment
-import com.vladbakalo.location_alarm.common.map.GoogleMapHelper
+import com.vladbakalo.location_alarm.common.manager.GoogleMapHelper
 
 class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback {
 
@@ -35,6 +32,12 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback 
             .get(AlarmMapViewModel::class.java)
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -49,7 +52,8 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback 
             activity?.finish()
             return
         }
-        mapHelper = GoogleMapHelper(googleMap)
+        mapHelper = GoogleMapHelper(
+            googleMap)
     }
 
     companion object {
