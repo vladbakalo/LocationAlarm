@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.vladbakalo.location_alarm.data.models.LocationAlarm" />
+
+        <variable
+            name="clickListener"
+            type="com.vladbakalo.location_alarm.ui.list.AlarmListAdapter.Companion.LocationAlarmItemClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/itemLocationAlarmCvRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/card_view_margin"
+        android:layout_marginStart="@dimen/card_view_margin"
+        android:layout_marginTop="@dimen/card_view_margin"
+        android:onClick="@{(view) -> clickListener.onItemClick(model)}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/half_list_item_margin"
+            android:paddingTop="@dimen/card_view_margin">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/itemLocationAlarmIvImage"
+                android:layout_width="@dimen/card_image_size"
+                android:layout_height="@dimen/card_image_size"
+                android:layout_marginEnd="@dimen/card_view_margin"
+                android:layout_marginStart="@dimen/card_view_margin"
+                app:layout_constraintBottom_toTopOf="@+id/itemLocationAlarmLlButtonBlock"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_main_pin" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemLocationAlarmTvNameText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/card_view_margin"
+                android:layout_marginStart="@dimen/card_view_margin"
+                android:text="@{model.name}"
+                app:layout_constraintEnd_toStartOf="@+id/itemLocationAlarmIvImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/LocationAlarm.Text.Card.Tittle"
+                tools:text="Name of Location Alarm" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemLocationAlarmTvAddressText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/card_view_margin"
+                android:layout_marginStart="@dimen/card_view_margin"
+                android:layout_marginTop="@dimen/half_list_item_margin"
+                android:text="@{model.address}"
+                app:layout_constraintBottom_toTopOf="@+id/itemLocationAlarmLlButtonBlock"
+                app:layout_constraintEnd_toStartOf="@+id/itemLocationAlarmIvImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/itemLocationAlarmTvNameText"
+                style="@style/LocationAlarm.Text.Card.Body"
+                tools:text="Address of Location Alarm" />
+
+            <LinearLayout
+                android:id="@+id/itemLocationAlarmLlButtonBlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="@{model.enabled}"
+                    android:onClick="@{(view) -> clickListener.onEnableButtonClick(model)}"
+                    android:text="@{model.enabled ? @string/enabled : @string/disabled}"
+                    style="@style/LocationAlarm.Button.TextButton"
+                    tools:enabled="false"
+                    tools:text="@string/enabled" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

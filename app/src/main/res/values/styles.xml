@@ -1,14 +1,27 @@
 <resources>
 
     <!-- Base application theme. -->
+    <style name="LocationAlarm" />
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="primaryTextColor">@color/dark</item>
     </style>
 
-    <style name="FullscreenTheme" parent="AppTheme">
+    <style name="AppThemeDark" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="primaryTextColor">@color/white</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
@@ -20,4 +33,67 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="LocationAlarm.Login" />
+
+    <style name="LocationAlarm.Login.LoginButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/bg_login_button_selector</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="LocationAlarm.Login.RegisterButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/bg_register_button_selector</item>
+        <item name="android:textColor">@color/register_button_selector</item>
+    </style>
+
+    <style name="LocationAlarm.Login.EditText">
+        <item name="android:textColor">?attr/primaryTextColor</item>
+        <item name="android:textSize">@dimen/text_x</item>
+    </style>
+
+    <style name="LocationAlarm.Login.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+    </style>
+
+    <style name="LocationAlarm.Button" />
+
+    <style name="LocationAlarm.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/button_action_text_selector</item>
+        <item name="android:textSize">@dimen/text_l</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="LocationAlarm.Text" />
+
+    <style name="LocationAlarm.Text.Card" />
+
+    <style name="LocationAlarm.Text.Card.Tittle" parent="RobotoMedium">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/text_xl</item>
+    </style>
+
+    <style name="LocationAlarm.Text.Card.Body" parent="RobotoMedium">
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textSize">@dimen/text_l</item>
+    </style>
+
+    <style name="RobotoRegular">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="RobotoMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="RobotoThin">
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="RobotoLight">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="RobotoBlack">
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
 </resources>
