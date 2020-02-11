@@ -94,12 +94,12 @@ class MainNavigationActivityTest {
         onView(withId(R.id.locationAlarmCreateRoot))
             .check(matches(isDisplayed()))
 
-        Thread.sleep(1000)
+        Thread.sleep(500)
 
         val nameField = onView(withId(R.id.locationAlarmCreateEtNameText))
         nameField.perform(click())
 
-        Thread.sleep(1000)
+        Thread.sleep(500)
 
         val bottomNavigationItemListView = onView(
             allOf(withId(R.id.bottomNavigationMenuSettings),
