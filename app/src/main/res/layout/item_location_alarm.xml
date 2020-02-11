@@ -39,7 +39,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/itemLocationAlarmLlButtonBlock"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_main_pin" />
+                app:srcCompat="@drawable/ic_launcher" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/itemLocationAlarmTvNameText"

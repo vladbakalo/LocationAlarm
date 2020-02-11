@@ -19,7 +19,7 @@ object NotificationUtils {
             NotificationCompat.Builder(context, ENotificationChannel.LOCATION_UPDATES.channelId)
                 .addAction(action)
                 .setOngoing(true)
-                .setSmallIcon(R.drawable.ic_main_pin)
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle(tittle)
                 .setNotificationSilent()
                 .setShowWhen(false)
