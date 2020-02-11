@@ -7,6 +7,9 @@
 
     <string name="title_activity_start">StartActivity</string>
 
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
     <!--Login-->
     <string name="login">Log In</string>
     <string name="register">Register</string>
@@ -23,7 +26,25 @@
     <string name="disabled">Disabled</string>
     <string name="enable">Enable</string>
     <string name="disable">Disable</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="alarm_list_empty">Alarm list is empty</string>
+    <string name="no_alarms">No Alarms</string>
+    <string name="add_alarm">Add Alarm</string>
+    <string name="text">Text</string>
+    <string name="address">Address</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="note">Note</string>
+    <string name="alarms">Alarms</string>
+    <string name="alarm_distance">Alarm Distance</string>
+
+    <string name="create_alarm">Create Alarm</string>
 
     <string name="service_channel_name">Location-Alarm Channel</string>
     <string name="location_alarm_running">Location Alarm is running</string>
+    <string name="location_alarm_stopped">Location Alarm on pause</string>
+
+    <string name="permission_denied_explanation">App won\'t work without location in background</string>
+    <string name="permission_rationale">Location permission is needed for app functionality</string>
 </resources>

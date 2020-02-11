@@ -1,3 +1,8 @@
 package com.vladbakalo.location_alarm.base
 
-class BaseInteractor {}
+class BaseInteractor {
+
+    fun destroy(){
+
+    }
+}

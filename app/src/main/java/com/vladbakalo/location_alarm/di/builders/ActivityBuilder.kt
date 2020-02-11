@@ -1,5 +1,6 @@
 package com.vladbakalo.location_alarm.di.builders
 
+import com.vladbakalo.location_alarm.ui.alarm_create.di.LocationAlarmCreateProvider
 import com.vladbakalo.location_alarm.ui.list.di.AlarmListFragmentProvider
 import com.vladbakalo.location_alarm.ui.main.MainNavigationActivity
 import com.vladbakalo.location_alarm.ui.map.di.AlarmMapFragmentProvider
@@ -16,6 +17,7 @@ abstract class ActivityBuilder {
             AlarmMapFragmentProvider::class,
             AlarmListFragmentProvider::class,
             SettingsFragmentProvider::class,
+            LocationAlarmCreateProvider::class,
             TabContainerFragmentProvider::class])
     abstract fun contributeMainActivity(): MainNavigationActivity
 }

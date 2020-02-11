@@ -7,6 +7,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class AlarmListFragmentProvider {
 
-    @ContributesAndroidInjector(modules = [])
+    @ContributesAndroidInjector(modules = [AlarmListFragmentModule::class])
     abstract fun provideAlarmListFragmentFactory(): AlarmListFragment
 }

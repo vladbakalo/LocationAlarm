@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.ui.detailed
+package com.vladbakalo.location_alarm.ui.alarm_preview
 
 import android.os.Bundle
 import android.view.LayoutInflater

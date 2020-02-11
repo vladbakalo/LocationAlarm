@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.common.manager
+package com.vladbakalo.location_alarm.common.helper
 
 import com.google.android.gms.maps.GoogleMap
 

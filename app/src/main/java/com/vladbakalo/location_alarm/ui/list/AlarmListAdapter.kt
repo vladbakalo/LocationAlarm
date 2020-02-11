@@ -8,10 +8,10 @@ import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
 import com.vladbakalo.location_alarm.databinding.ItemLocationAlarmBinding
 
-class AlarmListAdapter(var dataList: List<LocationAlarm>,
-                       var clickListener: LocationAlarmItemClickListener) :
+class AlarmListAdapter(var clickListener: LocationAlarmItemClickListener) :
     RecyclerView.Adapter<AlarmListAdapter.Companion.ItemVH>() {
 
+    private var dataList: List<LocationAlarm> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVH {
         val inflater = LayoutInflater.from(parent.context)

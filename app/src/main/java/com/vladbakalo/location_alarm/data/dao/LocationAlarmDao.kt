@@ -11,9 +11,9 @@ import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
 interface LocationAlarmDao {
 
     @Query("SELECT * FROM location_alarm ORDER BY id DESC")
-    fun getAllSorted(): LiveData<LocationAlarm>
+    fun getAllSorted(): LiveData<List<LocationAlarm>>
 
     @Transaction
     @Query("SELECT * FROM location_alarm")
-    fun getLocationAlarmsWithAlarms(): LiveData<LocationAlarmWithAlarms>
+    fun getLocationAlarmsWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>
 }
