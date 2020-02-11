@@ -2,7 +2,9 @@ package com.vladbakalo.location_alarm.di.component
 
 import com.vladbakalo.location_alarm.application.App
 import com.vladbakalo.location_alarm.data.di.DatabaseModule
+import com.vladbakalo.location_alarm.data.di.RepoModule
 import com.vladbakalo.location_alarm.di.builders.ActivityBuilder
+import com.vladbakalo.location_alarm.di.builders.ServiceBuilder
 import com.vladbakalo.location_alarm.di.module.AppModule
 import com.vladbakalo.location_alarm.di.module.AuthModule
 import com.vladbakalo.location_alarm.di.module.ManagerModule
@@ -18,11 +20,14 @@ import javax.inject.Singleton
     AndroidSupportInjectionModule::class,
     AppModule::class,
     DatabaseModule::class,
+    RepoModule::class,
     NavigationModule::class,
     LocalNavigationModule::class,
+    ActivityBuilder::class,
+    ServiceBuilder::class,
+
     ManagerModule::class,
-    AuthModule::class,
-    ActivityBuilder::class])
+    AuthModule::class])
 interface ApplicationComponent :AndroidInjector<App> {
 
     @Component.Builder

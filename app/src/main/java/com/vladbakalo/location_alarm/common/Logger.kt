@@ -6,7 +6,7 @@ import com.crashlytics.android.Crashlytics
 object Logger {
 
     fun dt(tag: String, msg: String) {
-        Log.d(tag, msg)
+        Log.d("VVV-$tag", msg)
     }
 
     fun logException(tag: String, e: Exception) {

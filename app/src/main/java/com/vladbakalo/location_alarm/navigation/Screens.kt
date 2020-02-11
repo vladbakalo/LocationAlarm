@@ -1,8 +1,9 @@
 package com.vladbakalo.location_alarm.navigation
 
+import com.vladbakalo.location_alarm.ui.alarm_create.LocationAlarmCreateFragment
 import com.vladbakalo.location_alarm.ui.auth.login.LoginFragment
 import com.vladbakalo.location_alarm.ui.auth.registration.RegistrationFragment
-import com.vladbakalo.location_alarm.ui.detailed.LocationAlarmFragment
+import com.vladbakalo.location_alarm.ui.alarm_preview.LocationAlarmFragment
 import com.vladbakalo.location_alarm.ui.list.AlarmListFragment
 import com.vladbakalo.location_alarm.ui.map.AlarmMapFragment
 import com.vladbakalo.location_alarm.ui.settings.SettingsFragment
@@ -33,6 +34,10 @@ object Screens {
 
     data class LocationAlarmScreen(val alarmId: Long) :SupportAppScreen() {
         override fun getFragment() = LocationAlarmFragment.create(alarmId)
+    }
+
+    object LocationAlarmCreateScreen :SupportAppScreen() {
+        override fun getFragment() = LocationAlarmCreateFragment.create()
     }
 
     data class TabScreen(val tabTag: String) :SupportAppScreen() {

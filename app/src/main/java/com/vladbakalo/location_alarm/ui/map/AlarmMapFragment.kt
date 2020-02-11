@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.base.BaseVMFragment
-import com.vladbakalo.location_alarm.common.manager.GoogleMapHelper
+import com.vladbakalo.location_alarm.common.helper.GoogleMapHelper
 
 class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback {
 
@@ -28,15 +28,9 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback 
     }
 
     override fun createViewModel(): AlarmMapViewModel {
-        return ViewModelProviders.of(this)
-            .get(AlarmMapViewModel::class.java)
+        return ViewModelProvider(this).get(AlarmMapViewModel::class.java)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<out String>,
-                                            grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
 
     /**
      * Manipulates the map once available.

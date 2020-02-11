@@ -5,5 +5,16 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="MainEditText">
+        <attr name="mainEditTextHint" format="string" />
+        <attr name="mainEditTextType" format="enum">
+            <enum name="name" value="1"/>
+            <enum name="address" value="2"/>
+            <enum name="latitude" value="3"/>
+            <enum name="longitude" value="4"/>
+            <enum name="distance" value="5"/>
+        </attr>
+    </declare-styleable>
+
     <attr name="primaryTextColor" format="color" />
 </resources>

@@ -9,7 +9,6 @@ import dagger.Provides
 internal abstract class AuthActivityModule {
 
     @Provides
-    internal fun providesMainViewModelFactory(authManager: AuthManager): AuthActivityViewModelFactory {
-        return AuthActivityViewModelFactory(authManager)
-    }
+    internal fun providesMainViewModelFactory(authManager: AuthManager): AuthActivityViewModelFactory
+            = AuthActivityViewModelFactory(authManager)
 }

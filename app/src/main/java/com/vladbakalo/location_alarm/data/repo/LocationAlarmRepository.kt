@@ -1,10 +1,13 @@
 package com.vladbakalo.location_alarm.data.repo
 
-import android.content.Context
-import javax.inject.Inject
-import javax.inject.Singleton
+import androidx.lifecycle.LiveData
+import com.vladbakalo.location_alarm.data.AppDatabase
+import com.vladbakalo.location_alarm.data.models.LocationAlarm
 
-@Singleton
-class LocationAlarmRepository @Inject constructor(var context: Context) {
-    //
+
+class LocationAlarmRepository(var database: AppDatabase) {
+
+    fun getAllLocationAlarm(): LiveData<List<LocationAlarm>>{
+        return database.locationAlarmDao().getAllSorted()
+    }
 }

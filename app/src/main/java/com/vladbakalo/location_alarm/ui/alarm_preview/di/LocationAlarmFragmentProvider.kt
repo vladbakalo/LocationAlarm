@@ -1,6 +1,6 @@
-package com.vladbakalo.location_alarm.ui.detailed.di
+package com.vladbakalo.location_alarm.ui.alarm_preview.di
 
-import com.vladbakalo.location_alarm.ui.detailed.LocationAlarmFragment
+import com.vladbakalo.location_alarm.ui.alarm_preview.LocationAlarmFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

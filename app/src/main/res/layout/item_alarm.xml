@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/half_list_item_margin"
+        android:layout_marginEnd="@dimen/half_list_item_margin">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/card_view_margin"
+            android:layout_marginStart="@dimen/card_view_margin">
+
+            <com.vladbakalo.location_alarm.view.MainEditText
+                android:id="@+id/itemAlarmEtDistanceText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/card_view_margin"
+                app:layout_constraintEnd_toStartOf="@+id/itemAlarmSwitchEnable"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mainEditTextHint="@string/alarm_distance" />
+
+            <Switch
+                android:id="@+id/itemAlarmSwitchEnable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/itemAlarmEtDistanceText"
+                app:layout_constraintBottom_toBottomOf="@+id/itemAlarmEtDistanceText"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -8,7 +8,6 @@ import dagger.Provides
 internal abstract class MainActivityModule {
 
     @Provides
-    internal fun providesMainViewModelFactory(): MainActivityViewModelFactory {
-        return MainActivityViewModelFactory()
-    }
+    internal fun providesMainViewModelFactory(): MainActivityViewModelFactory
+            = MainActivityViewModelFactory()
 }

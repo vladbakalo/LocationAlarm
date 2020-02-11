@@ -22,11 +22,10 @@ abstract class BaseVMFragment<T :BaseViewModel> :BaseFragment() {
 
     private fun setObservers() {
         viewModel!!.loadingStateLiveData.observe(this, Observer {
-
+            // Set loading state to view
         })
         viewModel!!.errorStateLiveData.observe(this, Observer {
             Snackbar.make(view!!, it.errorText, Snackbar.LENGTH_SHORT)
-
         })
     }
 
@@ -40,7 +39,4 @@ abstract class BaseVMFragment<T :BaseViewModel> :BaseFragment() {
             .show()
     }
 
-    private fun showError(error: ErrorState) {
-
-    }
 }
