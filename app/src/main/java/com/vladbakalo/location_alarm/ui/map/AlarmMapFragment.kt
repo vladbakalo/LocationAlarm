@@ -1,9 +1,8 @@
 package com.vladbakalo.location_alarm.ui.map
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,6 +15,15 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback 
 
     private lateinit var mapHelper: GoogleMapHelper
 
+    override fun createViewModel(): AlarmMapViewModel {
+        return ViewModelProvider(this).get(AlarmMapViewModel::class.java)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,10 +35,20 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback 
         return view
     }
 
-    override fun createViewModel(): AlarmMapViewModel {
-        return ViewModelProvider(this).get(AlarmMapViewModel::class.java)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.map_settings_menu, menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menuMapItemSettings ->
+                Toast.makeText(context, "menuMapItemSettings", Toast.LENGTH_SHORT).show()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 
     /**
      * Manipulates the map once available.

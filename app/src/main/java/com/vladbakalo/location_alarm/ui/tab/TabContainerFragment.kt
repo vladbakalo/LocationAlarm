@@ -4,47 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.base.BaseActivity
 import com.vladbakalo.location_alarm.base.BaseFragment
 import com.vladbakalo.location_alarm.common.BackButtonListener
-import com.vladbakalo.location_alarm.common.Logger
-import com.vladbakalo.location_alarm.common.utils.ActivityUtils
 import com.vladbakalo.location_alarm.navigation.LocalCiceroneHolder
 import com.vladbakalo.location_alarm.navigation.Screens
+import com.vladbakalo.location_alarm.navigation.TabAppNavigator
 import com.vladbakalo.location_alarm.navigation.common.NavigationRouterProvider
-import com.vladbakalo.location_alarm.navigation.common.OnStartChildFragmentListener
-import io.reactivex.Single
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.Router
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 
 class TabContainerFragment :BaseFragment(),
-    NavigationRouterProvider,
-    OnStartChildFragmentListener {
+    NavigationRouterProvider {
 
     private var isCurrentFragmentIsRoot = true
 
     private val navigator: Navigator by lazy {
-        object : SupportAppNavigator(activity, childFragmentManager, R.id.fragmentTabFlContainer){
-            override fun setupFragmentTransaction(command: Command?,
-                                                  currentFragment: Fragment?,
-                                                  nextFragment: Fragment?,
-                                                  fragmentTransaction: FragmentTransaction?) {
-                if (currentFragment == null){
-                    isCurrentFragmentIsRoot = true
-                    return
-                }
-                isCurrentFragmentIsRoot = false
-
-                fragmentTransaction?.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_right)
-                ActivityUtils.hideKeyboard(activity)
+        object : TabAppNavigator(activity, childFragmentManager, R.id.fragmentTabFlContainer){
+            override fun onCurrentScreenChanged(isRoot: Boolean) {
+                isCurrentFragmentIsRoot = isRoot
+                (activity as BaseActivity).setShowBackButton(!isCurrentFragmentIsRoot)
             }
         }
     }
@@ -113,10 +95,6 @@ class TabContainerFragment :BaseFragment(),
 
     override fun getRouter(): Router {
         return getCiceroneRouter().router
-    }
-
-    override fun onStartFragment() {
-        (activity as BaseActivity).setShowBackButton(!isCurrentFragmentIsRoot)
     }
 
     companion object {

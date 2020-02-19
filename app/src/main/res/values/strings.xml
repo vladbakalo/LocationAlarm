@@ -38,6 +38,7 @@
     <string name="note">Note</string>
     <string name="alarms">Alarms</string>
     <string name="alarm_distance">Alarm Distance</string>
+    <string name="map_settings">Map Settings</string>
 
     <string name="create_alarm">Create Alarm</string>
 

@@ -1,5 +1,7 @@
 package com.vladbakalo.location_alarm.navigation
 
+import androidx.fragment.app.Fragment
+import com.vladbakalo.location_alarm.navigation.common.RootSupportAppScreen
 import com.vladbakalo.location_alarm.ui.alarm_create.LocationAlarmCreateFragment
 import com.vladbakalo.location_alarm.ui.auth.login.LoginFragment
 import com.vladbakalo.location_alarm.ui.auth.registration.RegistrationFragment
@@ -20,16 +22,16 @@ object Screens {
         override fun getFragment() = RegistrationFragment.create()
     }
 
-    object AlarmMapScreen :SupportAppScreen() {
-        override fun getFragment() = AlarmMapFragment.create()
+    object AlarmMapScreen :RootSupportAppScreen() {
+        override fun getScreenFragment() = AlarmMapFragment.create()
     }
 
-    object AlarmListScreen :SupportAppScreen() {
-        override fun getFragment() = AlarmListFragment.create()
+    object AlarmListScreen :RootSupportAppScreen() {
+        override fun getScreenFragment() = AlarmListFragment.create()
     }
 
-    object SettingsScreen :SupportAppScreen() {
-        override fun getFragment() = SettingsFragment.create()
+    object SettingsScreen :RootSupportAppScreen() {
+        override fun getScreenFragment() = SettingsFragment.create()
     }
 
     data class LocationAlarmScreen(val alarmId: Long) :SupportAppScreen() {
