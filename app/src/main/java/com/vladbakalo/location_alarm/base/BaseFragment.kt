@@ -3,6 +3,7 @@ package com.vladbakalo.location_alarm.base
 import android.os.Bundle
 import com.vladbakalo.location_alarm.common.BackButtonListener
 import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.navigation.common.OnStartChildFragmentListener
 import dagger.android.support.DaggerFragment
 
 
@@ -18,7 +19,9 @@ abstract class BaseFragment :DaggerFragment(), BackButtonListener {
     override fun onStart() {
         super.onStart()
         Logger.dt(TAG, "onStart : $this")
-        (activity as BaseActivity).setShowBackButton(isNeedShowBackButton)
+        if (parentFragment is OnStartChildFragmentListener){
+            (parentFragment as OnStartChildFragmentListener).onStartFragment()
+        }
     }
 
     override fun onStop() {
@@ -30,15 +33,6 @@ abstract class BaseFragment :DaggerFragment(), BackButtonListener {
         super.onDetach()
         Logger.dt(TAG, "onDetach : $this")
     }
-
-
-    /*
-        Call before onStart
-     */
-    fun setShowBackButton() {
-        isNeedShowBackButton = true
-    }
-
 
     override fun onBackPressed(): Boolean {
         return false

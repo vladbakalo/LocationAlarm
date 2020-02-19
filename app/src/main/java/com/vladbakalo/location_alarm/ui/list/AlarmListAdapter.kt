@@ -9,7 +9,7 @@ import com.vladbakalo.location_alarm.data.models.LocationAlarm
 import com.vladbakalo.location_alarm.databinding.ItemLocationAlarmBinding
 
 class AlarmListAdapter(var clickListener: LocationAlarmItemClickListener) :
-    RecyclerView.Adapter<AlarmListAdapter.Companion.ItemVH>() {
+    RecyclerView.Adapter<AlarmListAdapter.ItemVH>() {
 
     private var dataList: List<LocationAlarm> = ArrayList()
 
@@ -36,10 +36,10 @@ class AlarmListAdapter(var clickListener: LocationAlarmItemClickListener) :
         notifyDataSetChanged()
     }
 
-    companion object {
-        class ItemVH(val binding: ItemLocationAlarmBinding) :RecyclerView.ViewHolder(binding.root) {
+    class ItemVH(val binding: ItemLocationAlarmBinding) :RecyclerView.ViewHolder(binding.root)
 
-        }
+    companion object {
+
 
         interface LocationAlarmItemClickListener {
             fun onEnableButtonClick(item: LocationAlarm)

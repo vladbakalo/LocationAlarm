@@ -16,6 +16,8 @@ import com.vladbakalo.location_alarm.common.utils.ActivityUtils
 import com.vladbakalo.location_alarm.navigation.LocalCiceroneHolder
 import com.vladbakalo.location_alarm.navigation.Screens
 import com.vladbakalo.location_alarm.navigation.common.NavigationRouterProvider
+import com.vladbakalo.location_alarm.navigation.common.OnStartChildFragmentListener
+import io.reactivex.Single
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.Router
@@ -23,7 +25,9 @@ import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 
-class TabContainerFragment :BaseFragment(), NavigationRouterProvider {
+class TabContainerFragment :BaseFragment(),
+    NavigationRouterProvider,
+    OnStartChildFragmentListener {
 
     private var isCurrentFragmentIsRoot = true
 
@@ -109,6 +113,10 @@ class TabContainerFragment :BaseFragment(), NavigationRouterProvider {
 
     override fun getRouter(): Router {
         return getCiceroneRouter().router
+    }
+
+    override fun onStartFragment() {
+        (activity as BaseActivity).setShowBackButton(!isCurrentFragmentIsRoot)
     }
 
     companion object {

@@ -19,7 +19,6 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setShowBackButton()
     }
 
     override fun onCreateView(inflater: LayoutInflater,
