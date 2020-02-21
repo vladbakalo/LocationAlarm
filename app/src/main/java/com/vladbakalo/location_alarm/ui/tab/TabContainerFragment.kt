@@ -74,6 +74,7 @@ class TabContainerFragment :BaseFragment(),
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (hidden.not()){
+            //When change current tab in navigator
             (activity as BaseActivity).setShowBackButton(!isCurrentFragmentIsRoot)
         }
     }

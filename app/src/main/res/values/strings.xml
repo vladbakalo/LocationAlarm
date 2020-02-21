@@ -9,6 +9,7 @@
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 
     <!--Login-->
     <string name="login">Log In</string>
@@ -48,4 +49,8 @@
 
     <string name="permission_denied_explanation">App won\'t work without location in background</string>
     <string name="permission_rationale">Location permission is needed for app functionality</string>
+
+    <string name="field_empty">Field is empty</string>
+    <string name="value_not_valid">Value not valid</string>
+    <string name="must_contains_more_d">Must contains more than %d symbols</string>
 </resources>

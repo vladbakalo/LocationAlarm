@@ -1,5 +1,6 @@
 package com.vladbakalo.location_alarm.application
 
+import android.content.Context
 import com.crashlytics.android.Crashlytics
 import com.vladbakalo.location_alarm.di.component.DaggerApplicationComponent
 import dagger.android.AndroidInjector
@@ -11,6 +12,7 @@ class App :DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
 
+        context = applicationContext
         initFabric()
     }
 
@@ -21,5 +23,12 @@ class App :DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerApplicationComponent.builder()
             .create(this)
+    }
+
+    companion object{
+
+        public var context: Context? = null
+
+
     }
 }

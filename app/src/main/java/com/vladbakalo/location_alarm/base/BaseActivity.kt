@@ -1,7 +1,6 @@
 package com.vladbakalo.location_alarm.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.widget.Toolbar
 import com.vladbakalo.location_alarm.R
 import dagger.android.support.DaggerAppCompatActivity

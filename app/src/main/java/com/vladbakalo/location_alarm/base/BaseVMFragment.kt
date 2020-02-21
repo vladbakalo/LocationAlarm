@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
-import com.vladbakalo.location_alarm.data.ErrorState
 
 abstract class BaseVMFragment<T :BaseViewModel> :BaseFragment() {
 

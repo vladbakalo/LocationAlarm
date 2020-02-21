@@ -10,6 +10,10 @@
             name="isShowNoAlarmText"
             type="Boolean" />
 
+        <variable
+            name="viewModel"
+            type="com.vladbakalo.location_alarm.ui.alarm_create.LocationAlarmCreateViewModel" />
+
         <import type="android.view.View" />
     </data>
 
@@ -31,7 +35,8 @@
                 android:layout_marginTop="@dimen/half_list_item_margin"
                 app:layout_constraintTop_toTopOf="parent"
                 app:mainEditTextHint="@string/name"
-                app:mainEditTextType="name" />
+                app:mainEditTextType="name"
+                app:mainEditTextValue="@={viewModel.name}"/>
 
             <com.vladbakalo.location_alarm.view.MainEditText
                 android:id="@+id/locationAlarmCreateEtAddressText"

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.base.BaseFragment
 import com.vladbakalo.location_alarm.databinding.FragmentSettingsBinding
 

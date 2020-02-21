@@ -37,7 +37,6 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
         inflater.inflate(R.menu.map_settings_menu, menu)
     }
 

@@ -1,7 +1,6 @@
 package com.vladbakalo.location_alarm.common.manager
 
 import android.content.Context
-import com.vladbakalo.location_alarm.common.Logger
 
 
 class PreferenceManager constructor(var context: Context) {
