@@ -26,37 +26,32 @@ class LocationAlarmRepository(database: AppDatabase) :BaseRepository(database) {
         }
     }
 
-    fun getLocationAlarm(id: Long): Flowable<LocationAlarmWithAlarms>{
+    fun getLocationAlarm(id: Long): Single<LocationAlarmWithAlarms>{
         return locationAlarmDao.getLocationAlarmsWithAlarmsById(id)
     }
 
-    fun createOrUpdate(model: LocationAlarm): Flowable<LocationAlarm> {
-        return Single.fromCallable {
-            val isExists = locationAlarmDao.getEntityByName(model.name) != null
-            if (isExists){
-                throw IllegalArgumentException(StringUtils.getString(R.string.location_alarm_name_already_exists))
-            }
-            return@fromCallable model
-        }.flatMapPublisher  {
-            return@flatMapPublisher if (it.id == 0L){
-                create(it)
-            } else {
-                update(it)
-            }
+    fun createOrUpdate(model: LocationAlarm): Single<LocationAlarm> {
+        return if (model.id == 0L){
+            create(model)
+        } else {
+            update(model)
         }
-
     }
 
-    private fun create(model: LocationAlarm): Flowable<LocationAlarm>{
+    fun isExists(name: String): Single<Boolean>{
+        return Single.fromCallable {
+            locationAlarmDao.getEntityByName(name) != null
+        }
+    }
+
+    private fun create(model: LocationAlarm): Single<LocationAlarm>{
         return Single.fromCallable{
             return@fromCallable locationAlarmDao.insertRx(model)
-        }
-            .toFlowable()
-            .flatMap { locationAlarmDao.getEntityByIdRx(it) }
+        }.flatMap { locationAlarmDao.getEntityByIdRx(it) }
     }
 
-    fun update(model: LocationAlarm): Flowable<LocationAlarm>{
-        return Flowable.fromCallable{
+    fun update(model: LocationAlarm): Single<LocationAlarm>{
+        return Single.fromCallable{
             locationAlarmDao.updateRx(model)
             return@fromCallable model
         }

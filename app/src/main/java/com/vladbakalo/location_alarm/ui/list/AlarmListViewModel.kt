@@ -5,29 +5,27 @@ import com.vladbakalo.location_alarm.application.base.BaseViewModel
 import com.vladbakalo.location_alarm.common.Logger
 import com.vladbakalo.location_alarm.data.ErrorState
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
-import com.vladbakalo.location_alarm.data.repo.LocationAlarmRepository
-import io.reactivex.functions.Consumer
+import com.vladbakalo.location_alarm.interactor.LocationAlarmCreateEditInteractor
 import io.reactivex.schedulers.Schedulers
 
-class AlarmListViewModel(private val repo: LocationAlarmRepository) :BaseViewModel() {
-    val locationAlarmList: LiveData<List<LocationAlarm>> = repo.getAllLocationAlarm()
+class AlarmListViewModel(private val interactor: LocationAlarmCreateEditInteractor) :BaseViewModel() {
+    val locationAlarmList: LiveData<List<LocationAlarm>> = interactor.getAllLocationAlarms()
 
     fun onLocationAlarmEnabledChanged(item: LocationAlarm){
         item.enabled = item.enabled.not()
-        addDisposable(repo.update(item)
+        addDisposable(interactor.updateLocationAlarm(item)
             .subscribeOn(Schedulers.io())
             .subscribe({ }, {e ->
-                Logger.logException(TAG, e)
-                e.message?.let {
-                    errorStateLiveData.postValue(ErrorState(it))
-                }
+                onError(e, TAG)
             }))
     }
 
     fun onLocationAlarmDelete(item: LocationAlarm){
-        addDisposable(repo.deleteLocationAlarm(item.id)
+        addDisposable(interactor.deleteLocationAlarm(item.id)
             .subscribeOn(Schedulers.io())
-            .subscribe())
+            .subscribe({ }, {e ->
+                onError(e, TAG)
+            }))
     }
 
     companion object{

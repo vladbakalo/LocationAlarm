@@ -11,16 +11,15 @@ import com.vladbakalo.location_alarm.data.models.LocationAlarm
 import com.vladbakalo.location_alarm.interactor.LocationAlarmCreateEditInteractor
 import com.vladbakalo.location_alarm.ui.common.AlarmData
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 
 class LocationAlarmCreateViewModel(private val interactor: LocationAlarmCreateEditInteractor) :BaseViewModel() {
-    var name: MutableLiveData<String> = MutableLiveData("testName")
-    var address: MutableLiveData<String> = MutableLiveData("testAddress")
-    var latitude: MutableLiveData<String> = MutableLiveData("50.000")
-    var longitude: MutableLiveData<String> = MutableLiveData("40.000")
-    var note: MutableLiveData<String> = MutableLiveData()
+    var name: MutableLiveData<String> = MutableLiveData("")
+    var address: MutableLiveData<String> = MutableLiveData("")
+    var latitude: MutableLiveData<String> = MutableLiveData("")
+    var longitude: MutableLiveData<String> = MutableLiveData("")
+    var note: MutableLiveData<String> = MutableLiveData("")
     var alarms: MutableLiveData<MutableList<AlarmData>> = MutableLiveData()
     var enabled: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -30,7 +29,7 @@ class LocationAlarmCreateViewModel(private val interactor: LocationAlarmCreateEd
     fun setLocationAlarmId(id: Long){
         locationAlarmId = id
 
-        addDisposable(interactor.getLocationAlarm(locationAlarmId)
+        addDisposable(interactor.getLocationAlarmWithAlarms(locationAlarmId)
             .subscribeOn(Schedulers.io())
             .subscribe({result ->
                 with(result.locationAlarm){
@@ -43,7 +42,7 @@ class LocationAlarmCreateViewModel(private val interactor: LocationAlarmCreateEd
                 }
 
                 alarms.postValue(result.alarms.map { AlarmData(it) }.toMutableList())
-            }, {e -> Logger.logException(TAG, e)}))
+            }, {e -> onError(e, TAG)}))
     }
 
     fun setRouter(router: Router){
@@ -87,10 +86,7 @@ class LocationAlarmCreateViewModel(private val interactor: LocationAlarmCreateEd
             .subscribe ({
                 router.exit()
             }, {e ->
-                Logger.logException(TAG, e)
-                e.message?.let {
-                    errorStateLiveData.postValue(ErrorState(it))
-                }
+                onError(e, TAG)
             }))
     }
 

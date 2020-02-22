@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.base.BaseVMFragment
+import com.vladbakalo.location_alarm.common.Logger
 import com.vladbakalo.location_alarm.common.helper.validator.ValidatorHelper
 import com.vladbakalo.location_alarm.common.helper.validator.rules.text.*
 import com.vladbakalo.location_alarm.databinding.FragmentLocationAlarmCreateBinding
@@ -45,9 +46,14 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentLocationAlarmCreateBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.clickListener = this
         binding.isAlarmListEmpty = true
+
+        viewModel.name.observe(viewLifecycleOwner, Observer {
+            Logger.dt(TAG, "Observe name: $it")
+        })
 
         initValidator()
         observeData()

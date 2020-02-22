@@ -8,6 +8,7 @@ import com.vladbakalo.location_alarm.application.base.BaseDao
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
 import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 abstract class LocationAlarmDao: BaseDao<LocationAlarm> {
@@ -16,7 +17,7 @@ abstract class LocationAlarmDao: BaseDao<LocationAlarm> {
     abstract fun getEntityById(alarmId: Long): LocationAlarm
 
     @Query("SELECT * FROM location_alarm WHERE id is :alarmId")
-    abstract fun getEntityByIdRx(alarmId: Long): Flowable<LocationAlarm>
+    abstract fun getEntityByIdRx(alarmId: Long): Single<LocationAlarm>
 
     @Query("SELECT * FROM location_alarm WHERE name like :name")
     abstract fun getEntityByName(name: String): LocationAlarm?
@@ -30,7 +31,7 @@ abstract class LocationAlarmDao: BaseDao<LocationAlarm> {
 
     @Transaction
     @Query("SELECT * FROM location_alarm WHERE id is :alarmId")
-    abstract fun getLocationAlarmsWithAlarmsById(alarmId: Long): Flowable<LocationAlarmWithAlarms>
+    abstract fun getLocationAlarmsWithAlarmsById(alarmId: Long): Single<LocationAlarmWithAlarms>
 
     @Query("DELETE FROM location_alarm WHERE id is :alarmId")
     abstract fun delete(alarmId: Long)

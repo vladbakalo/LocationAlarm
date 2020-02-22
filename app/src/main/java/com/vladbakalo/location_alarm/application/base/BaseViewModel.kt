@@ -3,6 +3,7 @@ package com.vladbakalo.location_alarm.application.base
 import androidx.annotation.CallSuper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.vladbakalo.location_alarm.common.Logger
 import com.vladbakalo.location_alarm.data.ErrorState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -15,6 +16,13 @@ abstract class BaseViewModel :ViewModel() {
 
     open fun onBackButtonClick(): Boolean{
         return false
+    }
+
+    fun onError(error: Throwable, tag: String){
+        Logger.logException(tag, error)
+        error.message?.let {
+            errorStateLiveData.postValue(ErrorState(it))
+        }
     }
 
     fun addDisposable(d: Disposable) {
