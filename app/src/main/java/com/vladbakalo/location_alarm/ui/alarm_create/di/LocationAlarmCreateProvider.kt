@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class LocationAlarmCreateProvider {
 
     @ContributesAndroidInjector(modules = [LocationAlarmCreateModule::class])
-    abstract fun provideLocationAlarmCreateFactory(): LocationAlarmCreateFragment
+    abstract fun contributeLocationAlarmCreateFragment(): LocationAlarmCreateFragment
 }

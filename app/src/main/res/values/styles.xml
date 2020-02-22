@@ -30,7 +30,6 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="primaryTextColor">@color/dark</item>
-        <item name="actionOverflowMenuStyle">@style/LocationAlarm.ToolBar</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -65,10 +64,9 @@
     <style name="LocationAlarm.ToolBar" parent="Widget.AppCompat.PopupMenu.Overflow">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textStyle">bold</item>
 
-        <item name="android:background">@drawable/bg_popup_menu</item>
         <item name="android:popupElevation">10dp</item>
         <item name="android:windowElevation">10dp</item>
 <!--        <item name="android:popupBackground">@android:drawable/list_selector_background</item>-->
@@ -111,11 +109,20 @@
         <item name="android:textSize">@dimen/text_l</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="LocationAlarm.Button.ExtendedFab" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="LocationAlarm.Button.ActionIcon">
+        <item name="android:height">@dimen/card_image_size</item>
+        <item name="android:width">@dimen/card_image_size</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:tint">@color/grey</item>
+        <item name="android:layout_margin">@dimen/half_list_item_margin</item>
     </style>
 
     <style name="LocationAlarm.Text" />

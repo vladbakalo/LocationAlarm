@@ -1,8 +1,9 @@
-package com.vladbakalo.location_alarm.base
+package com.vladbakalo.location_alarm.application.base
 
 import android.os.Bundle
 import com.vladbakalo.location_alarm.common.BackButtonListener
 import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.common.utils.ActivityUtils
 import dagger.android.support.DaggerFragment
 
 
@@ -35,8 +36,8 @@ abstract class BaseFragment :DaggerFragment(), BackButtonListener {
         return false
     }
 
-    fun enableBackButton(){
-
+    fun hideKeyboard(){
+        ActivityUtils.hideKeyboard(activity)
     }
 
     companion object {

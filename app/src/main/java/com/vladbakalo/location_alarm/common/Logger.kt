@@ -9,7 +9,7 @@ object Logger {
         Log.d("VVV-$tag", msg)
     }
 
-    fun logException(tag: String, e: Exception) {
+    fun logException(tag: String, e: Throwable) {
         Log.w(tag, e)
         Crashlytics.logException(e)
     }

@@ -2,6 +2,7 @@ package com.vladbakalo.location_alarm.common.helper.validator
 
 import android.text.Editable
 import android.text.TextWatcher
+import com.vladbakalo.location_alarm.common.utils.StringUtils
 import com.vladbakalo.location_alarm.view.MainEditText
 
 class TextValidator(mainEditText: MainEditText) :BaseValidator<MainEditText>(mainEditText){
@@ -15,7 +16,10 @@ class TextValidator(mainEditText: MainEditText) :BaseValidator<MainEditText>(mai
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                mainEditText.getInputTextLayout().error = ""
+                if (!StringUtils.isEmpty(mainEditText.getInputTextLayout().error)) {
+                    mainEditText.getInputTextLayout()
+                        .error = ""
+                }
             }
         })
     }

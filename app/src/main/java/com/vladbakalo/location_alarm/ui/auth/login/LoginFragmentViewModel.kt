@@ -2,7 +2,7 @@ package com.vladbakalo.location_alarm.ui.auth.login
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import com.vladbakalo.location_alarm.base.BaseViewModel
+import com.vladbakalo.location_alarm.application.base.BaseViewModel
 import com.vladbakalo.location_alarm.common.extentions.setValueSafe
 
 class LoginFragmentViewModel :BaseViewModel() {

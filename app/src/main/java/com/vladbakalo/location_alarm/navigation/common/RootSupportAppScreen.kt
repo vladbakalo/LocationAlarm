@@ -3,7 +3,7 @@ package com.vladbakalo.location_alarm.navigation.common
 import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
-import com.vladbakalo.location_alarm.base.BaseFragment
+import com.vladbakalo.location_alarm.application.base.BaseFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 abstract class RootSupportAppScreen :SupportAppScreen() {

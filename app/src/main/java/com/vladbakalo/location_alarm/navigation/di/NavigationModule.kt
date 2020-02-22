@@ -1,5 +1,6 @@
 package com.vladbakalo.location_alarm.navigation.di
 
+import com.vladbakalo.location_alarm.navigation.LocalCiceroneHolder
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
@@ -22,4 +23,10 @@ class NavigationModule {
     @Provides
     fun provideNavigationHolder(cicerone: Cicerone<Router>): NavigatorHolder =
         cicerone.navigatorHolder
+
+    @Singleton
+    @Provides
+    fun provideLocalCiceroneHolder(): LocalCiceroneHolder {
+        return LocalCiceroneHolder()
+    }
 }

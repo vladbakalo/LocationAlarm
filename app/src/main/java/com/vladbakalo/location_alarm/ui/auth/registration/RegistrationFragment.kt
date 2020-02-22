@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.base.BaseFragment
+import com.vladbakalo.location_alarm.application.base.BaseFragment
 
 class RegistrationFragment :BaseFragment() {
 

@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.base
+package com.vladbakalo.location_alarm.application.base
 
 import android.os.Bundle
 import android.widget.Toast
@@ -6,25 +6,31 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 
+
 abstract class BaseVMFragment<T :BaseViewModel> :BaseFragment() {
 
-    var viewModel: T? = null
+    private var baseViewModel: T? = null
+
+    public val viewModel: T by lazy { baseViewModel!! }
 
     abstract fun createViewModel(): T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = if (viewModel == null) createViewModel() else viewModel
+        baseViewModel = if (baseViewModel == null) createViewModel() else baseViewModel
 
         setObservers()
     }
 
     private fun setObservers() {
-        viewModel!!.loadingStateLiveData.observe(this, Observer {
+        baseViewModel!!.loadingStateLiveData.observe(this, Observer {
             // Set loading state to view
+//            Snackbar.make(view!!, "Loading: $it", Snackbar.LENGTH_SHORT)
+//                .show()
         })
-        viewModel!!.errorStateLiveData.observe(this, Observer {
+        baseViewModel!!.errorStateLiveData.observe(this, Observer {
             Snackbar.make(view!!, it.errorText, Snackbar.LENGTH_SHORT)
+                .show()
         })
     }
 

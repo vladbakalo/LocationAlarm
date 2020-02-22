@@ -16,6 +16,7 @@
     <color name="dark">#000</color>
     <color name="hint_text">#000</color>
     <color name="red">#d81920</color>
+    <color name="grey">#949494</color>
     <color name="google_bg">#CD2A00</color>
     <color name="blockStrokeColor">#949494</color>
 

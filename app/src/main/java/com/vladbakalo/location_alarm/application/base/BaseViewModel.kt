@@ -1,5 +1,6 @@
-package com.vladbakalo.location_alarm.base
+package com.vladbakalo.location_alarm.application.base
 
+import androidx.annotation.CallSuper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vladbakalo.location_alarm.data.ErrorState
@@ -12,10 +13,15 @@ abstract class BaseViewModel :ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
+    open fun onBackButtonClick(): Boolean{
+        return false
+    }
+
     fun addDisposable(d: Disposable) {
         compositeDisposable.add(d)
     }
 
+    @CallSuper
     override fun onCleared() {
         compositeDisposable.dispose()
         super.onCleared()

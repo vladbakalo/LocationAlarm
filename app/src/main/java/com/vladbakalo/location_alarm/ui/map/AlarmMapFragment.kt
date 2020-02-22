@@ -8,7 +8,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.base.BaseVMFragment
+import com.vladbakalo.location_alarm.application.base.BaseVMFragment
 import com.vladbakalo.location_alarm.common.helper.GoogleMapHelper
 
 class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback {

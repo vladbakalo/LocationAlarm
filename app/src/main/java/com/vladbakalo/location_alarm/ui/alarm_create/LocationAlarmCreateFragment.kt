@@ -2,30 +2,43 @@ package com.vladbakalo.location_alarm.ui.alarm_create
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.base.BaseVMFragment
-import com.vladbakalo.location_alarm.common.CustomRegex
+import com.vladbakalo.location_alarm.application.base.BaseVMFragment
 import com.vladbakalo.location_alarm.common.helper.validator.ValidatorHelper
-import com.vladbakalo.location_alarm.common.helper.validator.rules.text.LengthRule
-import com.vladbakalo.location_alarm.common.helper.validator.rules.text.NotEmptyRule
-import com.vladbakalo.location_alarm.common.helper.validator.rules.text.RegexEditTextRule
+import com.vladbakalo.location_alarm.common.helper.validator.rules.text.*
 import com.vladbakalo.location_alarm.databinding.FragmentLocationAlarmCreateBinding
 import com.vladbakalo.location_alarm.navigation.common.NavigationRouterProvider
+import com.vladbakalo.location_alarm.ui.common.AlarmAdapter
+import com.vladbakalo.location_alarm.ui.common.AlarmData
+import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>() {
+class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(),
+    View.OnClickListener, AlarmAdapter.OnAlarmActionListener {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: FragmentLocationAlarmCreateBinding
     private val validator = ValidatorHelper()
+    private var alarmAdapter: AlarmAdapter? = null
 
     override fun createViewModel(): LocationAlarmCreateViewModel {
-        return ViewModelProvider(this).get(LocationAlarmCreateViewModel::class.java)
+        return ViewModelProvider(this, viewModelFactory).get(LocationAlarmCreateViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        if (savedInstanceState == null){
+            if (arguments?.containsKey(KEY_LOCATION_ALARM_ID) == true){
+                viewModel.setLocationAlarmId(arguments!!.getLong(KEY_LOCATION_ALARM_ID))
+            }
+        }
+        viewModel.setRouter(getNavigationRouter())
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -33,7 +46,11 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
                               savedInstanceState: Bundle?): View? {
         binding = FragmentLocationAlarmCreateBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.clickListener = this
+        binding.isAlarmListEmpty = true
+
         initValidator()
+        observeData()
         return binding.root
     }
 
@@ -43,10 +60,21 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
         validator.addEditTextValidator(binding.locationAlarmCreateEtAddressText, NotEmptyRule(),
             LengthRule.newSimpleRule())
         validator.addEditTextValidator(binding.locationAlarmCreateEtLatitudeText, NotEmptyRule(),
-            RegexEditTextRule(CustomRegex.LATITUDE))
+            LatitudeRule())
         validator.addEditTextValidator(binding.locationAlarmCreateEtLongitudeText, NotEmptyRule(),
-            RegexEditTextRule(CustomRegex.LONGITUDE))
+            LongitudeRule())
+    }
 
+    private fun observeData(){
+        viewModel.alarms.observe(viewLifecycleOwner, Observer {
+            if (alarmAdapter == null) {
+                alarmAdapter = AlarmAdapter(this)
+                binding.locationAlarmCreateRvAlarmList.adapter = alarmAdapter
+            }
+
+            alarmAdapter!!.setDate(it)
+            binding.isAlarmListEmpty = it.isEmpty()
+        } )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -62,25 +90,52 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
     }
 
     override fun onBackPressed(): Boolean {
-        val routerProvider = parentFragment as NavigationRouterProvider
-
-        routerProvider.getRouter().exit()
-        return true
+        return viewModel.onBackButtonClick()
     }
 
-    private fun onSaveClick(){
-        if (validator.validate()){
-            Toast.makeText(context, "Valid!", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "Not Valid!", Toast.LENGTH_SHORT).show()
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.locationAlarmCreateBtnAddAlarm -> viewModel.onAddAlarmClick()
         }
     }
 
+    private fun onSaveClick(){
+        if (validate()){
+            hideKeyboard()
+            viewModel.onSaveClick()
+        }
+    }
+
+    override fun onRemoveClick(item: AlarmData) {
+        viewModel.onRemoveAlarmClick(item)
+    }
+
+    private fun validate(): Boolean{
+        var isValid = validator.validate()
+        isValid = alarmAdapter?.validate(binding.locationAlarmCreateRvAlarmList) ?: true && isValid
+
+        return isValid
+    }
+
+    private fun getNavigationRouter(): Router{
+        return (parentFragment as NavigationRouterProvider).getRouter()
+    }
+
     companion object {
-        public const val TAG = "LocationAlarmCreateFragment"
+        const val TAG = "LocationAlarmCreateFragment"
+        const val KEY_LOCATION_ALARM_ID = "KEY_LOCATION_ALARM_ID"
 
         fun create(): LocationAlarmCreateFragment {
             return LocationAlarmCreateFragment()
+        }
+
+        fun create(locationAlarmId: Long): LocationAlarmCreateFragment {
+            val arg = Bundle()
+            arg.putLong(KEY_LOCATION_ALARM_ID, locationAlarmId)
+
+            val fragment = LocationAlarmCreateFragment()
+            fragment.arguments = arg
+            return fragment
         }
     }
 }

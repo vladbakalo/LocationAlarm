@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.base
+package com.vladbakalo.location_alarm.application.base
 
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar

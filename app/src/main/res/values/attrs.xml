@@ -7,6 +7,7 @@
 
     <declare-styleable name="MainEditText">
         <attr name="mainEditTextHint" format="string" />
+        <attr name="mainEditTextHelper" format="string" />
         <attr name="mainEditTextType" format="enum">
             <enum name="name" value="0"/>
             <enum name="address" value="1"/>

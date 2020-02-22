@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.base.BaseFragment
+import com.vladbakalo.location_alarm.application.base.BaseFragment
 import com.vladbakalo.location_alarm.common.utils.ActivityUtils
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -35,7 +35,7 @@ abstract class TabAppNavigator(private val activity: FragmentActivity?,
             return
         }
 
-        fragmentTransaction?.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_right)
+        fragmentTransaction?.setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
         ActivityUtils.hideKeyboard(activity)
     }
 

@@ -32,6 +32,7 @@ class MainEditText(context: Context, attrs: AttributeSet): FrameLayout(context, 
             0, 0).apply {
             try {
                 binding.mainEditTextTilLayout.hint = getString(R.styleable.MainEditText_mainEditTextHint)
+                binding.mainEditTextTilLayout.helperText = getString(R.styleable.MainEditText_mainEditTextHelper)
                 type = Type.values()[getInt(R.styleable.MainEditText_mainEditTextType, 0)]
             } finally {
                 recycle()
@@ -43,10 +44,8 @@ class MainEditText(context: Context, attrs: AttributeSet): FrameLayout(context, 
 
     private fun applyType(){
         when (type){
-            Type.LATITUDE -> getInputEditText().inputType =
-                InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-            Type.LONGITUDE -> getInputEditText().inputType =
-                InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+            Type.LATITUDE, Type.LONGITUDE-> getInputEditText().inputType =
+                InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_NUMBER_FLAG_SIGNED
             Type.DISTANCE -> getInputEditText().inputType =
                 InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         }

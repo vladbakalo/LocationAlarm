@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.base.BaseActivity
-import com.vladbakalo.location_alarm.base.BaseFragment
+import com.vladbakalo.location_alarm.application.base.BaseActivity
+import com.vladbakalo.location_alarm.application.base.BaseFragment
 import com.vladbakalo.location_alarm.common.BackButtonListener
 import com.vladbakalo.location_alarm.navigation.LocalCiceroneHolder
 import com.vladbakalo.location_alarm.navigation.Screens

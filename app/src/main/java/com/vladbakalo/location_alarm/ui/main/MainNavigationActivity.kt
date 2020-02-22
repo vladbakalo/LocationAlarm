@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.service.LocationUpdatesService
-import com.vladbakalo.location_alarm.base.BaseActivity
+import com.vladbakalo.location_alarm.application.base.BaseActivity
 import com.vladbakalo.location_alarm.common.BackButtonListener
 import com.vladbakalo.location_alarm.common.Logger
 import com.vladbakalo.location_alarm.common.utils.ActivityUtils

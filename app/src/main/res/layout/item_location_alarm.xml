@@ -12,7 +12,7 @@
 
         <variable
             name="clickListener"
-            type="com.vladbakalo.location_alarm.ui.list.AlarmListAdapter.Companion.LocationAlarmItemClickListener" />
+            type="com.vladbakalo.location_alarm.ui.list.AlarmListAdapter.LocationAlarmItemClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -22,6 +22,10 @@
         android:layout_marginEnd="@dimen/card_view_margin"
         android:layout_marginStart="@dimen/card_view_margin"
         android:layout_marginTop="@dimen/card_view_margin"
+        android:elevation="@dimen/card_view_elevation"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{(view) -> clickListener.onItemClick(model)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,13 +85,13 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:enabled="@{model.enabled}"
+                    android:layout_marginStart="@dimen/half_list_item_margin"
                     android:onClick="@{(view) -> clickListener.onEnableButtonClick(model)}"
                     android:text="@{model.enabled ? @string/enabled : @string/disabled}"
+                    android:textColor="@{model.enabled ? @color/primaryActionTextColor : @color/textDisabled}"
                     style="@style/LocationAlarm.Button.TextButton"
                     tools:enabled="false"
                     tools:text="@string/enabled" />
-
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

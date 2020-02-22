@@ -15,10 +15,11 @@ class AlarmListAdapter(var clickListener: LocationAlarmItemClickListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVH {
         val inflater = LayoutInflater.from(parent.context)
-        val view = DataBindingUtil.inflate<ItemLocationAlarmBinding>(inflater,
-            R.layout.item_location_alarm, parent, true)
+        val binding = DataBindingUtil.inflate<ItemLocationAlarmBinding>(inflater,
+            R.layout.item_location_alarm, parent, false)
 
-        return ItemVH(view)
+
+        return ItemVH(binding)
     }
 
     override fun getItemCount(): Int {
@@ -26,25 +27,29 @@ class AlarmListAdapter(var clickListener: LocationAlarmItemClickListener) :
     }
 
     override fun onBindViewHolder(holder: ItemVH, position: Int) {
-        holder.binding.model = dataList[position]
+        val model = dataList[position]
+        holder.binding.model = model
         holder.binding.clickListener = clickListener
         holder.binding.executePendingBindings()
+
+        holder.binding.itemLocationAlarmCvRoot.setOnLongClickListener {
+            clickListener.onLongItemClick(model)
+            return@setOnLongClickListener true
+        }
     }
 
-    public fun setData(dataList: List<LocationAlarm>) {
+    fun setData(dataList: List<LocationAlarm>) {
         this.dataList = dataList
         notifyDataSetChanged()
     }
 
     class ItemVH(val binding: ItemLocationAlarmBinding) :RecyclerView.ViewHolder(binding.root)
 
-    companion object {
+    interface LocationAlarmItemClickListener {
+        fun onEnableButtonClick(item: LocationAlarm)
 
+        fun onItemClick(item: LocationAlarm)
 
-        interface LocationAlarmItemClickListener {
-            fun onEnableButtonClick(item: LocationAlarm)
-
-            fun onItemClick(item: LocationAlarm)
-        }
+        fun onLongItemClick(item: LocationAlarm)
     }
 }

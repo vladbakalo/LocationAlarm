@@ -7,3 +7,7 @@ fun <T> MutableLiveData<T>.setValueSafe(value: T) {
         setValue(value)
     }
 }
+
+fun <T> MutableLiveData<T>.notify() {
+    postValue(getValue())
+}

@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class AlarmMapFragmentProvider {
 
     @ContributesAndroidInjector(modules = [])
-    abstract fun provideAlarmMapFragmentFactory(): AlarmMapFragment
+    abstract fun contributeAlarmMapFragment(): AlarmMapFragment
 }

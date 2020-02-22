@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class TabContainerFragmentProvider {
 
     @ContributesAndroidInjector
-    abstract fun provideTabContainerFragmentFactory(): TabContainerFragment
+    abstract fun contributeTabContainerFragment(): TabContainerFragment
 }
