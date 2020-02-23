@@ -1,27 +1,38 @@
 package com.vladbakalo.location_alarm.ui.map
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.base.BaseVMFragment
 import com.vladbakalo.location_alarm.common.helper.GoogleMapHelper
+import com.vladbakalo.location_alarm.common.utils.PermissionUtils
+import com.vladbakalo.location_alarm.data.models.LocationAlarm
+import javax.inject.Inject
 
-class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback {
+class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback,
+    GoogleMapHelper.MapActionListener {
 
-    private lateinit var mapHelper: GoogleMapHelper
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private var mapHelper: GoogleMapHelper? = null
 
     override fun createViewModel(): AlarmMapViewModel {
-        return ViewModelProvider(this).get(AlarmMapViewModel::class.java)
+        return ViewModelProvider(this, viewModelFactory).get(AlarmMapViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        viewModel.setRouter(getNavigationRouter())
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -33,6 +44,15 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback 
         mapFragment.getMapAsync(this)
 
         return view
+    }
+
+    private fun observeData(){
+        viewModel.locationAlarmList.observe(viewLifecycleOwner, Observer {
+            mapHelper!!.drawLocationAlarms(it)
+        })
+        viewModel.lastLocationLiveData.observe(viewLifecycleOwner, Observer {
+            mapHelper?.onCurrentLocationReceive(it)
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -49,6 +69,18 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback 
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onStart() {
+        super.onStart()
+        processLocationPermissionCheck()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        processLocationPermissionCheck()
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -63,10 +95,35 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback 
             activity?.finish()
             return
         }
-        mapHelper = GoogleMapHelper(
-            googleMap)
+        mapHelper = GoogleMapHelper(context!!, googleMap, this)
+
+        processLocationPermissionCheck()
+        observeData()
+        viewModel.onMapReady()
     }
 
+    override fun onMapMarkerDragged(alarm: LocationAlarm, latLng: LatLng) {
+        viewModel.onLocationAlarmPositionChanged(alarm, latLng)
+    }
+
+    override fun onMapMarkerClick(alarm: LocationAlarm, latLng: LatLng) {
+        Toast.makeText(context, alarm.toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onMapLongClick(latLng: LatLng) {
+        MaterialAlertDialogBuilder(context)
+            .setMessage(R.string.alarm_creation_question)
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.create){
+                    _, _ -> viewModel.onCreateLocationAlarmClick(latLng)
+            }.show()
+    }
+
+    private fun processLocationPermissionCheck(){
+        if (PermissionUtils.checkLocationPermission(context!!)){
+            mapHelper?.setMyLocationMarkerEnabled()
+        }
+    }
     companion object {
         public const val TAG = "AlarmMapFragment"
 

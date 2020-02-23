@@ -14,9 +14,16 @@ class AlarmRepository(database: AppDatabase) : BaseRepository(database) {
         alarmDao.deleteByLocationAlarmId(id)
     }
 
+    fun findAll(): List<Alarm>{
+        return alarmDao.finAll()
+    }
+
     fun createOrUpdateAlarmsById(alarmList: List<Alarm>, locationAlarmId: Long): Completable{
         return Completable.fromAction {
             alarmDao.deleteByLocationAlarmId(locationAlarmId)
+            alarmList.forEach {
+                it.locationAlarmId = locationAlarmId
+            }
             alarmDao.insertAll(alarmList)
         }
     }

@@ -2,13 +2,11 @@ package com.vladbakalo.location_alarm.ui.list
 
 import androidx.lifecycle.LiveData
 import com.vladbakalo.location_alarm.application.base.BaseViewModel
-import com.vladbakalo.location_alarm.common.Logger
-import com.vladbakalo.location_alarm.data.ErrorState
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
-import com.vladbakalo.location_alarm.interactor.LocationAlarmCreateEditInteractor
+import com.vladbakalo.location_alarm.interactor.LocationAlarmInteractor
 import io.reactivex.schedulers.Schedulers
 
-class AlarmListViewModel(private val interactor: LocationAlarmCreateEditInteractor) :BaseViewModel() {
+class AlarmListViewModel(private val interactor: LocationAlarmInteractor) :BaseViewModel() {
     val locationAlarmList: LiveData<List<LocationAlarm>> = interactor.getAllLocationAlarms()
 
     fun onLocationAlarmEnabledChanged(item: LocationAlarm){

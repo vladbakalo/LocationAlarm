@@ -7,7 +7,7 @@ data class LocationAlarmWithAlarms(
     @Embedded val locationAlarm: LocationAlarm,
     @Relation(
         parentColumn = "id",
-        entityColumn = "id"
+        entityColumn = "location_alarm_id"
     )
     val alarms: List<Alarm>
 )

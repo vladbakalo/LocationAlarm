@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
+import com.vladbakalo.location_alarm.navigation.common.NavigationRouterProvider
+import ru.terrakok.cicerone.Router
 
 
 abstract class BaseVMFragment<T :BaseViewModel> :BaseFragment() {
@@ -44,4 +46,7 @@ abstract class BaseVMFragment<T :BaseViewModel> :BaseFragment() {
             .show()
     }
 
+    fun getNavigationRouter(): Router {
+        return (parentFragment as NavigationRouterProvider).getRouter()
+    }
 }

@@ -32,4 +32,7 @@
     <color name="primaryActionTextColor">@color/colorPrimary</color>
     <color name="primaryTextColor">@color/textDark</color>
     <color name="secondaryTextColor">@color/textGrey</color>
+
+    <color name="circle_active_color">#8800574B</color>
+    <color name="circle_inactive_color">#8B949494</color>
 </resources>

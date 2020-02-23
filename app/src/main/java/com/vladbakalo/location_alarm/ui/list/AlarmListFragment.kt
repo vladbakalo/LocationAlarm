@@ -76,7 +76,7 @@ class AlarmListFragment :BaseVMFragment<AlarmListViewModel>(),
 
     override fun onLongItemClick(item: LocationAlarm) {
         MaterialAlertDialogBuilder(context)
-            .setMessage(R.string.alarm_deletion)
+            .setMessage(R.string.alarm_deletion_question)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.delete) {
                     _, _ -> viewModel.onLocationAlarmDelete(item)

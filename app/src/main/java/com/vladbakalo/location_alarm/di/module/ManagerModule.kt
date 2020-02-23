@@ -1,6 +1,7 @@
 package com.vladbakalo.location_alarm.di.module
 
 import android.content.Context
+import com.vladbakalo.location_alarm.common.live_data.LastLocationLiveData
 import com.vladbakalo.location_alarm.common.manager.AppNotificationManager
 import com.vladbakalo.location_alarm.common.manager.LocationAlarmManager
 import com.vladbakalo.location_alarm.common.manager.PreferenceManager
@@ -18,8 +19,9 @@ class ManagerModule {
 
     @Singleton
     @Provides
-    fun provideLocationManager(notificationManager: AppNotificationManager): LocationAlarmManager
-            = LocationAlarmManager(notificationManager)
+    fun provideLocationManager(notificationManager: AppNotificationManager,
+                               lastLocationLiveData: LastLocationLiveData): LocationAlarmManager
+            = LocationAlarmManager(notificationManager, lastLocationLiveData)
 
     @Singleton
     @Provides

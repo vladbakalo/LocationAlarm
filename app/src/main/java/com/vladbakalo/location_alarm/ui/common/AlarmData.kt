@@ -21,7 +21,7 @@ class AlarmData() {
     }
 
     fun toAlarmModel(): Alarm{
-        return Alarm(id, enabled.value!!, locationAlarmId, distance.value!!.toDouble())
+        return Alarm(id, enabled.value!!, locationAlarmId, distance.value!!.toInt())
     }
 
     override fun equals(other: Any?): Boolean {

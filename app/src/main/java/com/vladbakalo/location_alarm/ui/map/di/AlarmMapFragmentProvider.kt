@@ -7,6 +7,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class AlarmMapFragmentProvider {
 
-    @ContributesAndroidInjector(modules = [])
+    @ContributesAndroidInjector(modules = [AlarmMapFragmentModule::class])
     abstract fun contributeAlarmMapFragment(): AlarmMapFragment
 }

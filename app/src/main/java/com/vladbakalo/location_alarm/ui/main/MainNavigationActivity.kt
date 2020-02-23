@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.IBinder
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.service.LocationUpdatesService
@@ -85,7 +86,7 @@ class MainNavigationActivity :BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (PermissionUtils.checkLocationPermission(this)){
-            locationUpdatesService?.requestLocationUpdates()
+            checkPermissionAndStartService()
         } else {
             Snackbar.make(mainActivityFlContainer,
                 R.string.permission_denied_explanation,
@@ -95,6 +96,8 @@ class MainNavigationActivity :BaseActivity() {
                 }
                 .show()
         }
+        getCurrentFragment(supportFragmentManager)
+            ?.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onBackPressed() {
@@ -134,15 +137,7 @@ class MainNavigationActivity :BaseActivity() {
         ActivityUtils.hideKeyboard(this)
 
         val fm = supportFragmentManager
-        var currFragment: Fragment? = null
-        val allFragments = fm.fragments
-
-        for (item in allFragments) {
-            if (item.isVisible) {
-                currFragment = item
-                break
-            }
-        }
+        val currFragment = getCurrentFragment(fm)
 
         val newFragment = fm.findFragmentByTag(tag)
         if (currFragment != null && newFragment != null && currFragment == newFragment) return
@@ -160,6 +155,19 @@ class MainNavigationActivity :BaseActivity() {
             transaction.show(newFragment)
         }
         transaction.commitNow()
+    }
+
+    private fun getCurrentFragment(fm: FragmentManager): Fragment?{
+        var currFragment: Fragment? = null
+        val allFragments = fm.fragments
+
+        for (item in allFragments) {
+            if (item.isVisible) {
+                currFragment = item
+                break
+            }
+        }
+        return currFragment
     }
 
     private fun checkPermissionAndStartService(){

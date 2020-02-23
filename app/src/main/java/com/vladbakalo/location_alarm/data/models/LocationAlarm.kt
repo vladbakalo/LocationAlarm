@@ -2,6 +2,7 @@ package com.vladbakalo.location_alarm.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.LatLng
 import com.vladbakalo.location_alarm.application.base.BaseDataModel
 
 @Entity(tableName = "location_alarm")
@@ -16,5 +17,17 @@ data class LocationAlarm(
 
     override fun getPrimaryId(): Long {
         return id
+    }
+
+    fun getLatLng(): LatLng{
+        return LatLng(latitude, longitude)
+    }
+
+    fun getLatitudeStr(): String{
+        return String.format("%.4f", latitude)
+    }
+
+    fun getLongitudeStr(): String{
+        return String.format("%.4f", longitude)
     }
 }

@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.*
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.common.live_data.LastLocationLiveData
 import com.vladbakalo.location_alarm.common.manager.AppNotificationManager
 import com.vladbakalo.location_alarm.common.manager.LocationAlarmManager
 import com.vladbakalo.location_alarm.common.utils.NotificationUtils
@@ -24,7 +25,6 @@ class LocationUpdatesService :DaggerService() {
 
     @Inject
     lateinit var locationAlarmManager: LocationAlarmManager
-
     @Inject
     lateinit var notificationManager: AppNotificationManager
 
@@ -98,6 +98,8 @@ class LocationUpdatesService :DaggerService() {
                 removeLocationUpdates()
             }
             updateNotification()
+        } else {
+            requestLocationUpdatesWithCheck()
         }
 
         return START_NOT_STICKY
@@ -114,7 +116,7 @@ class LocationUpdatesService :DaggerService() {
             Logger.dt(TAG, "onNewLocation : new location is null")
             return
         }
-        Logger.dt(TAG, "onNewLocation : $location")
+//        Logger.dt(TAG, "onNewLocation : $location")
 
         //Process new location
         locationAlarmManager.onNewLocation(location)
@@ -211,11 +213,7 @@ class LocationUpdatesService :DaggerService() {
         fun startService(context: Context){
             if (isRunning) return
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService( Intent(context, LocationUpdatesService::class.java))
-            } else {
-                context.startService( Intent(context, LocationUpdatesService::class.java))
-            }
+            context.startService( Intent(context, LocationUpdatesService::class.java))
         }
     }
 }

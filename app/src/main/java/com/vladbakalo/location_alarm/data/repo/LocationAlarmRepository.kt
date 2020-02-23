@@ -20,6 +20,10 @@ class LocationAlarmRepository(database: AppDatabase) :BaseRepository(database) {
         return locationAlarmDao.getAllSorted()
     }
 
+    fun getAllLocationAlarmsWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>{
+        return locationAlarmDao.getAllLocationAlarmsWithAlarms()
+    }
+
     fun deleteLocationAlarm(id: Long): Completable{
         return Completable.fromAction {
             locationAlarmDao.delete(id)
@@ -32,7 +36,11 @@ class LocationAlarmRepository(database: AppDatabase) :BaseRepository(database) {
 
     fun createOrUpdate(model: LocationAlarm): Single<LocationAlarm> {
         return if (model.id == 0L){
-            create(model)
+            isExists(model.name).flatMap {
+                if (it) throw IllegalArgumentException(StringUtils.getString(R.string.location_alarm_name_already_exists))
+
+                create(model)
+            }
         } else {
             update(model)
         }

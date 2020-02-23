@@ -56,6 +56,14 @@ class TabContainerFragment :BaseFragment(),
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        childFragmentManager.findFragmentById(R.id.fragmentTabFlContainer)
+            ?.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean(KEY_IS_CURRENT_ROOT, isCurrentFragmentIsRoot)

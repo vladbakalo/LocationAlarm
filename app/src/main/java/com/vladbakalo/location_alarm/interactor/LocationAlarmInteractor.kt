@@ -14,8 +14,8 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import java.lang.IllegalArgumentException
 
-class LocationAlarmCreateEditInteractor(private val locationAlarmRepo: LocationAlarmRepository,
-                                        private val alarmRepo: AlarmRepository): BaseInteractor() {
+class LocationAlarmInteractor(private val locationAlarmRepo: LocationAlarmRepository,
+                              private val alarmRepo: AlarmRepository): BaseInteractor() {
 
     fun deleteLocationAlarm(locationAlarmId: Long): Completable{
         return locationAlarmRepo.deleteLocationAlarm(locationAlarmId)
@@ -30,19 +30,18 @@ class LocationAlarmCreateEditInteractor(private val locationAlarmRepo: LocationA
         return locationAlarmRepo.getAllLocationAlarm()
     }
 
+    fun getAllLocationAlarmWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>{
+        return locationAlarmRepo.getAllLocationAlarmsWithAlarms()
+    }
+
     fun updateLocationAlarm(locationAlarm: LocationAlarm): Completable{
         return locationAlarmRepo.update(locationAlarm).ignoreElement()
     }
 
     fun createOrUpdateLocationAlarm(locationAlarm: LocationAlarm, alarmList: List<Alarm>): Completable{
-        return locationAlarmRepo.isExists(locationAlarm.name)
-            .flatMapCompletable {exists ->
-                if (exists) throw IllegalArgumentException(StringUtils.getString(R.string.location_alarm_name_already_exists))
-
-                locationAlarmRepo.createOrUpdate(locationAlarm)
-                    .flatMapCompletable {
-                        alarmRepo.createOrUpdateAlarmsById(alarmList, it.id)
-                    }
+        return locationAlarmRepo.createOrUpdate(locationAlarm)
+            .flatMapCompletable {
+                alarmRepo.createOrUpdateAlarmsById(alarmList, it.id)
             }
     }
 }

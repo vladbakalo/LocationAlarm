@@ -3,18 +3,18 @@ package com.vladbakalo.location_alarm.ui.alarm_create
 import androidx.lifecycle.MutableLiveData
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.base.BaseViewModel
-import com.vladbakalo.location_alarm.common.Logger
 import com.vladbakalo.location_alarm.common.extentions.notify
+import com.vladbakalo.location_alarm.common.utils.LocationUtils
 import com.vladbakalo.location_alarm.common.utils.StringUtils
 import com.vladbakalo.location_alarm.data.ErrorState
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
-import com.vladbakalo.location_alarm.interactor.LocationAlarmCreateEditInteractor
+import com.vladbakalo.location_alarm.interactor.LocationAlarmInteractor
 import com.vladbakalo.location_alarm.ui.common.AlarmData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 
-class LocationAlarmCreateViewModel(private val interactor: LocationAlarmCreateEditInteractor) :BaseViewModel() {
+class LocationAlarmCreateViewModel(private val interactor: LocationAlarmInteractor) :BaseViewModel() {
     var name: MutableLiveData<String> = MutableLiveData("")
     var address: MutableLiveData<String> = MutableLiveData("")
     var latitude: MutableLiveData<String> = MutableLiveData("")
@@ -35,13 +35,24 @@ class LocationAlarmCreateViewModel(private val interactor: LocationAlarmCreateEd
                 with(result.locationAlarm){
                     this@LocationAlarmCreateViewModel.name.postValue(name)
                     this@LocationAlarmCreateViewModel.address.postValue(address)
-                    this@LocationAlarmCreateViewModel.latitude.postValue(latitude.toString())
-                    this@LocationAlarmCreateViewModel.longitude.postValue(longitude.toString())
+                    this@LocationAlarmCreateViewModel.latitude.postValue(getLatitudeStr())
+                    this@LocationAlarmCreateViewModel.longitude.postValue(getLongitudeStr())
                     this@LocationAlarmCreateViewModel.note.postValue(note)
                     this@LocationAlarmCreateViewModel.enabled.postValue(enabled)
                 }
 
                 alarms.postValue(result.alarms.map { AlarmData(it) }.toMutableList())
+            }, {e -> onError(e, TAG)}))
+    }
+
+    fun setMapPosition(latitude: Double, longitude: Double){
+        this.latitude.postValue(String.format("%.4f", latitude))
+        this.longitude.postValue(String.format("%.4f", longitude))
+
+        addDisposable(LocationUtils.getLocationNameRx(latitude, longitude)
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                    result -> address.postValue(result)
             }, {e -> onError(e, TAG)}))
     }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.model.LatLng
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.base.BaseVMFragment
 import com.vladbakalo.location_alarm.common.Logger
@@ -37,6 +38,9 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
         if (savedInstanceState == null){
             if (arguments?.containsKey(KEY_LOCATION_ALARM_ID) == true){
                 viewModel.setLocationAlarmId(arguments!!.getLong(KEY_LOCATION_ALARM_ID))
+            } else if (arguments?.containsKey(KEY_LOCATION_ALARM_LATITUDE) == true){
+                viewModel.setMapPosition(arguments!!.getDouble(KEY_LOCATION_ALARM_LATITUDE),
+                    arguments!!.getDouble(KEY_LOCATION_ALARM_LONGITUDE))
             }
         }
         viewModel.setRouter(getNavigationRouter())
@@ -123,13 +127,11 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
         return isValid
     }
 
-    private fun getNavigationRouter(): Router{
-        return (parentFragment as NavigationRouterProvider).getRouter()
-    }
-
     companion object {
         const val TAG = "LocationAlarmCreateFragment"
-        const val KEY_LOCATION_ALARM_ID = "KEY_LOCATION_ALARM_ID"
+        private const val KEY_LOCATION_ALARM_ID = "KEY_LOCATION_ALARM_ID"
+        private const val KEY_LOCATION_ALARM_LATITUDE = "KEY_LOCATION_ALARM_LATITUDE"
+        private const val KEY_LOCATION_ALARM_LONGITUDE = "KEY_LOCATION_ALARM_LONGITUDE"
 
         fun create(): LocationAlarmCreateFragment {
             return LocationAlarmCreateFragment()
@@ -138,6 +140,16 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
         fun create(locationAlarmId: Long): LocationAlarmCreateFragment {
             val arg = Bundle()
             arg.putLong(KEY_LOCATION_ALARM_ID, locationAlarmId)
+
+            val fragment = LocationAlarmCreateFragment()
+            fragment.arguments = arg
+            return fragment
+        }
+
+        fun create(latLng: LatLng): LocationAlarmCreateFragment {
+            val arg = Bundle()
+            arg.putDouble(KEY_LOCATION_ALARM_LATITUDE, latLng.latitude)
+            arg.putDouble(KEY_LOCATION_ALARM_LONGITUDE, latLng.longitude)
 
             val fragment = LocationAlarmCreateFragment()
             fragment.arguments = arg

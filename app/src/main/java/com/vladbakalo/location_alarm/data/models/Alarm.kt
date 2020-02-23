@@ -10,7 +10,7 @@ data class Alarm(
     @PrimaryKey(autoGenerate = true) val id: Long,
     var enabled: Boolean,
     @ColumnInfo(name = "location_alarm_id") var locationAlarmId: Long,
-    @ColumnInfo(name = "notify_distance") var notifyDistanceMeters: Double) : BaseDataModel {
+    @ColumnInfo(name = "notify_distance") var notifyDistanceMeters: Int) : BaseDataModel {
     override fun getPrimaryId(): Long {
         return id
     }

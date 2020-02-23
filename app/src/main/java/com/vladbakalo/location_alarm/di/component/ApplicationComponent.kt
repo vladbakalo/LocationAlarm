@@ -8,6 +8,7 @@ import com.vladbakalo.location_alarm.di.builders.ServiceBuilder
 import com.vladbakalo.location_alarm.di.module.AppModule
 import com.vladbakalo.location_alarm.di.module.AuthModule
 import com.vladbakalo.location_alarm.di.module.ManagerModule
+import com.vladbakalo.location_alarm.di.module.UtilsModule
 import com.vladbakalo.location_alarm.interactor.di.InteractorModule
 import com.vladbakalo.location_alarm.navigation.di.NavigationModule
 import dagger.Component
@@ -25,6 +26,7 @@ import javax.inject.Singleton
     NavigationModule::class,
     ActivityBuilder::class,
     ServiceBuilder::class,
+    UtilsModule::class,
 
     ManagerModule::class,
     AuthModule::class])

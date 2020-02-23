@@ -1,6 +1,7 @@
 package com.vladbakalo.location_alarm.navigation
 
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.model.LatLng
 import com.vladbakalo.location_alarm.navigation.common.RootSupportAppScreen
 import com.vladbakalo.location_alarm.ui.alarm_create.LocationAlarmCreateFragment
 import com.vladbakalo.location_alarm.ui.alarm_preview.LocationAlarmFragment
@@ -40,6 +41,10 @@ object Screens {
 
     object LocationAlarmCreateScreen :SupportAppScreen() {
         override fun getFragment() = LocationAlarmCreateFragment.create()
+    }
+
+    data class LocationAlarmMapCreateScreen(val latLng: LatLng) :SupportAppScreen() {
+        override fun getFragment() = LocationAlarmCreateFragment.create(latLng)
     }
 
     data class LocationAlarmEditScreen(val locationAlarmId: Long) :SupportAppScreen() {

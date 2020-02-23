@@ -1,8 +1,18 @@
 package com.vladbakalo.location_alarm.common.utils
 
+import android.location.Geocoder
 import android.location.Location
+import com.vladbakalo.location_alarm.R
+import com.vladbakalo.location_alarm.application.App
+import com.vladbakalo.location_alarm.common.Logger
+import io.reactivex.Single
+import java.lang.Exception
+import java.lang.StringBuilder
+import java.util.*
+
 
 object LocationUtils {
+    private const val TAG = "LocationUtils"
 
     fun latLngToLocation(latitude: Double, longitude: Double): Location {
         val location = Location("LocationUtils")
@@ -10,5 +20,25 @@ object LocationUtils {
         location.longitude = longitude
 
         return location
+    }
+
+    fun getLocationNameRx(latitude: Double, longitude: Double): Single<String>{
+        return Single.create {
+            val geocoder = Geocoder(App.context, Locale.getDefault())
+            val stringBuilder = StringBuilder()
+            try {
+                val addressResult = geocoder.getFromLocation(latitude, longitude, 1)
+                val address = addressResult[0]
+
+                stringBuilder.append(address.thoroughfare)
+                    .append(", ").append(address.featureName)
+                    .append(", ").append(address.locality)
+                Logger.dt(TAG, "getLocationNameRx : ${address.getAddressLine(0)}")
+
+                it.onSuccess(stringBuilder.toString())
+            } catch (e: Throwable) {
+                it.onError(Exception(StringUtils.getString(R.string.failed_get_address)))
+            }
+        }
     }
 }
