@@ -55,10 +55,6 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
         binding.clickListener = this
         binding.isAlarmListEmpty = true
 
-        viewModel.name.observe(viewLifecycleOwner, Observer {
-            Logger.dt(TAG, "Observe name: $it")
-        })
-
         initValidator()
         observeData()
         return binding.root
@@ -105,7 +101,10 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.locationAlarmCreateBtnAddAlarm -> viewModel.onAddAlarmClick()
+            R.id.locationAlarmCreateBtnAddAlarm -> {
+                viewModel.onAddAlarmClick()
+                hideKeyboard()
+            }
         }
     }
 

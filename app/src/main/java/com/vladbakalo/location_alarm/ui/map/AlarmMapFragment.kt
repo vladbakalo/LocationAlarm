@@ -95,7 +95,9 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback,
             activity?.finish()
             return
         }
-        mapHelper = GoogleMapHelper(context!!, googleMap, this)
+        if (mapHelper == null){
+            mapHelper = GoogleMapHelper(context!!, googleMap, this)
+        }
 
         processLocationPermissionCheck()
         observeData()

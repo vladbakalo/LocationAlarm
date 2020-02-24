@@ -25,17 +25,24 @@ object LocationUtils {
     fun getLocationNameRx(latitude: Double, longitude: Double): Single<String>{
         return Single.create {
             val geocoder = Geocoder(App.context, Locale.getDefault())
-            val stringBuilder = StringBuilder()
+            val builder = StringBuilder()
             try {
                 val addressResult = geocoder.getFromLocation(latitude, longitude, 1)
                 val address = addressResult[0]
 
-                stringBuilder.append(address.thoroughfare)
-                    .append(", ").append(address.featureName)
-                    .append(", ").append(address.locality)
+                address.thoroughfare?.let { it ->
+                    builder.append(it).append(", ")
+                }
+                address.featureName?.let { it ->
+                    builder.append(it).append(", ")
+                }
+                address.locality?.let { it ->
+                    builder.append(it).append(", ")
+                }
+                builder.setLength(builder.length - 2) //Remove coma in end
                 Logger.dt(TAG, "getLocationNameRx : ${address.getAddressLine(0)}")
 
-                it.onSuccess(stringBuilder.toString())
+                it.onSuccess(builder.toString())
             } catch (e: Throwable) {
                 it.onError(Exception(StringUtils.getString(R.string.failed_get_address)))
             }
