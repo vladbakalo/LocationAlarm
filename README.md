@@ -1,6 +1,7 @@
 # LocationAlarm
 
 (IN PROGRESS)
+
 Architecture: MVVM
 
 Libraries: Room, Dagger2, RxAndroid, Cicerone (for App Navigation)
