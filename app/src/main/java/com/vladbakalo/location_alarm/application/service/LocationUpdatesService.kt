@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.location.Location
 import android.os.Binder
-import android.os.Build
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.app.NotificationCompat
@@ -14,8 +13,8 @@ import com.google.android.gms.location.*
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.common.Logger
 import com.vladbakalo.location_alarm.common.live_data.LastLocationLiveData
-import com.vladbakalo.location_alarm.common.manager.AppNotificationManager
-import com.vladbakalo.location_alarm.common.manager.LocationAlarmManager
+import com.vladbakalo.location_alarm.manager.AppNotificationManager
+import com.vladbakalo.location_alarm.manager.LocationAlarmManager
 import com.vladbakalo.location_alarm.common.utils.NotificationUtils
 import com.vladbakalo.location_alarm.common.utils.PermissionUtils
 import dagger.android.DaggerService
@@ -27,6 +26,8 @@ class LocationUpdatesService :DaggerService() {
     lateinit var locationAlarmManager: LocationAlarmManager
     @Inject
     lateinit var notificationManager: AppNotificationManager
+    @Inject
+    lateinit var lastLocationLiveData: LastLocationLiveData
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
@@ -54,12 +55,15 @@ class LocationUpdatesService :DaggerService() {
                 Logger.dt(TAG, "onLocationAvailability : ${result?.isLocationAvailable}")
             }
         }
+
+        locationAlarmManager.start()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Logger.dt(TAG, "onDestroy")
         isRunning = false
+        locationAlarmManager.stop()
     }
 
     override fun onBind(intent: Intent): IBinder? {
@@ -116,9 +120,8 @@ class LocationUpdatesService :DaggerService() {
             Logger.dt(TAG, "onNewLocation : new location is null")
             return
         }
-//        Logger.dt(TAG, "onNewLocation : $location")
-
         //Process new location
+        lastLocationLiveData.postValue(location)
         locationAlarmManager.onNewLocation(location)
     }
 
@@ -131,10 +134,6 @@ class LocationUpdatesService :DaggerService() {
     }
 
     public fun requestLocationUpdates() {
-        if (isLocationUpdatesEnabled){
-            Logger.dt(TAG, "requestLocationUpdates : already requested")
-            return
-        }
         Logger.dt(TAG, "requestLocationUpdates")
 
         isLocationUpdatesEnabled = true
@@ -148,12 +147,12 @@ class LocationUpdatesService :DaggerService() {
     }
 
     private fun removeLocationUpdates() {
-        Logger.dt(TAG, "requestLocationUpdates")
+        Logger.dt(TAG, "removeLocationUpdates")
         isLocationUpdatesEnabled = false
         try {
             fusedLocationClient.removeLocationUpdates(locationCallback)
         } catch (e: SecurityException) {
-            Logger.dt(TAG, "requestLocationUpdates error : ${e.message}")
+            Logger.dt(TAG, "removeLocationUpdates error : ${e.message}")
         }
     }
 
@@ -180,12 +179,11 @@ class LocationUpdatesService :DaggerService() {
     private fun beginForegroundMode() {
         Logger.dt(TAG, "requestLocationUpdates")
         startForeground(NOTIFICATION_ID,
-            NotificationUtils.getLocationUpdatesNotification(this, getNotificationTittle(), getPendingAction()))
+            notificationManager.getLocationUpdatesServiceNotification(getNotificationTittle(), getPendingAction()))
     }
 
     private fun updateNotification() {
-        notificationManager.systemNotificationManager.notify(NOTIFICATION_ID,
-            NotificationUtils.getLocationUpdatesNotification(this, getNotificationTittle(), getPendingAction()))
+        notificationManager.updateLocationUpdatesServiceNotification(NOTIFICATION_ID, getNotificationTittle(), getPendingAction())
     }
 
     private fun getNotificationTittle(): String {

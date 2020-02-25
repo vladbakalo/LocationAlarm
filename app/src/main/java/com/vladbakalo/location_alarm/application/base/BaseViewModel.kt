@@ -18,7 +18,7 @@ abstract class BaseViewModel :ViewModel() {
         return false
     }
 
-    fun onError(error: Throwable, tag: String){
+    fun onBaseError(error: Throwable, tag: String){
         Logger.logException(tag, error)
         error.message?.let {
             errorStateLiveData.postValue(ErrorState(it))

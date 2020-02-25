@@ -1,19 +1,18 @@
 package com.vladbakalo.location_alarm.data.repo
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.base.BaseRepository
-import com.vladbakalo.location_alarm.common.utils.StringUtils
 import com.vladbakalo.location_alarm.data.AppDatabase
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
 import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.Single
 import java.lang.IllegalArgumentException
 
 
-class LocationAlarmRepository(database: AppDatabase) :BaseRepository(database) {
+open class LocationAlarmRepository(database: AppDatabase, val context: Context) :BaseRepository(database) {
     private val locationAlarmDao = database.locationAlarmDao()
 
     fun getAllLocationAlarm(): LiveData<List<LocationAlarm>>{
@@ -21,10 +20,14 @@ class LocationAlarmRepository(database: AppDatabase) :BaseRepository(database) {
     }
 
     fun getAllLocationAlarmsWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>{
-        return locationAlarmDao.getAllLocationAlarmsWithAlarms()
+        return locationAlarmDao.getAllLocationAlarmWithAlarms()
     }
 
-    fun deleteLocationAlarm(id: Long): Completable{
+    fun getAllEnabledLocationAlarmsWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>{
+        return locationAlarmDao.getAllEnabledLocationAlarmWithAlarms()
+    }
+
+    open fun deleteLocationAlarm(id: Long): Completable{
         return Completable.fromAction {
             locationAlarmDao.delete(id)
         }
@@ -37,7 +40,7 @@ class LocationAlarmRepository(database: AppDatabase) :BaseRepository(database) {
     fun createOrUpdate(model: LocationAlarm): Single<LocationAlarm> {
         return if (model.id == 0L){
             isExists(model.name).flatMap {
-                if (it) throw IllegalArgumentException(StringUtils.getString(R.string.location_alarm_name_already_exists))
+                if (it) throw IllegalArgumentException(context.getString(R.string.location_alarm_name_already_exists))
 
                 create(model)
             }
@@ -60,7 +63,7 @@ class LocationAlarmRepository(database: AppDatabase) :BaseRepository(database) {
 
     fun update(model: LocationAlarm): Single<LocationAlarm>{
         return Single.fromCallable{
-            locationAlarmDao.updateRx(model)
+            locationAlarmDao.update(model)
             return@fromCallable model
         }
     }

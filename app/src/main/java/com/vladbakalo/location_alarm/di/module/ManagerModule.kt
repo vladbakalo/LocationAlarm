@@ -2,9 +2,10 @@ package com.vladbakalo.location_alarm.di.module
 
 import android.content.Context
 import com.vladbakalo.location_alarm.common.live_data.LastLocationLiveData
-import com.vladbakalo.location_alarm.common.manager.AppNotificationManager
-import com.vladbakalo.location_alarm.common.manager.LocationAlarmManager
-import com.vladbakalo.location_alarm.common.manager.PreferenceManager
+import com.vladbakalo.location_alarm.data.repo.LocationAlarmRepository
+import com.vladbakalo.location_alarm.manager.AppNotificationManager
+import com.vladbakalo.location_alarm.manager.LocationAlarmManager
+import com.vladbakalo.location_alarm.manager.PreferenceManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -20,8 +21,8 @@ class ManagerModule {
     @Singleton
     @Provides
     fun provideLocationManager(notificationManager: AppNotificationManager,
-                               lastLocationLiveData: LastLocationLiveData): LocationAlarmManager
-            = LocationAlarmManager(notificationManager, lastLocationLiveData)
+                               locationAlarmRepo: LocationAlarmRepository): LocationAlarmManager
+            = LocationAlarmManager(notificationManager, locationAlarmRepo)
 
     @Singleton
     @Provides

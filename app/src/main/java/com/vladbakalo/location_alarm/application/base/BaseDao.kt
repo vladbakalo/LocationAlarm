@@ -14,11 +14,8 @@ interface BaseDao<T: BaseDataModel> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRx(model: T): Long
 
-    @Update
-    fun update(model: T)
-
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateRx(model: T): Int
+    fun update(model: T): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(list: List<T>)

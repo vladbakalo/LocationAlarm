@@ -31,7 +31,7 @@ abstract class BaseVMFragment<T :BaseViewModel> :BaseFragment() {
 //                .show()
         })
         baseViewModel!!.errorStateLiveData.observe(this, Observer {
-            Snackbar.make(view!!, it.errorText, Snackbar.LENGTH_SHORT)
+            Snackbar.make(view!!, it.getErrorText(context!!), Snackbar.LENGTH_SHORT)
                 .show()
         })
     }

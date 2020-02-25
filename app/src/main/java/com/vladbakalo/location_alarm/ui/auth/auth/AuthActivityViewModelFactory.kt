@@ -2,7 +2,7 @@ package com.vladbakalo.location_alarm.ui.auth.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.vladbakalo.location_alarm.common.manager.AuthManager
+import com.vladbakalo.location_alarm.manager.AuthManager
 
 class AuthActivityViewModelFactory(private val authManager: AuthManager) :
     ViewModelProvider.Factory {

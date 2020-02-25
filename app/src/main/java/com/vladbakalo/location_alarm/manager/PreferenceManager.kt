@@ -1,4 +1,4 @@
-package com.vladbakalo.location_alarm.common.manager
+package com.vladbakalo.location_alarm.manager
 
 import android.content.Context
 

@@ -24,13 +24,8 @@ class AlarmMapViewModel(val interactor: LocationAlarmInteractor,
 
     }
 
-    fun onLocationAlarmPositionChanged(locationAlarm: LocationAlarm, latLng: LatLng){
-        with(latLng){
-            locationAlarm.latitude = latitude
-            locationAlarm.longitude = longitude
-        }
-
-        addDisposable(interactor.updateLocationAlarm(locationAlarm)
+    fun onLocationAlarmPositionChanged(locationAlarm: LocationAlarm, position: LatLng){
+        addDisposable(interactor.changeLocationAlarmPosition(locationAlarm, position)
             .subscribeOn(Schedulers.io())
             .subscribe())
     }

@@ -5,11 +5,15 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.PerformException
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
@@ -17,9 +21,11 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.AndroidJUnit4
 import com.vladbakalo.location_alarm.R
+import com.vladbakalo.location_alarm.data.models.LocationAlarm
+import com.vladbakalo.location_alarm.ui.common.AlarmAdapter
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.*
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
@@ -74,6 +80,81 @@ class MainNavigationActivityTest {
 
         onView(withId(R.id.alarmListClRoot))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun testAlarmCreationWithCheckInList(){
+        val bottomNavigationItemView = onView(
+            allOf(withId(R.id.bottomNavigationMenuList), withContentDescription("List"),
+                childAtPosition(childAtPosition(withId(R.id.mainActivityBnvContainer), 0), 1),
+                isDisplayed()))
+        bottomNavigationItemView.perform(click())
+
+        val extendedFloatingActionButton = onView(
+            allOf(withId(R.id.alarmListFabAddButton), withText("Add Alarm"),
+                withContentDescription("Add Alarm"),
+                isDisplayed()))
+        extendedFloatingActionButton.perform(click())
+
+        //Add Alarm Distance
+        onView(withId(R.id.locationAlarmCreateBtnAddAlarm)).perform(click())
+
+        Thread.sleep(500)
+        onView(withId(R.id.locationAlarmCreateRvAlarmList))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<AlarmAdapter.ItemVH>(0, click()))
+
+        var alarmDistance = onView(allOf(withId(R.id.mainEditTextTilText),
+            childAtPosition(childAtPosition(childAtPosition(withId(R.id.itemAlarmEtDistanceText), 0), 0), 0),
+            isDisplayed()))
+        alarmDistance.perform(typeText("1000"), ViewActions.closeSoftKeyboard())
+
+        //Name
+        onView(withId(R.id.locationAlarmCreateEtNameText)).perform(click())
+
+        var alarmName = onView(allOf(withId(R.id.mainEditTextTilText),
+            childAtPosition(childAtPosition(childAtPosition(withId(R.id.locationAlarmCreateEtNameText), 0), 0), 0),
+            isDisplayed()))
+        alarmName.perform(typeText("testName"), ViewActions.closeSoftKeyboard())
+
+        //Address
+        onView(withId(R.id.locationAlarmCreateEtAddressText)).perform(click())
+
+        var alarmAddress = onView(allOf(withId(R.id.mainEditTextTilText),
+            childAtPosition(childAtPosition(childAtPosition(withId(R.id.locationAlarmCreateEtAddressText), 0), 0), 0),
+            isDisplayed()))
+        alarmAddress.perform(typeText("testAddress"), ViewActions.closeSoftKeyboard())
+
+        //Latitude
+        onView(withId(R.id.locationAlarmCreateEtLatitudeText)).perform(click())
+
+        var alarmLatitude = onView(allOf(withId(R.id.mainEditTextTilText),
+            childAtPosition(childAtPosition(childAtPosition(withId(R.id.locationAlarmCreateEtLatitudeText), 0), 0), 0),
+            isDisplayed()))
+        alarmLatitude.perform(typeText("50"), ViewActions.closeSoftKeyboard())
+
+        //Longitude
+        onView(withId(R.id.locationAlarmCreateEtLongitudeText)).perform(click())
+
+        var alarmLongitude = onView(allOf(withId(R.id.mainEditTextTilText),
+            childAtPosition(childAtPosition(childAtPosition(withId(R.id.locationAlarmCreateEtLongitudeText), 0), 0), 0),
+            isDisplayed()))
+        alarmLongitude.perform(typeText("60"), ViewActions.closeSoftKeyboard())
+
+        //Click Save
+        onView(withId(R.id.menuCreateAlarmItemSave))
+            .perform(click())
+
+        Thread.sleep(500)
+        //Check new item in list
+        val list = onView(allOf(withId(R.id.alarmListClRoot)))
+        var isDisplayed = true
+        try {
+            list.perform(click())
+        } catch (e: PerformException){
+            isDisplayed = false
+        }
+
+        assert(isDisplayed.not())
     }
 
     @Test

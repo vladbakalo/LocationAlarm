@@ -27,7 +27,11 @@ abstract class LocationAlarmDao: BaseDao<LocationAlarm> {
 
     @Transaction
     @Query("SELECT * FROM location_alarm")
-    abstract fun getAllLocationAlarmsWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>
+    abstract fun getAllLocationAlarmWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>
+
+    @Transaction
+    @Query("SELECT * FROM location_alarm WHERE enabled is 1")
+    abstract fun getAllEnabledLocationAlarmWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>
 
     @Transaction
     @Query("SELECT * FROM location_alarm WHERE id is :alarmId")

@@ -10,11 +10,10 @@ class AlarmListViewModel(private val interactor: LocationAlarmInteractor) :BaseV
     val locationAlarmList: LiveData<List<LocationAlarm>> = interactor.getAllLocationAlarms()
 
     fun onLocationAlarmEnabledChanged(item: LocationAlarm){
-        item.enabled = item.enabled.not()
-        addDisposable(interactor.updateLocationAlarm(item)
+        addDisposable(interactor.changeLocationAlarmEnabledState(item, item.enabled.not())
             .subscribeOn(Schedulers.io())
             .subscribe({ }, {e ->
-                onError(e, TAG)
+                onBaseError(e, TAG)
             }))
     }
 
@@ -22,7 +21,7 @@ class AlarmListViewModel(private val interactor: LocationAlarmInteractor) :BaseV
         addDisposable(interactor.deleteLocationAlarm(item.id)
             .subscribeOn(Schedulers.io())
             .subscribe({ }, {e ->
-                onError(e, TAG)
+                onBaseError(e, TAG)
             }))
     }
 

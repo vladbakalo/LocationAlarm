@@ -42,7 +42,7 @@ class LocationAlarmCreateViewModel(private val interactor: LocationAlarmInteract
                 }
 
                 alarms.postValue(result.alarms.map { AlarmData(it) }.toMutableList())
-            }, {e -> onError(e, TAG)}))
+            }, {e -> onBaseError(e, TAG)}))
     }
 
     fun setMapPosition(latitude: Double, longitude: Double){
@@ -53,7 +53,7 @@ class LocationAlarmCreateViewModel(private val interactor: LocationAlarmInteract
             .subscribeOn(Schedulers.io())
             .subscribe({
                     result -> address.postValue(result)
-            }, {e -> onError(e, TAG)}))
+            }, {e -> onBaseError(e, TAG)}))
     }
 
     fun setRouter(router: Router){
@@ -76,7 +76,7 @@ class LocationAlarmCreateViewModel(private val interactor: LocationAlarmInteract
 
     fun onSaveClick(){
         if (alarms.value?.isEmpty() != false){
-            errorStateLiveData.postValue(ErrorState(StringUtils.getString(R.string.add_at_list_one_alarm)))
+            errorStateLiveData.postValue(ErrorState(R.string.add_at_list_one_alarm))
             return
         }
 
@@ -97,7 +97,7 @@ class LocationAlarmCreateViewModel(private val interactor: LocationAlarmInteract
             .subscribe ({
                 router.exit()
             }, {e ->
-                onError(e, TAG)
+                onBaseError(e, TAG)
             }))
     }
 

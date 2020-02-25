@@ -1,5 +1,6 @@
 package com.vladbakalo.location_alarm.data.models
 
+import android.location.Location
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.LatLng
@@ -21,6 +22,13 @@ data class LocationAlarm(
 
     fun getLatLng(): LatLng{
         return LatLng(latitude, longitude)
+    }
+
+    fun getLocation(): Location {
+        return Location("").apply {
+            this.latitude = this@LocationAlarm.latitude
+            this.longitude = this@LocationAlarm.longitude
+        }
     }
 
     fun getLatitudeStr(): String{

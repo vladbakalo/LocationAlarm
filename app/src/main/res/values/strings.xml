@@ -68,4 +68,6 @@
     <string name="max_distance_d">Max distance is %d meters</string>
     <string name="valid_latitude_example">Example 90.0000</string>
     <string name="valid_longitude_example">Example 180.0000</string>
+
+    <string name="alarm_notification_tittle_distance">\"%s\" location in %d meters from you</string>
 </resources>

@@ -25,6 +25,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/locationAlarmCreateClBlock"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/list_item_margin"

@@ -7,11 +7,13 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import java.util.concurrent.Callable
 
-class AlarmRepository(database: AppDatabase) : BaseRepository(database) {
+open class AlarmRepository(database: AppDatabase) : BaseRepository(database) {
     private val alarmDao = database.alarmDao()
 
-    fun deleteAlarmByLocationAlarmId(id: Long){
-        alarmDao.deleteByLocationAlarmId(id)
+    open fun deleteAlarmByLocationAlarmId(id: Long): Completable{
+        return Completable.fromAction{
+            alarmDao.deleteByLocationAlarmId(id)
+        }
     }
 
     fun findAll(): List<Alarm>{
