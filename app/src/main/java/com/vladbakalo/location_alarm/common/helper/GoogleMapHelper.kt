@@ -22,13 +22,17 @@ class GoogleMapHelper(val context: Context,
     private var locationAlarmMarkers: MutableList<AlarmMarker> = ArrayList()
     private val locationAlarmBitmap = createAlarmBitmap()
     private var isFirstLocationReceive = false
+    private var currentLocation: Location? = null
 
     init {
         initMap()
+
     }
 
     private fun initMap(){
-        map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.isZoomControlsEnabled = false
+        map.uiSettings.isMyLocationButtonEnabled = false
+        map.setPadding(0, 0, 0, -50)
         setOnMapListeners()
     }
 
@@ -66,6 +70,8 @@ class GoogleMapHelper(val context: Context,
     }
 
     fun onCurrentLocationReceive(location: Location){
+        currentLocation = location
+
         if (isFirstLocationReceive) return
         isFirstLocationReceive = true
         val cameraPosition = CameraUpdateFactory.newLatLngZoom(location.toLatLng(), ZOOM_CITY_STREETS)
@@ -109,6 +115,21 @@ class GoogleMapHelper(val context: Context,
         }
 
         checkMapAlarmForDeletionByNewAlarmList(list)
+    }
+
+    fun moveToCurrentLocation(){
+        currentLocation?.let {
+            val camera = CameraUpdateFactory.newLatLngZoom(it.toLatLng(), ZOOM_STREETS)
+            map.animateCamera(camera)
+        }
+    }
+
+    fun zoomIn(){
+        map.animateCamera(CameraUpdateFactory.zoomIn())
+    }
+
+    fun zoomOut(){
+        map.animateCamera(CameraUpdateFactory.zoomOut())
     }
 
     private fun checkMapAlarmForDeletionByNewAlarmList(list: List<LocationAlarmWithAlarms>){

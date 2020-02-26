@@ -72,8 +72,6 @@
             android:layout_margin="@dimen/half_list_item_margin"
             android:onClick="@{clickListener::onClick}"
             app:icon="@drawable/ic_add_black_24dp"
-            app:iconTint="@color/white"
-            app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/LocationAlarm.Button.ExtendedFab"/>

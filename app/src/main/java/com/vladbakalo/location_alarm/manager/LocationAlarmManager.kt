@@ -33,7 +33,7 @@ class LocationAlarmManager(private val notificationManager: AppNotificationManag
     fun start(){
         activeLocationAlarmLive.observeForever(activeLocationAlarmObserver)
         newLocationDisposable = newLocationSubject.subscribeOn(Schedulers.io())
-            .throttleFirst(10, TimeUnit.SECONDS)
+            .throttleFirst(5, TimeUnit.SECONDS)
             .subscribe {
                 checkLocationAlarmDistance(it)
             }
@@ -62,7 +62,7 @@ class LocationAlarmManager(private val notificationManager: AppNotificationManag
                 Logger.dt(TAG, "checkLocationAlarmDistance : alarm : ${alarm.id} id")
                 Logger.dt(TAG, "checkLocationAlarmDistance : alarm : ${alarm.notifyDistanceMeters} meters")
 
-                if (alarm.notifyDistanceMeters >= distanceToAlarm) {
+                if (alarm.notifyDistanceMeters >= distanceToAlarm && alarm.enabled) {
                     Logger.dt(TAG, "checkLocationAlarmDistance : alarm in the distance!")
                     if (!isAlarmAlreadyNotified) {
                         Logger.dt(TAG, "checkLocationAlarmDistance : alarm was not notified")

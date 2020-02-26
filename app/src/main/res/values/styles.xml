@@ -115,6 +115,13 @@
     <style name="LocationAlarm.Button.ExtendedFab" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="LocationAlarm.Button.Fab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="tint">@color/white</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
     </style>
 
     <style name="LocationAlarm.Button.ActionIcon">
@@ -123,6 +130,13 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:tint">@color/grey</item>
         <item name="android:layout_margin">@dimen/half_list_item_margin</item>
+    </style>
+
+    <style name="LocationAlarm.Button.MapZoom">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:tint">@color/white</item>
+        <item name="android:padding">@dimen/half_list_item_margin</item>
+        <item name="android:elevation">@dimen/fab_button_elevation</item>
     </style>
 
     <style name="LocationAlarm.Text" />

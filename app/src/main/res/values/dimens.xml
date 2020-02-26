@@ -11,6 +11,7 @@
     <dimen name="text_xs">8sp</dimen>       <!-- additional unimportant information -->
 
     <dimen name="button_elevation">2dp</dimen>
+    <dimen name="fab_button_elevation">6dp</dimen>
     <dimen name="card_view_elevation">8dp</dimen>
     <dimen name="button_text_size">14sp</dimen>
 
@@ -23,4 +24,6 @@
     <dimen name="card_view_margin">16dp</dimen>
     <dimen name="card_view_tittle_text_size">16dp</dimen>
     <dimen name="card_view_body_text_size">16dp</dimen>
+    <dimen name="zoom_button_size">50dp</dimen>
+    <dimen name="fab_button_radius">6dp</dimen>
 </resources>

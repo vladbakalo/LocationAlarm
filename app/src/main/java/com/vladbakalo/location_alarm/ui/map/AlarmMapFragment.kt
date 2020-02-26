@@ -16,13 +16,15 @@ import com.vladbakalo.location_alarm.application.base.BaseVMFragment
 import com.vladbakalo.location_alarm.common.helper.GoogleMapHelper
 import com.vladbakalo.location_alarm.common.utils.PermissionUtils
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
+import com.vladbakalo.location_alarm.databinding.FragmentAlarmMapBinding
 import javax.inject.Inject
 
 class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback,
-    GoogleMapHelper.MapActionListener {
+    GoogleMapHelper.MapActionListener, View.OnClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var binding: FragmentAlarmMapBinding
     private var mapHelper: GoogleMapHelper? = null
 
     override fun createViewModel(): AlarmMapViewModel {
@@ -38,12 +40,14 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback,
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_alarm_map, container, false)
+        binding = FragmentAlarmMapBinding.inflate(inflater, container, false)
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.alarmMapFrMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        return view
+        binding.clickListener = this
+
+        return binding.root
     }
 
     private fun observeData(){
@@ -79,6 +83,14 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         processLocationPermissionCheck()
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.alarmMapFabMyLocationButton -> mapHelper?.moveToCurrentLocation()
+            R.id.alarmMapIvZoomInButton -> mapHelper?.zoomIn()
+            R.id.alarmMapIvZoomOutButton -> mapHelper?.zoomOut()
+        }
     }
 
     /**
