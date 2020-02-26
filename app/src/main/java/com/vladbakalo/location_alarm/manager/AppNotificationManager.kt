@@ -62,10 +62,6 @@ class AppNotificationManager(val context: Context) {
                 .setShowWhen(false)
                 .setCategory(Notification.CATEGORY_SERVICE)
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
-            builder.priority = Notification.PRIORITY_HIGH
-        }
-
         return builder.build()
     }
 
@@ -81,30 +77,26 @@ class AppNotificationManager(val context: Context) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createLocationUpdatesServiceChannel(): NotificationChannel {
-        return createServiceChannel(
+        return createNotificationChannel(
             ENotificationChannel.LOCATION_UPDATES.channelId,
-            ENotificationChannel.LOCATION_UPDATES.channelName, false)
+            ENotificationChannel.LOCATION_UPDATES.channelName, NotificationManager.IMPORTANCE_LOW)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createAlarmNotifyChannel(): NotificationChannel {
-        return createServiceChannel(ENotificationChannel.ALARM_NOTIFY.channelId,
-            ENotificationChannel.ALARM_NOTIFY.channelName, true)
+        return createNotificationChannel(ENotificationChannel.ALARM_NOTIFY.channelId,
+            ENotificationChannel.ALARM_NOTIFY.channelName, NotificationManager.IMPORTANCE_HIGH)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createServiceChannel(channelId: String,
-                                     channelName: String,
-                                     isImportant: Boolean): NotificationChannel {
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val lockScreenVisibility =
-            if (isImportant) Notification.VISIBILITY_PUBLIC else Notification.VISIBILITY_PRIVATE
-
+    private fun createNotificationChannel(channelId: String,
+                                          channelName: String,
+                                          importance: Int): NotificationChannel {
         return NotificationChannel(channelId, channelName, importance).apply {
             enableLights(true)
             enableVibration(true)
             lightColor = Color.YELLOW
-            lockscreenVisibility = lockScreenVisibility
+            lockscreenVisibility = Notification.VISIBILITY_PUBLIC
         }
     }
 
