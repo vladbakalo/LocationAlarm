@@ -12,7 +12,7 @@ import dagger.android.support.DaggerFragment
 
 abstract class BaseFragment :DaggerFragment(), BackButtonListener {
 
-    public var isRootScreen: Boolean = false
+    var isRootScreen: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +58,6 @@ abstract class BaseFragment :DaggerFragment(), BackButtonListener {
     companion object {
         private const val TAG = "BaseFragment"
 
-        public const val KEY_IS_ROOT_SCREEN = "KEY_IS_ROOT_SCREEN"
+        const val KEY_IS_ROOT_SCREEN = "KEY_IS_ROOT_SCREEN"
     }
 }

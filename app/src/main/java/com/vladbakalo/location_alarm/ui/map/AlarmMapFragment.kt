@@ -1,6 +1,5 @@
 package com.vladbakalo.location_alarm.ui.map
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -121,7 +120,7 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback,
     }
 
     override fun onMapMarkerClick(alarm: LocationAlarm, latLng: LatLng) {
-        Toast.makeText(context, alarm.toString(), Toast.LENGTH_SHORT).show()
+        viewModel.onLocationAlarmMarkerClick(alarm)
     }
 
     override fun onMapLongClick(latLng: LatLng) {
@@ -139,7 +138,7 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback,
         }
     }
     companion object {
-        public const val TAG = "AlarmMapFragment"
+        const val TAG = "AlarmMapFragment"
 
         fun create(): AlarmMapFragment {
             return AlarmMapFragment()

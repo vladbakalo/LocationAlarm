@@ -31,6 +31,12 @@ class AlarmMapViewModel(val interactor: LocationAlarmInteractor,
     }
 
     fun onCreateLocationAlarmClick(latLng: LatLng){
+        firebaseAnalyticsManager.logCreateMap()
         router.navigateTo(Screens.LocationAlarmMapCreateScreen(latLng))
+    }
+
+    fun onLocationAlarmMarkerClick(alarm: LocationAlarm) {
+        firebaseAnalyticsManager.logEditMap(alarm)
+        router.navigateTo(Screens.LocationAlarmEditScreen(alarm.id))
     }
 }

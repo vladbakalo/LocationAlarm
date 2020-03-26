@@ -1,6 +1,5 @@
 package com.vladbakalo.location_alarm.ui.list
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,6 @@ import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.base.BaseVMFragment
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
 import com.vladbakalo.location_alarm.databinding.FragmentAlarmListBinding
-import com.vladbakalo.location_alarm.navigation.Screens
-import com.vladbakalo.location_alarm.navigation.common.NavigationRouterProvider
 import javax.inject.Inject
 
 class AlarmListFragment :BaseVMFragment<AlarmListViewModel>(),
@@ -29,6 +26,11 @@ class AlarmListFragment :BaseVMFragment<AlarmListViewModel>(),
     override fun createViewModel(): AlarmListViewModel {
         return ViewModelProvider(this, viewModelFactory)
             .get(AlarmListViewModel::class.java)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.setRouter(getNavigationRouter())
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -70,8 +72,7 @@ class AlarmListFragment :BaseVMFragment<AlarmListViewModel>(),
     }
 
     override fun onItemClick(item: LocationAlarm) {
-        (parentFragment as NavigationRouterProvider).getRouter()
-            .navigateTo(Screens.LocationAlarmEditScreen(item.id))
+        viewModel.onLocationAlarmClick(item)
     }
 
     override fun onLongItemClick(item: LocationAlarm) {
@@ -85,13 +86,8 @@ class AlarmListFragment :BaseVMFragment<AlarmListViewModel>(),
 
     override fun onClick(view: View?) {
         when(view?.id){
-            R.id.alarmListFabAddButton -> openCreateAlarmScreen()
+            R.id.alarmListFabAddButton -> viewModel.onAddAlarmClick()
         }
-    }
-
-    private fun openCreateAlarmScreen(){
-        (parentFragment as NavigationRouterProvider).getRouter()
-            .navigateTo(Screens.LocationAlarmCreateScreen)
     }
 
     companion object {
