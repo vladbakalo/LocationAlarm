@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vladbakalo.location_alarm.common.BackButtonListener
-import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.common.MyLogger
 import com.vladbakalo.location_alarm.common.utils.ActivityUtils
 import dagger.android.support.DaggerFragment
 
@@ -16,35 +16,35 @@ abstract class BaseFragment :DaggerFragment(), BackButtonListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Logger.dt(TAG, "onCreate : $this")
+        MyLogger.dt(TAG, "onCreate : $this")
         isRootScreen = arguments?.getBoolean(KEY_IS_ROOT_SCREEN) ?: false
     }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        Logger.dt(TAG, "onCreateView : $this")
+        MyLogger.dt(TAG, "onCreateView : $this")
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onStart() {
         super.onStart()
-        Logger.dt(TAG, "onStart : $this")
+        MyLogger.dt(TAG, "onStart : $this")
     }
 
     override fun onStop() {
         super.onStop()
-        Logger.dt(TAG, "onStop : $this")
+        MyLogger.dt(TAG, "onStop : $this")
     }
 
     override fun onDetach() {
         super.onDetach()
-        Logger.dt(TAG, "onDetach : $this")
+        MyLogger.dt(TAG, "onDetach : $this")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Logger.dt(TAG, "onDestroy : $this")
+        MyLogger.dt(TAG, "onDestroy : $this")
     }
 
     override fun onBackPressed(): Boolean {

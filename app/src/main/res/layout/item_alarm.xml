@@ -12,20 +12,19 @@
 
         <variable
             name="model"
-            type="com.vladbakalo.location_alarm.ui.common.AlarmData" />
+            type="com.vladbakalo.location_alarm.data.common.AlarmData" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/half_list_item_margin"
-        android:layout_marginEnd="@dimen/half_list_item_margin"
-        android:layout_marginStart="@dimen/half_list_item_margin">
+        android:layout_margin="@dimen/half_list_item_margin">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="4dp"
+            android:background="@drawable/bg_alarm_block"
             android:paddingTop="2dp">
 
             <com.vladbakalo.location_alarm.view.MainEditText

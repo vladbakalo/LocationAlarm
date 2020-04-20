@@ -1,14 +1,12 @@
 package com.vladbakalo.location_alarm.ui.common
 
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vladbakalo.location_alarm.common.extentions.getLayoutInflater
 import com.vladbakalo.location_alarm.common.helper.validator.TextValidator
 import com.vladbakalo.location_alarm.common.helper.validator.rules.text.DistanceRule
 import com.vladbakalo.location_alarm.common.helper.validator.rules.text.NotEmptyRule
+import com.vladbakalo.location_alarm.data.common.AlarmData
 import com.vladbakalo.location_alarm.databinding.ItemAlarmBinding
 
 class AlarmAdapter(val listener: OnAlarmActionListener): RecyclerView.Adapter<AlarmAdapter.ItemVH>() {

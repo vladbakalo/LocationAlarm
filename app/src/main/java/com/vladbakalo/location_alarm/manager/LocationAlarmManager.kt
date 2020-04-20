@@ -2,7 +2,7 @@ package com.vladbakalo.location_alarm.manager
 
 import android.location.Location
 import androidx.lifecycle.Observer
-import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.common.MyLogger
 import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
 import com.vladbakalo.location_alarm.data.repo.LocationAlarmRepository
 import io.reactivex.disposables.Disposable
@@ -27,7 +27,7 @@ class LocationAlarmManager(private val notificationManager: AppNotificationManag
     private var newLocationDisposable: Disposable? = null
 
     init {
-        Logger.dt(TAG, "LocationAlarmManager")
+        MyLogger.dt(TAG, "LocationAlarmManager")
     }
 
     fun start(){
@@ -45,7 +45,7 @@ class LocationAlarmManager(private val notificationManager: AppNotificationManag
     }
 
     fun onNewLocation(location: Location){
-        Logger.dt(TAG, "onNewLocation")
+        MyLogger.dt(TAG, "onNewLocation")
         newLocationSubject.onNext(location)
     }
 
@@ -53,26 +53,27 @@ class LocationAlarmManager(private val notificationManager: AppNotificationManag
         var distanceToAlarm: Float
         var isAlarmAlreadyNotified: Boolean
         for (item in activeLocationAlarmList){
-            Logger.dt(TAG, "checkLocationAlarmDistance : ${item.locationAlarm.id}")
+            MyLogger.dt(TAG, "checkLocationAlarmDistance : ${item.locationAlarm.id}")
             distanceToAlarm = item.locationAlarm.getLocation().distanceTo(location)
 
-            Logger.dt(TAG, "checkLocationAlarmDistance : distance : $distanceToAlarm")
+            MyLogger.dt(TAG, "checkLocationAlarmDistance : distance : $distanceToAlarm")
             for (alarm in item.alarms){
                 isAlarmAlreadyNotified = notifiedAlarmIds.contains(alarm.id)
-                Logger.dt(TAG, "checkLocationAlarmDistance : alarm : ${alarm.id} id")
-                Logger.dt(TAG, "checkLocationAlarmDistance : alarm : ${alarm.notifyDistanceMeters} meters")
+                MyLogger.dt(TAG, "checkLocationAlarmDistance : alarm : ${alarm.id} id")
+                MyLogger.dt(TAG,
+                    "checkLocationAlarmDistance : alarm : ${alarm.notifyDistanceMeters} meters")
 
                 if (alarm.notifyDistanceMeters >= distanceToAlarm && alarm.enabled) {
-                    Logger.dt(TAG, "checkLocationAlarmDistance : alarm in the distance!")
+                    MyLogger.dt(TAG, "checkLocationAlarmDistance : alarm in the distance!")
                     if (!isAlarmAlreadyNotified) {
-                        Logger.dt(TAG, "checkLocationAlarmDistance : alarm was not notified")
+                        MyLogger.dt(TAG, "checkLocationAlarmDistance : alarm was not notified")
                         notificationManager.sendAlarmNotification(item.locationAlarm, alarm)
                         notifiedAlarmIds.add(alarm.id)
                     }
-                    Logger.dt(TAG, "checkLocationAlarmDistance : alarm was notified")
+                    MyLogger.dt(TAG, "checkLocationAlarmDistance : alarm was notified")
                 } else {
                     if (isAlarmAlreadyNotified) {
-                        Logger.dt(TAG, "checkLocationAlarmDistance : remove notification")
+                        MyLogger.dt(TAG, "checkLocationAlarmDistance : remove notification")
                         notificationManager.removeAlarmNotification(item.locationAlarm)
                         notifiedAlarmIds.remove(alarm.id)
                     }

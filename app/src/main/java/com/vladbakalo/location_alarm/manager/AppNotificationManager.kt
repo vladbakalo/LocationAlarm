@@ -11,7 +11,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.common.MyLogger
 import com.vladbakalo.location_alarm.data.models.Alarm
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
 
@@ -21,7 +21,7 @@ class AppNotificationManager(val context: Context) {
     private val defaultSoundUri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
     init {
-        Logger.dt(TAG, "Init")
+        MyLogger.dt(TAG, "Init")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(createLocationUpdatesServiceChannel())
             notificationManager.createNotificationChannel(createAlarmNotifyChannel())

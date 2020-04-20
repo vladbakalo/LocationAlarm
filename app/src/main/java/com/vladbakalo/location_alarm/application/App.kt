@@ -26,9 +26,6 @@ class App :DaggerApplication() {
     }
 
     companion object{
-
-        public var context: Context? = null
-
-
+        var context: Context? = null
     }
 }

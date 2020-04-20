@@ -19,13 +19,13 @@
         android:theme="@style/AppTheme.Launcher">
 
         <activity
-            android:name=".ui.auth.auth.AuthActivity"
+            android:name="com.vladbakalo.location_alarm.ui.fragment.auth.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme"/>
 
         <activity
-            android:name=".ui.main.MainNavigationActivity"
+            android:name="com.vladbakalo.location_alarm.ui.activity.main.MainActivity"
             android:label="@string/app_name"
             android:configChanges="screenSize"
             android:windowSoftInputMode="adjustPan">

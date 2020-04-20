@@ -12,7 +12,7 @@
 
         <variable
             name="clickListener"
-            type="com.vladbakalo.location_alarm.ui.list.AlarmListAdapter.LocationAlarmItemClickListener" />
+            type="com.vladbakalo.location_alarm.ui.fragment.list.adapter.AlarmListAdapter.LocationAlarmItemClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView

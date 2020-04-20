@@ -4,10 +4,8 @@ import android.location.Geocoder
 import android.location.Location
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.App
-import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.common.MyLogger
 import io.reactivex.Single
-import java.lang.Exception
-import java.lang.StringBuilder
 import java.util.*
 
 
@@ -40,7 +38,7 @@ object LocationUtils {
                     builder.append(it).append(", ")
                 }
                 builder.setLength(builder.length - 2) //Remove coma in end
-                Logger.dt(TAG, "getLocationNameRx : ${address.getAddressLine(0)}")
+                MyLogger.dt(TAG, "getLocationNameRx : ${address.getAddressLine(0)}")
 
                 it.onSuccess(builder.toString())
             } catch (e: Throwable) {

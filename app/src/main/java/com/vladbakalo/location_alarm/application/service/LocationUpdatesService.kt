@@ -11,12 +11,11 @@ import android.os.Looper
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.*
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.common.MyLogger
 import com.vladbakalo.location_alarm.common.live_data.LastLocationLiveData
+import com.vladbakalo.location_alarm.common.utils.PermissionUtils
 import com.vladbakalo.location_alarm.manager.AppNotificationManager
 import com.vladbakalo.location_alarm.manager.LocationAlarmManager
-import com.vladbakalo.location_alarm.common.utils.NotificationUtils
-import com.vladbakalo.location_alarm.common.utils.PermissionUtils
 import dagger.android.DaggerService
 import javax.inject.Inject
 
@@ -38,7 +37,7 @@ class LocationUpdatesService :DaggerService() {
 
     override fun onCreate() {
         super.onCreate()
-        Logger.dt(TAG, "onCreate")
+        MyLogger.dt(TAG, "onCreate")
         isRunning = true
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -52,7 +51,7 @@ class LocationUpdatesService :DaggerService() {
 
             override fun onLocationAvailability(result: LocationAvailability?) {
                 super.onLocationAvailability(result)
-                Logger.dt(TAG, "onLocationAvailability : ${result?.isLocationAvailable}")
+                MyLogger.dt(TAG, "onLocationAvailability : ${result?.isLocationAvailable}")
             }
         }
 
@@ -61,13 +60,13 @@ class LocationUpdatesService :DaggerService() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Logger.dt(TAG, "onDestroy")
+        MyLogger.dt(TAG, "onDestroy")
         isRunning = false
         locationAlarmManager.stop()
     }
 
     override fun onBind(intent: Intent): IBinder? {
-        Logger.dt(TAG, "onBind")
+        MyLogger.dt(TAG, "onBind")
 //        stopForeground(true)
 
         isConfigurationChanging = false
@@ -75,7 +74,7 @@ class LocationUpdatesService :DaggerService() {
     }
 
     override fun onRebind(intent: Intent?) {
-        Logger.dt(TAG, "onRebind")
+        MyLogger.dt(TAG, "onRebind")
 //        stopForeground(true)
         isConfigurationChanging = false
 
@@ -83,12 +82,12 @@ class LocationUpdatesService :DaggerService() {
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
-        Logger.dt(TAG, "onUnbind")
+        MyLogger.dt(TAG, "onUnbind")
         return true
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Logger.dt(TAG, "onStartCommand")
+        MyLogger.dt(TAG, "onStartCommand")
 
         val isToggleServiceState =
             intent?.getBooleanExtra(EXTRA_STARTED_FROM_NOTIFICATION, false) ?: false
@@ -111,13 +110,13 @@ class LocationUpdatesService :DaggerService() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        Logger.dt(TAG, "onConfigurationChanged")
+        MyLogger.dt(TAG, "onConfigurationChanged")
         isConfigurationChanging = true
     }
 
     private fun onNewLocation(location: Location?) {
         if (location == null) {
-            Logger.dt(TAG, "onNewLocation : new location is null")
+            MyLogger.dt(TAG, "onNewLocation : new location is null")
             return
         }
         //Process new location
@@ -133,26 +132,26 @@ class LocationUpdatesService :DaggerService() {
         }
     }
 
-    public fun requestLocationUpdates() {
-        Logger.dt(TAG, "requestLocationUpdates")
+    fun requestLocationUpdates() {
+        MyLogger.dt(TAG, "requestLocationUpdates")
 
         isLocationUpdatesEnabled = true
         try {
             fusedLocationClient.requestLocationUpdates(createLocationRequest(), locationCallback,
                 Looper.myLooper())
         } catch (e: SecurityException) {
-            Logger.dt(TAG, "requestLocationUpdates error : ${e.message}")
+            MyLogger.dt(TAG, "requestLocationUpdates error : ${e.message}")
         }
         beginForegroundMode()
     }
 
     private fun removeLocationUpdates() {
-        Logger.dt(TAG, "removeLocationUpdates")
+        MyLogger.dt(TAG, "removeLocationUpdates")
         isLocationUpdatesEnabled = false
         try {
             fusedLocationClient.removeLocationUpdates(locationCallback)
         } catch (e: SecurityException) {
-            Logger.dt(TAG, "removeLocationUpdates error : ${e.message}")
+            MyLogger.dt(TAG, "removeLocationUpdates error : ${e.message}")
         }
     }
 
@@ -177,7 +176,7 @@ class LocationUpdatesService :DaggerService() {
     }
 
     private fun beginForegroundMode() {
-        Logger.dt(TAG, "requestLocationUpdates")
+        MyLogger.dt(TAG, "requestLocationUpdates")
         startForeground(NOTIFICATION_ID,
             notificationManager.getLocationUpdatesServiceNotification(getNotificationTittle(), getPendingAction()))
     }

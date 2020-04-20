@@ -9,7 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.common.MyLogger
 import com.vladbakalo.location_alarm.common.extentions.toLatLng
 import com.vladbakalo.location_alarm.data.models.Alarm
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
@@ -234,7 +234,7 @@ class GoogleMapHelper(val context: Context,
     }
 
     private fun logDebug(method: String, message: String){
-        Logger.dt(TAG, "$method : $message")
+        MyLogger.dt(TAG, "$method : $message")
     }
 
     companion object{

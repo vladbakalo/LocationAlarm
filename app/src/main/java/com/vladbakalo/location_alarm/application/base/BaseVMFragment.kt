@@ -13,13 +13,13 @@ abstract class BaseVMFragment<T :BaseViewModel> :BaseFragment() {
 
     private var baseViewModel: T? = null
 
-    public val viewModel: T by lazy { baseViewModel!! }
+    val viewModel: T by lazy { baseViewModel!! }
 
-    abstract fun createViewModel(): T
+    abstract fun provideViewModel(): T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        baseViewModel = if (baseViewModel == null) createViewModel() else baseViewModel
+        baseViewModel = if (baseViewModel == null) provideViewModel() else baseViewModel
 
         setObservers()
     }

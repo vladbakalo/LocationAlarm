@@ -6,24 +6,24 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.ActivityCompat
-import com.vladbakalo.location_alarm.common.Logger
+import com.vladbakalo.location_alarm.common.MyLogger
 
 object PermissionUtils {
     private const val TAG = "PermissionUtils"
-    public const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1001
+    const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1001
 
 
     fun requestLocationPermission(activity: Activity): Boolean{
-        Logger.dt(TAG, "requestLocationPermission")
+        MyLogger.dt(TAG, "requestLocationPermission")
         val permissionAccessFineLocationApproved = ActivityCompat.checkSelfPermission(activity,
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
-        Logger.dt(TAG, "requestLocationPermission :" +
+        MyLogger.dt(TAG, "requestLocationPermission :" +
                 " ACCESS_FINE_LOCATION : $permissionAccessFineLocationApproved")
         if (permissionAccessFineLocationApproved){
             val permissionAccessBackgroundLocationApproved = isBackgroundLocationGranted(activity)
 
-            Logger.dt(TAG, "requestLocationPermission :" +
+            MyLogger.dt(TAG, "requestLocationPermission :" +
                     " ACCESS_BACKGROUND_LOCATION : $permissionAccessBackgroundLocationApproved")
             if (permissionAccessBackgroundLocationApproved){
                 return true
@@ -34,7 +34,7 @@ object PermissionUtils {
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
             }
         } else {
-            Logger.dt(TAG, "requestLocationPermission : request All permissions")
+            MyLogger.dt(TAG, "requestLocationPermission : request All permissions")
             ActivityCompat.requestPermissions(activity, arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION

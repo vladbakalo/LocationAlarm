@@ -20,8 +20,8 @@
     <string name="password_re">Re-Password</string>
     <string name="name">Name</string>
     <string name="forgot_password_question">Forgot password?</string>
-    <string name="alarm_deletion_question">Delete Location Alarm?</string>
-    <string name="alarm_creation_question">Do you want to create Location Alarm?</string>
+    <string name="alarm_deletion_question">Delete Location-Alarm?</string>
+    <string name="alarm_creation_question">Do you want to create Location-Alarm here?</string>
     <string name="map">Map</string>
     <string name="list">List</string>
     <string name="settings">Settings</string>
