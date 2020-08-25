@@ -5,7 +5,6 @@ import com.crashlytics.android.Crashlytics
 import com.vladbakalo.location_alarm.di.component.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
-import io.fabric.sdk.android.Fabric
 
 class App :DaggerApplication() {
 
@@ -13,11 +12,6 @@ class App :DaggerApplication() {
         super.onCreate()
 
         context = applicationContext
-        initFabric()
-    }
-
-    private fun initFabric() {
-        Fabric.with(this, Crashlytics())
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

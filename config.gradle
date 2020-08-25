@@ -1,0 +1,44 @@
+
+ext {
+    APP_NAME = "Location Alarm"
+    APPLICATION_ID = "com.vladbakalo.location_alarm"
+}
+
+ext {
+    versionMajor = 1
+    versionMinor = 0
+    versionPatch = 0
+    versionBuild = 1
+
+    computedVersionCode = this.&computeVersionCode
+    computedVersionName = this.&computeVersionName
+    computeBuildVersionName = this.&computeBuildVersionName
+    generatedName = this.&generateName
+}
+
+def computeVersionCode() {
+    return versionBuild
+}
+
+def computeVersionName() {
+    return "${versionMajor}.${versionMinor}.${versionPatch}"
+}
+
+def computeBuildVersionName() {
+    return "${versionMajor}.${versionMinor}.${versionPatch} (${versionBuild})"
+}
+
+def generateName(appVariants) {
+    appVariants.all { variant ->
+        variant.outputs.all {
+            def appName = APP_NAME
+            if (variant.buildType.name == "release") {
+                appName += "+v.${variant.versionName}"
+            } else {
+                appName += "_${computeBuildVersionName}_[${variant.buildType.name}]"
+            }
+            appName += ".apk"
+            outputFileName = appName
+        }
+    }
+}

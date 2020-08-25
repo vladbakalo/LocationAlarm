@@ -42,7 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_alarm_block"
             android:padding="@dimen/list_item_margin"
             android:visibility="@{isShowEmptyState ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"

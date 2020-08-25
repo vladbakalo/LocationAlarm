@@ -126,7 +126,7 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback,
     }
 
     override fun onMapLongClick(latLng: LatLng) {
-        MaterialAlertDialogBuilder(context)
+        MaterialAlertDialogBuilder(requireContext())
             .setMessage(R.string.alarm_creation_question)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.create){
