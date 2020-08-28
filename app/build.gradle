@@ -86,10 +86,10 @@ dependencies {
 
     //Firebase-Secondary
     implementation      libraries.firebase_auth_ui
-    implementation      libraries.facebook
-//    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation      libraries.firebase_crashlytics
     implementation      libraries.firebase_analytics
     implementation      libraries.firebase_perf
+    implementation      libraries.facebook
 
     //Maps
     implementation      libraries.google_maps

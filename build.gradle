@@ -1,6 +1,5 @@
 
 buildscript {
-    ext.kotlin_version = '1.4.0'
     apply from: 'dependencies.gradle'
     repositories {
         google()
@@ -12,9 +11,8 @@ buildscript {
         classpath gradlePlugins.kotlin_gradle
         classpath gradlePlugins.google_services
 
-        classpath gradlePlugins.crashlytics
-        classpath gradlePlugins.firebase
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath gradlePlugins.crashlytics_gradle
+        classpath gradlePlugins.firebase_gradle
     }
 }
 

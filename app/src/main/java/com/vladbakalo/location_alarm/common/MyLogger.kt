@@ -1,7 +1,7 @@
 package com.vladbakalo.location_alarm.common
 
 import android.util.Log
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 object MyLogger {
 
@@ -11,6 +11,7 @@ object MyLogger {
 
     fun logException(tag: String, e: Throwable) {
         Log.w(tag, e)
-        Crashlytics.logException(e)
+        FirebaseCrashlytics.getInstance()
+            .recordException(e)
     }
 }
