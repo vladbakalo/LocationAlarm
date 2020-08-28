@@ -1,9 +1,11 @@
 package com.vladbakalo.location_alarm.di.module
 
 import android.content.Context
-import com.vladbakalo.location_alarm.common.manager.AppNotificationManager
-import com.vladbakalo.location_alarm.common.manager.LocationAlarmManager
-import com.vladbakalo.location_alarm.common.manager.PreferenceManager
+import com.vladbakalo.location_alarm.data.repo.LocationAlarmRepository
+import com.vladbakalo.location_alarm.manager.AppNotificationManager
+import com.vladbakalo.location_alarm.manager.FirebaseAnalyticsManager
+import com.vladbakalo.location_alarm.manager.LocationAlarmManager
+import com.vladbakalo.location_alarm.manager.PreferenceManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -18,11 +20,17 @@ class ManagerModule {
 
     @Singleton
     @Provides
-    fun provideLocationManager(notificationManager: AppNotificationManager): LocationAlarmManager
-            = LocationAlarmManager(notificationManager)
+    fun provideLocationManager(notificationManager: AppNotificationManager,
+                               locationAlarmRepo: LocationAlarmRepository): LocationAlarmManager
+            = LocationAlarmManager(notificationManager, locationAlarmRepo)
 
     @Singleton
     @Provides
     fun provideSharedPreference(context: Context): PreferenceManager
             = PreferenceManager(context)
+
+    @Singleton
+    @Provides
+    fun provideFirebaseAnalyticsManager(context: Context): FirebaseAnalyticsManager =
+        FirebaseAnalyticsManager(context)
 }

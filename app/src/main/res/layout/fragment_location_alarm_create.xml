@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="isAlarmListEmpty"
+            type="Boolean" />
+        <variable
+            name="viewModel"
+            type="com.vladbakalo.location_alarm.ui.fragment.alarm_create.LocationAlarmCreateViewModel" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/locationAlarmCreateRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.alarm_create.LocationAlarmCreateFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/list_item_margin">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/locationAlarmCreateClBlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.vladbakalo.location_alarm.view.MainEditText
+                    android:id="@+id/locationAlarmCreateEtNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/half_list_item_margin"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:mainEditTextHint="@string/name"
+                    app:mainEditTextType="name"
+                    app:mainEditTextValue="@={viewModel.name}" />
+
+                <com.vladbakalo.location_alarm.view.MainEditText
+                    android:id="@+id/locationAlarmCreateEtAddressText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/locationAlarmCreateEtNameText"
+                    app:mainEditTextHint="@string/address"
+                    app:mainEditTextType="address"
+                    app:mainEditTextValue="@={viewModel.address}" />
+
+                <LinearLayout
+                    android:id="@+id/locationAlarmCreateLlCoordBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/locationAlarmCreateEtAddressText">
+
+                    <com.vladbakalo.location_alarm.view.MainEditText
+                        android:id="@+id/locationAlarmCreateEtLatitudeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/half_list_item_margin"
+                        android:layout_weight="1"
+                        app:mainEditTextHelper="@string/valid_latitude_example"
+                        app:mainEditTextHint="@string/latitude"
+                        app:mainEditTextType="latitude"
+                        app:mainEditTextValue="@={viewModel.latitude}" />
+
+                    <com.vladbakalo.location_alarm.view.MainEditText
+                        android:id="@+id/locationAlarmCreateEtLongitudeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/half_list_item_margin"
+                        android:layout_weight="1"
+                        app:mainEditTextHelper="@string/valid_longitude_example"
+                        app:mainEditTextHint="@string/longitude"
+                        app:mainEditTextType="longitude"
+                        app:mainEditTextValue="@={viewModel.longitude}" />
+                </LinearLayout>
+
+                <com.vladbakalo.location_alarm.view.MainEditText
+                    android:id="@+id/locationAlarmCreateEtNoteText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/locationAlarmCreateLlCoordBlock"
+                    app:mainEditTextHint="@string/note"
+                    app:mainEditTextType="name"
+                    app:mainEditTextValue="@={viewModel.note}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/locationAlarmCreateLlAlarmsBlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_list_item_margin"
+                    android:includeFontPadding="false"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/alarms"
+                    style="@style/LocationAlarm.TextInputLayoutTittle" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_alarm_block">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/no_alarms"
+                        android:layout_margin="@dimen/list_item_margin_large"
+                        android:visibility="@{isAlarmListEmpty ? View.VISIBLE : View.GONE}"
+                        style="@style/LocationAlarm.Text.EmptyText" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/locationAlarmCreateRvAlarmList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp"
+                        android:overScrollMode="never"
+                        android:visibility="@{isAlarmListEmpty ? View.GONE : View.VISIBLE}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_alarm" />
+                </FrameLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/locationAlarmCreateBtnAddAlarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/list_item_margin"
+                    android:paddingEnd="@dimen/half_list_item_margin"
+                    android:paddingStart="@dimen/half_list_item_margin"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_add_black_24dp"
+                    android:drawableTint="@color/white"
+                    android:includeFontPadding="false"
+                    android:onClick="@{clickListener::onClick}"
+                    android:text="@string/add_alarm"
+                    style="@style/LocationAlarm.Login.LoginButton" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

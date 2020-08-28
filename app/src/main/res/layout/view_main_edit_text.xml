@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:errorEnabled="true"
+        app:helperTextEnabled="true"
         style="@style/LocationAlarm.TextInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText

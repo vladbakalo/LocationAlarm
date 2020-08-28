@@ -9,6 +9,7 @@
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 
     <!--Login-->
     <string name="login">Log In</string>
@@ -19,6 +20,8 @@
     <string name="password_re">Re-Password</string>
     <string name="name">Name</string>
     <string name="forgot_password_question">Forgot password?</string>
+    <string name="alarm_deletion_question">Delete Location-Alarm?</string>
+    <string name="alarm_creation_question">Do you want to create Location-Alarm here?</string>
     <string name="map">Map</string>
     <string name="list">List</string>
     <string name="settings">Settings</string>
@@ -28,9 +31,14 @@
     <string name="disable">Disable</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
+    <string name="remove">Remove</string>
+    <string name="delete">Delete</string>
+    <string name="create">Create</string>
     <string name="alarm_list_empty">Alarm list is empty</string>
     <string name="no_alarms">No Alarms</string>
     <string name="add_alarm">Add Alarm</string>
+    <string name="meters">Meters</string>
+    <string name="set_meters">Set value in meters</string>
     <string name="text">Text</string>
     <string name="address">Address</string>
     <string name="latitude">Latitude</string>
@@ -38,6 +46,8 @@
     <string name="note">Note</string>
     <string name="alarms">Alarms</string>
     <string name="alarm_distance">Alarm Distance</string>
+    <string name="distance">Distance</string>
+    <string name="map_settings">Map Settings</string>
 
     <string name="create_alarm">Create Alarm</string>
 
@@ -47,4 +57,17 @@
 
     <string name="permission_denied_explanation">App won\'t work without location in background</string>
     <string name="permission_rationale">Location permission is needed for app functionality</string>
+
+    <string name="location_alarm_name_already_exists">Location-Alarm with this name already exists</string>
+    <string name="failed_get_address">Failed to get address of location</string>
+    <string name="field_empty">Field is empty</string>
+    <string name="value_not_valid">Value not valid</string>
+    <string name="add_at_list_one_alarm">Please, add at list 1 alarm</string>
+    <string name="must_contains_more_d">Must contains more than %d symbols</string>
+    <string name="min_distance_d">Min distance is %d meters</string>
+    <string name="max_distance_d">Max distance is %d meters</string>
+    <string name="valid_latitude_example">Example 90.0000</string>
+    <string name="valid_longitude_example">Example 180.0000</string>
+
+    <string name="alarm_notification_tittle_distance">\"%s\" location in %d meters from you</string>
 </resources>

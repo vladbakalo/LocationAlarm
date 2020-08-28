@@ -32,13 +32,17 @@
         <item name="primaryTextColor">@color/dark</item>
     </style>
 
-    <style name="AppThemeDark" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="AppThemeDark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="primaryTextColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
     <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -53,12 +57,24 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="LocationAlarm.ToolBar" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+    <style name="LocationAlarm.AppBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+
+    </style>
+
+    <style name="LocationAlarm.ToolBar" parent="Widget.AppCompat.PopupMenu.Overflow">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
-        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textAppearance">@style/LocationAlarm.ToolBarText</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:popupElevation">10dp</item>
+        <item name="android:windowElevation">10dp</item>
+<!--        <item name="android:popupBackground">@android:drawable/list_selector_background</item>-->
+<!--        <item name="android:actionModeBackground">@drawable/bg_login_button_pressed</item>-->
+    </style>
+
+    <style name="LocationAlarm.ToolBarPopup" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="android:popupBackground">@color/mainColorB</item>
     </style>
 
     <style name="LocationAlarm.ToolBarText">
@@ -93,11 +109,34 @@
         <item name="android:textSize">@dimen/text_l</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="LocationAlarm.Button.ExtendedFab" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="LocationAlarm.Button.Fab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="tint">@color/white</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="LocationAlarm.Button.ActionIcon">
+        <item name="android:height">@dimen/card_image_size</item>
+        <item name="android:width">@dimen/card_image_size</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:tint">@color/grey</item>
+        <item name="android:layout_margin">@dimen/half_list_item_margin</item>
+    </style>
+
+    <style name="LocationAlarm.Button.MapZoom">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:tint">@color/white</item>
+        <item name="android:padding">@dimen/half_list_item_margin</item>
+        <item name="android:elevation">@dimen/fab_button_elevation</item>
     </style>
 
     <style name="LocationAlarm.Text" />

@@ -7,12 +7,13 @@
 
     <declare-styleable name="MainEditText">
         <attr name="mainEditTextHint" format="string" />
+        <attr name="mainEditTextHelper" format="string" />
         <attr name="mainEditTextType" format="enum">
-            <enum name="name" value="1"/>
-            <enum name="address" value="2"/>
-            <enum name="latitude" value="3"/>
-            <enum name="longitude" value="4"/>
-            <enum name="distance" value="5"/>
+            <enum name="name" value="0"/>
+            <enum name="address" value="1"/>
+            <enum name="latitude" value="2"/>
+            <enum name="longitude" value="3"/>
+            <enum name="distance" value="4"/>
         </attr>
     </declare-styleable>
 
