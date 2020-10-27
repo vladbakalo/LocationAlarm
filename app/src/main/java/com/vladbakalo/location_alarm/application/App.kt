@@ -1,7 +1,6 @@
 package com.vladbakalo.location_alarm.application
 
 import android.content.Context
-import com.crashlytics.android.Crashlytics
 import com.vladbakalo.location_alarm.di.component.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication

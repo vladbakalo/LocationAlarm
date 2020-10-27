@@ -21,6 +21,7 @@ abstract class BaseVMFragment<T :BaseViewModel> :BaseFragment() {
         super.onCreate(savedInstanceState)
         baseViewModel = if (baseViewModel == null) provideViewModel() else baseViewModel
 
+        viewModel.setNavigationRouter(getNavigationRouter())
         setObservers()
     }
 

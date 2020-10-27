@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="actionListener"
+            type="com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.adapter.DistanceAlarmAdapter.OnAlarmActionListener" />
+
+        <variable
+            name="model"
+            type="com.vladbakalo.location_alarm.data.common.AlarmData" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/half_list_item_margin">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:background="@drawable/bg_alarm_block"
+            android:paddingTop="2dp">
+
+            <com.vladbakalo.location_alarm.view.MainEditText
+                android:id="@+id/itemAlarmEtDistanceText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/card_view_margin"
+                android:layout_marginStart="@dimen/half_list_item_margin"
+                app:layout_constraintEnd_toStartOf="@+id/itemAlarmLlActionBlock"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mainEditTextHelper="@string/set_meters"
+                app:mainEditTextHint="@string/distance"
+                app:mainEditTextType="distance"
+                app:mainEditTextValue="@={model.distance}" />
+
+            <LinearLayout
+                android:id="@+id/itemAlarmLlActionBlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/half_list_item_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/itemAlarmEtDistanceText">
+
+                <Switch
+                    android:id="@+id/itemAlarmSwitchEnable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_list_item_margin"
+                    android:layout_gravity="center"
+                    android:checked="@={model.enabled}"
+                    tools:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/itemAlarmIvRemoveButton"
+                    android:layout_width="@dimen/action_image_size"
+                    android:layout_height="@dimen/action_image_size"
+                    android:layout_marginStart="@dimen/list_item_margin"
+                    android:padding="4dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/remove"
+                    android:onClick="@{(view) -> actionListener.onRemoveClick(model)}"
+                    app:srcCompat="@drawable/ic_close_black"
+                    style="@style/LocationAlarm.Button.ActionIcon" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

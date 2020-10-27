@@ -29,11 +29,6 @@ class AlarmListFragment :BaseVMFragment<AlarmListViewModel>(),
         return injectViewModel(viewModelFactory)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.setRouter(getNavigationRouter())
-    }
-
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

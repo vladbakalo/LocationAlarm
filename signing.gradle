@@ -1,0 +1,6 @@
+gradle.properties
+
+ext {
+    KEY_ALIAS = "key0"
+    STORE_FILE = file('location_alarm_keystore')
+}

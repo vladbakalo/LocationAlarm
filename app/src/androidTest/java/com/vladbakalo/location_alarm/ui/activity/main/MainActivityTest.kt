@@ -19,7 +19,7 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.AndroidJUnit4
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.ui.common.AlarmAdapter
+import com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.adapter.DistanceAlarmAdapter
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -98,8 +98,8 @@ class MainActivityTest {
         onView(withId(R.id.locationAlarmCreateBtnAddAlarm)).perform(click())
 
         Thread.sleep(500)
-        onView(withId(R.id.locationAlarmCreateRvAlarmList))
-            .perform(RecyclerViewActions.actionOnItemAtPosition<AlarmAdapter.ItemVH>(0, click()))
+        onView(withId(R.id.locationAlarmCreateRvAlarmList)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<DistanceAlarmAdapter.ItemVH>(0, click()))
 
         var alarmDistance = onView(allOf(withId(R.id.mainEditTextTilText),
             childAtPosition(childAtPosition(childAtPosition(withId(R.id.itemAlarmEtDistanceText), 0), 0), 0),

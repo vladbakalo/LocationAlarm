@@ -32,12 +32,10 @@ def generateName(appVariants) {
     appVariants.all { variant ->
         variant.outputs.all {
             def appName = APP_NAME
-            if (variant.buildType.name == "release") {
-                appName += "+v.${variant.versionName}"
-            } else {
-                appName += "_${computeBuildVersionName}_[${variant.buildType.name}]"
-            }
+            appName += "_${computeBuildVersionName}_[${variant.buildType.name}]"
             appName += ".apk"
+
+
             outputFileName = appName
         }
     }

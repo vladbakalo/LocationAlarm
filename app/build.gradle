@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -8,6 +9,11 @@ apply plugin: 'kotlin-kapt'
 
 apply from: '../config.gradle'
 apply from: '../dependencies.gradle'
+apply from: '../signing.gradle'
+
+repositories {
+    mavenCentral()
+}
 
 kapt {
     correctErrorTypes = true
@@ -15,7 +21,14 @@ kapt {
 }
 
 android {
+    signingConfigs {
+        config {
+            keyAlias KEY_ALIAS
+            storeFile STORE_FILE
+        }
+    }
     compileSdkVersion sdk_versions.compileSdk
+
     defaultConfig {
         applicationId APPLICATION_ID
         minSdkVersion sdk_versions.minSdk
@@ -51,10 +64,19 @@ android {
     buildFeatures {
         dataBinding = true
     }
+//    lintOptions {
+//        checkReleaseBuilds false
+//        // Or, if you prefer, you can continue to check for errors in release builds,
+//        // but continue the build even when errors are found:
+//        abortOnError false
+//    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation platform(libraries_platform.firebase_bom)
+
+
     implementation      libraries.androidx_appcompat
     implementation      libraries.androidx_legacy_support
     implementation      libraries.androidx_core
@@ -89,7 +111,6 @@ dependencies {
     implementation      libraries.firebase_crashlytics
     implementation      libraries.firebase_analytics
     implementation      libraries.firebase_perf
-    implementation      libraries.facebook
 
     //Maps
     implementation      libraries.google_maps
@@ -126,9 +147,4 @@ dependencies {
     androidTestImplementation libraries.androidx_test_espresso
     androidTestImplementation libraries.android_test_espresso
     androidTestImplementation libraries.androidx_test_ext
-}
-
-apply plugin: 'com.google.gms.google-services'
-repositories {
-    mavenCentral()
 }

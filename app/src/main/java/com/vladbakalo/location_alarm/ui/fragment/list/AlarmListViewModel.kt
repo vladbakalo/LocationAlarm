@@ -7,18 +7,11 @@ import com.vladbakalo.location_alarm.interactor.LocationAlarmInteractor
 import com.vladbakalo.location_alarm.navigation.Screens
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class AlarmListViewModel @Inject constructor(private val interactor: LocationAlarmInteractor) :
     BaseViewModel() {
     val locationAlarmList: LiveData<List<LocationAlarm>> = interactor.getAllLocationAlarms()
-
-    private lateinit var router: Router
-
-    fun setRouter(router: Router) {
-        this.router = router
-    }
 
     fun onLocationAlarmClick(item: LocationAlarm) {
         firebaseAnalyticsManager.logEditList(item)
@@ -26,6 +19,7 @@ class AlarmListViewModel @Inject constructor(private val interactor: LocationAla
     }
 
     fun onAddAlarmClick() {
+        throw RuntimeException("Test")
         firebaseAnalyticsManager.logCreateList()
         router.navigateTo(Screens.LocationAlarmCreateScreen)
     }

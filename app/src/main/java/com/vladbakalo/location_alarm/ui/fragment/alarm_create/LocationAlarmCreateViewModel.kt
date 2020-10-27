@@ -11,91 +11,93 @@ import com.vladbakalo.location_alarm.data.models.LocationAlarm
 import com.vladbakalo.location_alarm.interactor.LocationAlarmInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class LocationAlarmCreateViewModel @Inject constructor(private val interactor: LocationAlarmInteractor) :
     BaseViewModel() {
-    var name: MutableLiveData<String> = MutableLiveData("")
-    var address: MutableLiveData<String> = MutableLiveData("")
-    var latitude: MutableLiveData<String> = MutableLiveData("")
-    var longitude: MutableLiveData<String> = MutableLiveData("")
-    var note: MutableLiveData<String> = MutableLiveData("")
-    var alarms: MutableLiveData<MutableList<AlarmData>> = MutableLiveData()
-    var enabled: MutableLiveData<Boolean> = MutableLiveData()
+    var nameLiveData: MutableLiveData<String> = MutableLiveData("")
+    var addressLiveData: MutableLiveData<String> = MutableLiveData("")
+    var latitudeLiveData: MutableLiveData<String> = MutableLiveData("")
+    var longitudeLiveData: MutableLiveData<String> = MutableLiveData("")
+    var noteLiveData: MutableLiveData<String> = MutableLiveData("")
+    var distanceAlarmListLiveData: MutableLiveData<MutableList<AlarmData>> = MutableLiveData()
+    var enableLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     private var locationAlarmId: Long = 0
-    private lateinit var router: Router
 
     fun setLocationAlarmId(id: Long) {
         locationAlarmId = id
 
-        addDisposable(interactor.getLocationAlarmWithAlarms(locationAlarmId).subscribeOn(
-            Schedulers.io()).subscribe({ result ->
-            with(result.locationAlarm) {
-                this@LocationAlarmCreateViewModel.name.postValue(name)
-                this@LocationAlarmCreateViewModel.address.postValue(address)
-                this@LocationAlarmCreateViewModel.latitude.postValue(getLatitudeStr())
-                this@LocationAlarmCreateViewModel.longitude.postValue(getLongitudeStr())
-                this@LocationAlarmCreateViewModel.note.postValue(note)
-                this@LocationAlarmCreateViewModel.enabled.postValue(enabled)
-            }
+        addDisposable(interactor.getLocationAlarmWithAlarms(locationAlarmId)
+            .subscribeOn(Schedulers.io())
+            .subscribe({ result ->
+                with(result.locationAlarm) {
+                    this@LocationAlarmCreateViewModel.nameLiveData.postValue(name)
+                    this@LocationAlarmCreateViewModel.addressLiveData.postValue(address)
+                    this@LocationAlarmCreateViewModel.latitudeLiveData.postValue(getLatitudeStr())
+                    this@LocationAlarmCreateViewModel.longitudeLiveData.postValue(getLongitudeStr())
+                    this@LocationAlarmCreateViewModel.noteLiveData.postValue(note)
+                    this@LocationAlarmCreateViewModel.enableLiveData.postValue(enabled)
+                }
 
-            alarms.postValue(result.alarms.map {
-                AlarmData(it)
-            }.toMutableList())
-        }, { e -> onBaseError(e, TAG) }))
+                distanceAlarmListLiveData.postValue(result.alarms.map {
+                    AlarmData(it)
+                }
+                    .toMutableList())
+            }, { e -> onBaseError(e, TAG) }))
     }
 
     fun setMapPosition(latitude: Double, longitude: Double) {
-        this.latitude.postValue(String.format("%.4f", latitude))
-        this.longitude.postValue(String.format("%.4f", longitude))
+        this.latitudeLiveData.postValue(String.format("%.4f", latitude))
+        this.longitudeLiveData.postValue(String.format("%.4f", longitude))
 
-        addDisposable(LocationUtils.getLocationNameRx(latitude, longitude).subscribeOn(
-            Schedulers.io()).subscribe({ result ->
-            address.postValue(result)
-        }, { e -> onBaseError(e, TAG) }))
-    }
-
-    fun setRouter(router: Router) {
-        this.router = router
+        addDisposable(LocationUtils.getLocationNameRx(latitude, longitude)
+            .subscribeOn(Schedulers.io())
+            .subscribe({ result ->
+                addressLiveData.postValue(result)
+            }, { e -> onBaseError(e, TAG) }))
     }
 
     fun onAddAlarmClick() {
-        val list = alarms.value ?: ArrayList()
+        val list = distanceAlarmListLiveData.value ?: ArrayList()
         list.add(AlarmData())
 
-        alarms.value = list
+        distanceAlarmListLiveData.value = list
     }
 
     fun onRemoveAlarmClick(alarmData: AlarmData) {
-        val alarmList = alarms.value
+        val alarmList = distanceAlarmListLiveData.value
         alarmList?.remove(alarmData)
 
-        alarms.notify()
+        distanceAlarmListLiveData.notify()
     }
 
     fun onSaveClick() {
-        if (alarms.value?.isEmpty() != false) {
+        if (distanceAlarmListLiveData.value?.isEmpty() != false) {
             errorStateLiveData.postValue(ErrorState(R.string.add_at_list_one_alarm))
             return
         }
 
-        val locationAlarm = LocationAlarm(locationAlarmId, name.value!!, address.value!!,
-            latitude.value!!.toDouble(), longitude.value!!.toDouble(), note.value!!,
-            enabled.value ?: true)
-        val alarmList = alarms.value!!.map { it.toAlarmModel() }
+        val locationAlarm =
+            LocationAlarm(locationAlarmId, nameLiveData.value!!, addressLiveData.value!!,
+                latitudeLiveData.value!!.toDouble(), longitudeLiveData.value!!.toDouble(),
+                noteLiveData.value!!, enableLiveData.value ?: true)
+        val alarmList = distanceAlarmListLiveData.value!!.map { it.toAlarmModel() }
 
-        addDisposable(interactor.createOrUpdateLocationAlarm(locationAlarm, alarmList).subscribeOn(
-            Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe {
-            loadingStateLiveData.postValue(true)
-        }.doOnTerminate {
-            loadingStateLiveData.postValue(false)
-        }.subscribe({
-            router.exit()
-        }, { e ->
-            onBaseError(e, TAG)
-        }))
+        addDisposable(interactor.createOrUpdateLocationAlarm(locationAlarm, alarmList)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                loadingStateLiveData.postValue(true)
+            }
+            .doOnTerminate {
+                loadingStateLiveData.postValue(false)
+            }
+            .subscribe({
+                router.exit()
+            }, { e ->
+                onBaseError(e, TAG)
+            }))
     }
 
     override fun onBackButtonClick(): Boolean {

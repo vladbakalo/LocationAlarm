@@ -35,7 +35,6 @@ class AlarmMapFragment :BaseVMFragment<AlarmMapViewModel>(), OnMapReadyCallback,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel.setRouter(getNavigationRouter())
     }
 
     override fun onCreateView(inflater: LayoutInflater,

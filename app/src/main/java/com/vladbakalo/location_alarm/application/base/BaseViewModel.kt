@@ -8,11 +8,14 @@ import com.vladbakalo.location_alarm.data.ErrorState
 import com.vladbakalo.location_alarm.manager.FirebaseAnalyticsManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 abstract class BaseViewModel :ViewModel() {
     @Inject
     lateinit var firebaseAnalyticsManager: FirebaseAnalyticsManager
+
+    lateinit var router: Router
 
     val loadingStateLiveData = MutableLiveData<Boolean>()
     val infoMessageLiveData = MutableLiveData<String>()
@@ -20,15 +23,15 @@ abstract class BaseViewModel :ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    init {
-
+    fun setNavigationRouter(router: Router) {
+        this.router = router
     }
 
-    open fun onBackButtonClick(): Boolean{
+    open fun onBackButtonClick(): Boolean {
         return false
     }
 
-    fun onBaseError(error: Throwable, tag: String){
+    fun onBaseError(error: Throwable, tag: String) {
         MyLogger.logException(tag, error)
         error.message?.let {
             errorStateLiveData.postValue(ErrorState(it))
