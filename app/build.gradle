@@ -25,6 +25,8 @@ android {
         config {
             keyAlias KEY_ALIAS
             storeFile STORE_FILE
+            storePassword 'Vladik_Bakalo1998'
+            keyPassword 'Vladik_Bakalo1998'
         }
     }
     compileSdkVersion sdk_versions.compileSdk
@@ -38,6 +40,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
+        signingConfig signingConfigs.config
     }
     buildTypes {
         all {
@@ -64,6 +67,7 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    buildToolsVersion sdk_versions.build_tools
 //    lintOptions {
 //        checkReleaseBuilds false
 //        // Or, if you prefer, you can continue to check for errors in release builds,
@@ -80,6 +84,8 @@ dependencies {
     implementation      libraries.androidx_appcompat
     implementation      libraries.androidx_legacy_support
     implementation      libraries.androidx_core
+    implementation      libraries.androidx_activity
+    implementation      libraries.androidx_fragment
     implementation      libraries.jetbrains_kotlin
 
     //DataBinding

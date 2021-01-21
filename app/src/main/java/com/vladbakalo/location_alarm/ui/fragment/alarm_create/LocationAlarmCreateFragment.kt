@@ -12,21 +12,18 @@ import com.vladbakalo.location_alarm.common.helper.validator.rules.text.Latitude
 import com.vladbakalo.location_alarm.common.helper.validator.rules.text.LengthRule
 import com.vladbakalo.location_alarm.common.helper.validator.rules.text.LongitudeRule
 import com.vladbakalo.location_alarm.common.helper.validator.rules.text.NotEmptyRule
-import com.vladbakalo.location_alarm.data.common.AlarmData
 import com.vladbakalo.location_alarm.databinding.FragmentLocationAlarmCreateBinding
 import com.vladbakalo.location_alarm.di.ViewModelFactory
-import com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.adapter.DistanceAlarmAdapter
 import javax.inject.Inject
 
 class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(),
-    View.OnClickListener, DistanceAlarmAdapter.OnAlarmActionListener {
+    View.OnClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var binding: FragmentLocationAlarmCreateBinding
     private val validator = ValidatorHelper()
-    private var distanceAlarmAdapter: DistanceAlarmAdapter? = null
 
     override fun provideViewModel(): LocationAlarmCreateViewModel {
         return injectViewModel(viewModelFactory)
@@ -72,14 +69,14 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
     }
 
     private fun observeData() {
-        viewModel.distanceAlarmListLiveData.observe(viewLifecycleOwner, Observer {
-            if (distanceAlarmAdapter == null) {
-                distanceAlarmAdapter = DistanceAlarmAdapter(this)
-                binding.locationAlarmCreateRvAlarmList.adapter = distanceAlarmAdapter
-            }
-
-            distanceAlarmAdapter!!.setDate(it)
-            binding.isAlarmListEmpty = it.isEmpty()
+        viewModel.distanceAlarmListLiveDistanceData.observe(viewLifecycleOwner, Observer {
+//            if (distanceAlarmAdapter == null) {
+//                distanceAlarmAdapter = DistanceAlarmListAdapter(this)
+//                binding.locationAlarmCreateRvAlarmList.adapter = distanceAlarmAdapter
+//            }
+//
+//            distanceAlarmAdapter!!.setDate(it)
+//            binding.isAlarmListEmpty = it.isEmpty()
         })
     }
 
@@ -113,21 +110,10 @@ class LocationAlarmCreateFragment :BaseVMFragment<LocationAlarmCreateViewModel>(
     }
 
     private fun onSaveClick(){
-        if (validate()){
+        if (validator.validate()) {
             hideKeyboard()
             viewModel.onSaveClick()
         }
-    }
-
-    override fun onRemoveClick(item: AlarmData) {
-        viewModel.onRemoveAlarmClick(item)
-    }
-
-    private fun validate(): Boolean{
-        var isValid = validator.validate()
-        isValid = distanceAlarmAdapter?.validate(binding.locationAlarmCreateRvAlarmList) ?: true && isValid
-
-        return isValid
     }
 
     companion object {

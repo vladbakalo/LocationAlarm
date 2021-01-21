@@ -11,9 +11,9 @@ import com.google.android.gms.maps.model.*
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.common.MyLogger
 import com.vladbakalo.location_alarm.common.extentions.toLatLng
-import com.vladbakalo.location_alarm.data.models.Alarm
+import com.vladbakalo.location_alarm.data.models.AlarmDistance
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
-import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
+import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarmDistances
 
 
 class GoogleMapHelper(val context: Context,
@@ -78,7 +78,7 @@ class GoogleMapHelper(val context: Context,
         map.moveCamera(cameraPosition)
     }
 
-    fun drawLocationAlarms(list: List<LocationAlarmWithAlarms>){
+    fun drawLocationAlarms(list: List<LocationAlarmWithAlarmDistances>) {
         logDebug("drawLocationAlarms", "")
         list.forEach {
             logDebug("\n", it.locationAlarm.toString())
@@ -88,7 +88,7 @@ class GoogleMapHelper(val context: Context,
         var marker: Marker
         var alarmMarker: AlarmMarker?
 
-        for (item in list){
+        for (item in list) {
             markerOptions = createAlarmMarkerOption(item.locationAlarm)
             alarmMarker = getExistsAlarmOnMap(item.locationAlarm)
             logDebug("drawMarker", item.toString())
@@ -132,22 +132,25 @@ class GoogleMapHelper(val context: Context,
         map.animateCamera(CameraUpdateFactory.zoomOut())
     }
 
-    private fun checkMapAlarmForDeletionByNewAlarmList(list: List<LocationAlarmWithAlarms>){
+    private fun checkMapAlarmForDeletionByNewAlarmList(list: List<LocationAlarmWithAlarmDistances>) {
         locationAlarmMarkers = locationAlarmMarkers.filter {
-            if (!ifAlarmExistsInList(it.alarm.locationAlarm, list)){
+            if (!ifAlarmExistsInList(it.alarm.locationAlarm, list)) {
                 removeAlarmMarker(it)
                 return@filter false
             }
             return@filter true
-        }.toMutableList()
+        }
+            .toMutableList()
     }
 
-    private fun drawDistanceCircles(locationAlarm: LocationAlarmWithAlarms, alarmMarker: AlarmMarker){
+    private fun drawDistanceCircles(locationAlarm: LocationAlarmWithAlarmDistances,
+                                    alarmMarker: AlarmMarker) {
         removeCircles(alarmMarker)
 
         var distanceCircle: Circle
-        for (alarm in locationAlarm.alarms){
-            distanceCircle = map.addCircle(createAlarmCircleOption(alarm, locationAlarm.locationAlarm.getLatLng()))
+        for (alarm in locationAlarm.alarmDistances) {
+            distanceCircle = map.addCircle(
+                createAlarmCircleOption(alarm, locationAlarm.locationAlarm.getLatLng()))
             alarmMarker.distanceCircles.add(distanceCircle)
         }
     }
@@ -184,9 +187,9 @@ class GoogleMapHelper(val context: Context,
         return isEquals
     }
 
-    private fun getAlarmByMarker(marker: Marker): LocationAlarmWithAlarms?{
-        for (entry in locationAlarmMarkers){
-            if (entry.marker == marker){
+    private fun getAlarmByMarker(marker: Marker): LocationAlarmWithAlarmDistances? {
+        for (entry in locationAlarmMarkers) {
+            if (entry.marker == marker) {
                 return entry.alarm
             }
         }
@@ -201,8 +204,8 @@ class GoogleMapHelper(val context: Context,
     }
 
     private fun ifAlarmExistsInList(alarm: LocationAlarm,
-                                    alarmList: List<LocationAlarmWithAlarms>): Boolean{
-        for (item in alarmList){
+                                    alarmList: List<LocationAlarmWithAlarmDistances>): Boolean {
+        for (item in alarmList) {
             if (item.locationAlarm.id == alarm.id) return true
         }
         return false
@@ -216,24 +219,23 @@ class GoogleMapHelper(val context: Context,
         return Bitmap.createScaledBitmap(bitmap.bitmap, width, height, false)
     }
 
-    private fun createAlarmMarkerOption(alarm: LocationAlarm): MarkerOptions{
-        return MarkerOptions()
-            .position(alarm.getLatLng())
+    private fun createAlarmMarkerOption(alarm: LocationAlarm): MarkerOptions {
+        return MarkerOptions().position(alarm.getLatLng())
             .title(alarm.name)
             .icon(BitmapDescriptorFactory.fromBitmap(locationAlarmBitmap))
             .draggable(true)
     }
 
-    private fun createAlarmCircleOption(alarm: Alarm, center: LatLng): CircleOptions{
-        val color = if (alarm.enabled) R.color.circle_active_color else R.color.circle_inactive_color
-        return CircleOptions()
-            .center(center)
-            .radius(alarm.notifyDistanceMeters.toDouble())
+    private fun createAlarmCircleOption(alarmDistance: AlarmDistance, center: LatLng): CircleOptions {
+        val color =
+            if (alarmDistance.enabled) R.color.circle_active_color else R.color.circle_inactive_color
+        return CircleOptions().center(center)
+            .radius(alarmDistance.notifyDistanceMeters.toDouble())
             .strokeWidth(ALARM_DISTANCE_CIRCLE_STROKE_SIZE)
             .strokeColor(ContextCompat.getColor(context, color))
     }
 
-    private fun logDebug(method: String, message: String){
+    private fun logDebug(method: String, message: String) {
         MyLogger.dt(TAG, "$method : $message")
     }
 
@@ -252,7 +254,7 @@ class GoogleMapHelper(val context: Context,
         private const val ALARM_DISTANCE_CIRCLE_STROKE_SIZE = 4f
     }
 
-    data class AlarmMarker(var alarm: LocationAlarmWithAlarms,
+    data class AlarmMarker(var alarm: LocationAlarmWithAlarmDistances,
                            var marker: Marker,
                            var distanceCircles: MutableList<Circle> = ArrayList())
 

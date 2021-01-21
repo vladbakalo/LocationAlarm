@@ -1,11 +1,13 @@
 package com.vladbakalo.location_alarm.navigation
 
 import com.google.android.gms.maps.model.LatLng
+import com.vladbakalo.location_alarm.data.models.AlarmDistance
 import com.vladbakalo.location_alarm.navigation.common.RootSupportAppScreen
 import com.vladbakalo.location_alarm.ui.fragment.alarm_create.LocationAlarmCreateFragment
 import com.vladbakalo.location_alarm.ui.fragment.alarm_preview.LocationAlarmFragment
 import com.vladbakalo.location_alarm.ui.fragment.auth.login.LoginFragment
 import com.vladbakalo.location_alarm.ui.fragment.auth.registration.RegistrationFragment
+import com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.AlarmDistanceListFragment
 import com.vladbakalo.location_alarm.ui.fragment.list.AlarmListFragment
 import com.vladbakalo.location_alarm.ui.fragment.map.AlarmMapFragment
 import com.vladbakalo.location_alarm.ui.fragment.settings.SettingsFragment
@@ -48,6 +50,11 @@ object Screens {
 
     data class LocationAlarmEditScreen(val locationAlarmId: Long) :SupportAppScreen() {
         override fun getFragment() = LocationAlarmCreateFragment.create(locationAlarmId)
+    }
+
+    data class AlarmDistanceListScreen(val distanceList: ArrayList<AlarmDistance>) :
+        SupportAppScreen() {
+        override fun getFragment() = AlarmDistanceListFragment.create(distanceList)
     }
 
     data class TabScreen(val tabTag: String) :SupportAppScreen() {

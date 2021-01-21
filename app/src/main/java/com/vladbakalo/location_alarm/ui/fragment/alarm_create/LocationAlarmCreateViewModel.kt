@@ -3,12 +3,12 @@ package com.vladbakalo.location_alarm.ui.fragment.alarm_create
 import androidx.lifecycle.MutableLiveData
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.base.BaseViewModel
-import com.vladbakalo.location_alarm.common.extentions.notify
 import com.vladbakalo.location_alarm.common.utils.LocationUtils
 import com.vladbakalo.location_alarm.data.ErrorState
-import com.vladbakalo.location_alarm.data.common.AlarmData
+import com.vladbakalo.location_alarm.data.models.AlarmDistance
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
 import com.vladbakalo.location_alarm.interactor.LocationAlarmInteractor
+import com.vladbakalo.location_alarm.navigation.Screens
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -20,7 +20,8 @@ class LocationAlarmCreateViewModel @Inject constructor(private val interactor: L
     var latitudeLiveData: MutableLiveData<String> = MutableLiveData("")
     var longitudeLiveData: MutableLiveData<String> = MutableLiveData("")
     var noteLiveData: MutableLiveData<String> = MutableLiveData("")
-    var distanceAlarmListLiveData: MutableLiveData<MutableList<AlarmData>> = MutableLiveData()
+    var distanceAlarmListLiveDistanceData: MutableLiveData<ArrayList<AlarmDistance>> =
+        MutableLiveData()
     var enableLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     private var locationAlarmId: Long = 0
@@ -40,10 +41,8 @@ class LocationAlarmCreateViewModel @Inject constructor(private val interactor: L
                     this@LocationAlarmCreateViewModel.enableLiveData.postValue(enabled)
                 }
 
-                distanceAlarmListLiveData.postValue(result.alarms.map {
-                    AlarmData(it)
-                }
-                    .toMutableList())
+                val alarmDistanceList = ArrayList(result.alarmDistances)
+                distanceAlarmListLiveDistanceData.postValue(alarmDistanceList)
             }, { e -> onBaseError(e, TAG) }))
     }
 
@@ -59,21 +58,12 @@ class LocationAlarmCreateViewModel @Inject constructor(private val interactor: L
     }
 
     fun onAddAlarmClick() {
-        val list = distanceAlarmListLiveData.value ?: ArrayList()
-        list.add(AlarmData())
-
-        distanceAlarmListLiveData.value = list
-    }
-
-    fun onRemoveAlarmClick(alarmData: AlarmData) {
-        val alarmList = distanceAlarmListLiveData.value
-        alarmList?.remove(alarmData)
-
-        distanceAlarmListLiveData.notify()
+        val alarmDistanceList = distanceAlarmListLiveDistanceData.value ?: ArrayList()
+        router.navigateTo(Screens.AlarmDistanceListScreen(alarmDistanceList))
     }
 
     fun onSaveClick() {
-        if (distanceAlarmListLiveData.value?.isEmpty() != false) {
+        if (distanceAlarmListLiveDistanceData.value?.isEmpty() != false) {
             errorStateLiveData.postValue(ErrorState(R.string.add_at_list_one_alarm))
             return
         }
@@ -82,7 +72,7 @@ class LocationAlarmCreateViewModel @Inject constructor(private val interactor: L
             LocationAlarm(locationAlarmId, nameLiveData.value!!, addressLiveData.value!!,
                 latitudeLiveData.value!!.toDouble(), longitudeLiveData.value!!.toDouble(),
                 noteLiveData.value!!, enableLiveData.value ?: true)
-        val alarmList = distanceAlarmListLiveData.value!!.map { it.toAlarmModel() }
+        val alarmList = distanceAlarmListLiveDistanceData.value!!
 
         addDisposable(interactor.createOrUpdateLocationAlarm(locationAlarm, alarmList)
             .subscribeOn(Schedulers.io())

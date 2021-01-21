@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.vladbakalo.location_alarm.data.AppDatabase
-import com.vladbakalo.location_alarm.data.models.Alarm
+import com.vladbakalo.location_alarm.data.models.AlarmDistance
 import com.vladbakalo.location_alarm.data.repo.AlarmRepository
 import org.junit.After
 import org.junit.Before
@@ -34,22 +34,23 @@ class AlarmRepoTest {
     }
 
     @Test
-    fun testCreation(){
+    fun testCreation() {
         val locationAlarmId = 1L
-        val alarmList = arrayOf(Alarm(0, true, locationAlarmId, 100),
-            Alarm(0, true, locationAlarmId, 200)).toList()
+        val alarmList = arrayOf(AlarmDistance(0, true, locationAlarmId, 100),
+            AlarmDistance(0, true, locationAlarmId, 200)).toList()
         repo.createOrUpdateAlarmsById(alarmList, locationAlarmId)
             .test()
             .assertNoErrors()
 
-        assert(repo.findAll().isNotEmpty())
+        assert(repo.findAll()
+            .isNotEmpty())
     }
 
     @Test
-    fun testDeletion(){
+    fun testDeletion() {
         val locationAlarmId = 1L
-        val alarmList = arrayOf(Alarm(0, true, locationAlarmId, 100),
-            Alarm(0, true, locationAlarmId, 200)).toList()
+        val alarmList = arrayOf(AlarmDistance(0, true, locationAlarmId, 100),
+            AlarmDistance(0, true, locationAlarmId, 200)).toList()
         repo.createOrUpdateAlarmsById(alarmList, locationAlarmId)
             .test()
             .assertNoErrors()
@@ -58,18 +59,19 @@ class AlarmRepoTest {
             .test()
             .assertNoErrors()
 
-        assert(repo.findAll().isEmpty())
+        assert(repo.findAll()
+            .isEmpty())
     }
 
     @Test
-    fun testDeletionV2(){
+    fun testDeletionV2() {
         val locationAlarmId = 1L
         val locationAlarmId2 = 2L
-        val alarmList = arrayOf(Alarm(0, true, locationAlarmId, 100),
-            Alarm(0, true, locationAlarmId, 200),
-            Alarm(0, true, locationAlarmId2, 200)).toList()
+        val alarmList = arrayOf(AlarmDistance(0, true, locationAlarmId, 100),
+            AlarmDistance(0, true, locationAlarmId, 200),
+            AlarmDistance(0, true, locationAlarmId2, 200)).toList()
 
-        val alarmList2 = arrayOf(Alarm(0, true, locationAlarmId2, 200)).toList()
+        val alarmList2 = arrayOf(AlarmDistance(0, true, locationAlarmId2, 200)).toList()
 
         repo.createOrUpdateAlarmsById(alarmList, locationAlarmId)
             .test()

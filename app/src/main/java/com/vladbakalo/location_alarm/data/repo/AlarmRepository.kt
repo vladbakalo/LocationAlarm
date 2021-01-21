@@ -2,10 +2,8 @@ package com.vladbakalo.location_alarm.data.repo
 
 import com.vladbakalo.location_alarm.application.base.BaseRepository
 import com.vladbakalo.location_alarm.data.AppDatabase
-import com.vladbakalo.location_alarm.data.models.Alarm
+import com.vladbakalo.location_alarm.data.models.AlarmDistance
 import io.reactivex.Completable
-import io.reactivex.Flowable
-import java.util.concurrent.Callable
 
 open class AlarmRepository(database: AppDatabase) : BaseRepository(database) {
     private val alarmDao = database.alarmDao()
@@ -16,17 +14,17 @@ open class AlarmRepository(database: AppDatabase) : BaseRepository(database) {
         }
     }
 
-    fun findAll(): List<Alarm>{
+    fun findAll(): List<AlarmDistance> {
         return alarmDao.finAll()
     }
 
-    fun createOrUpdateAlarmsById(alarmList: List<Alarm>, locationAlarmId: Long): Completable{
+    fun createOrUpdateAlarmsById(alarmDistanceList: List<AlarmDistance>, locationAlarmId: Long): Completable {
         return Completable.fromAction {
             alarmDao.deleteByLocationAlarmId(locationAlarmId)
-            alarmList.forEach {
+            alarmDistanceList.forEach {
                 it.locationAlarmId = locationAlarmId
             }
-            alarmDao.insertAll(alarmList)
+            alarmDao.insertAll(alarmDistanceList)
         }
     }
 }

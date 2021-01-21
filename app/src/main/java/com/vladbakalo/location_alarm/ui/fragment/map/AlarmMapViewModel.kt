@@ -5,7 +5,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.vladbakalo.location_alarm.application.base.BaseViewModel
 import com.vladbakalo.location_alarm.common.live_data.LastLocationLiveData
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
-import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
+import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarmDistances
 import com.vladbakalo.location_alarm.interactor.LocationAlarmInteractor
 import com.vladbakalo.location_alarm.navigation.Screens
 import io.reactivex.schedulers.Schedulers
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class AlarmMapViewModel @Inject constructor(private val interactor: LocationAlarmInteractor,
                                             val lastLocationLiveData: LastLocationLiveData) :
     BaseViewModel() {
-    val locationAlarmList: LiveData<List<LocationAlarmWithAlarms>> =
+    val locationAlarmList: LiveData<List<LocationAlarmWithAlarmDistances>> =
         interactor.getAllLocationAlarmWithAlarms()
 
 

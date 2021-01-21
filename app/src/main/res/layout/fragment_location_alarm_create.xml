@@ -101,41 +101,41 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/half_list_item_margin"
-                    android:includeFontPadding="false"
-                    android:layout_marginBottom="4dp"
-                    android:text="@string/alarms"
-                    style="@style/LocationAlarm.TextInputLayoutTittle" />
+                <!--                <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="@dimen/half_list_item_margin"-->
+                <!--                    android:includeFontPadding="false"-->
+                <!--                    android:layout_marginBottom="4dp"-->
+                <!--                    android:text="@string/alarms"-->
+                <!--                    style="@style/LocationAlarm.TextInputLayoutTittle" />-->
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_alarm_block">
+                <!--                <FrameLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/bg_alarm_block">-->
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/no_alarms"
-                        android:layout_margin="@dimen/list_item_margin_large"
-                        android:visibility="@{isAlarmListEmpty ? View.VISIBLE : View.GONE}"
-                        style="@style/LocationAlarm.Text.EmptyText" />
+                <!--                    <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:text="@string/no_alarms"-->
+                <!--                        android:layout_margin="@dimen/list_item_margin_large"-->
+                <!--                        android:visibility="@{isAlarmListEmpty ? View.VISIBLE : View.GONE}"-->
+                <!--                        style="@style/LocationAlarm.Text.EmptyText" />-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/locationAlarmCreateRvAlarmList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginTop="2dp"
-                        android:overScrollMode="never"
-                        android:visibility="@{isAlarmListEmpty ? View.GONE : View.VISIBLE}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="2"
-                        tools:listitem="@layout/item_distance_alarm" />
-                </FrameLayout>
+                <!--                    <androidx.recyclerview.widget.RecyclerView-->
+                <!--                        android:id="@+id/locationAlarmCreateRvAlarmList"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginBottom="2dp"-->
+                <!--                        android:layout_marginTop="2dp"-->
+                <!--                        android:overScrollMode="never"-->
+                <!--                        android:visibility="@{isAlarmListEmpty ? View.GONE : View.VISIBLE}"-->
+                <!--                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+                <!--                        tools:itemCount="2"-->
+                <!--                        tools:listitem="@layout/item_distance_alarm" />-->
+                <!--                </FrameLayout>-->
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/locationAlarmCreateBtnAddAlarm"

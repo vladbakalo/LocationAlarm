@@ -6,13 +6,13 @@ import com.vladbakalo.location_alarm.common.extentions.getLayoutInflater
 import com.vladbakalo.location_alarm.common.helper.validator.TextValidator
 import com.vladbakalo.location_alarm.common.helper.validator.rules.text.DistanceRule
 import com.vladbakalo.location_alarm.common.helper.validator.rules.text.NotEmptyRule
-import com.vladbakalo.location_alarm.data.common.AlarmData
+import com.vladbakalo.location_alarm.data.common.AlarmDistanceData
 import com.vladbakalo.location_alarm.databinding.ItemDistanceAlarmBinding
 
-class DistanceAlarmAdapter(val listener: OnAlarmActionListener) :
-    RecyclerView.Adapter<DistanceAlarmAdapter.ItemVH>() {
+class DistanceAlarmListAdapter(val listener: OnAlarmActionListener) :
+    RecyclerView.Adapter<DistanceAlarmListAdapter.ItemVH>() {
 
-    private val dataList: ArrayList<AlarmData> = ArrayList()
+    private val distanceDataList: ArrayList<AlarmDistanceData> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVH {
         val layoutInflater = parent.getLayoutInflater()
@@ -20,26 +20,26 @@ class DistanceAlarmAdapter(val listener: OnAlarmActionListener) :
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return distanceDataList.size
     }
 
     override fun onBindViewHolder(holder: ItemVH, position: Int) {
-        val item = dataList[position]
+        val item = distanceDataList[position]
         holder.binding.model = item
         holder.binding.actionListener = listener
     }
 
-    fun setDate(data: List<AlarmData>){
-        dataList.clear()
-        dataList.addAll(data)
+    fun setDate(data: List<AlarmDistanceData>) {
+        distanceDataList.clear()
+        distanceDataList.addAll(data)
 
         notifyDataSetChanged()
     }
 
-    fun validate(recyclerView: RecyclerView): Boolean{
+    fun validate(recyclerView: RecyclerView): Boolean {
         var isValid = true
         var view: RecyclerView.ViewHolder?
-        for (i in 0..itemCount){
+        for (i in 0..itemCount) {
             view = recyclerView.findViewHolderForAdapterPosition(i)
 
             if (view is ItemVH){
@@ -60,6 +60,6 @@ class DistanceAlarmAdapter(val listener: OnAlarmActionListener) :
     }
 
     interface OnAlarmActionListener{
-        fun onRemoveClick(item: AlarmData)
+        fun onRemoveClick(item: AlarmDistanceData)
     }
 }

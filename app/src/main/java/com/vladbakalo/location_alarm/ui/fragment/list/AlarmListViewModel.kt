@@ -19,7 +19,6 @@ class AlarmListViewModel @Inject constructor(private val interactor: LocationAla
     }
 
     fun onAddAlarmClick() {
-        throw RuntimeException("Test")
         firebaseAnalyticsManager.logCreateList()
         router.navigateTo(Screens.LocationAlarmCreateScreen)
     }

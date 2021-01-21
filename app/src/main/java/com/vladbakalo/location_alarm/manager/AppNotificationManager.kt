@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.common.MyLogger
-import com.vladbakalo.location_alarm.data.models.Alarm
+import com.vladbakalo.location_alarm.data.models.AlarmDistance
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
 
 
@@ -28,16 +28,18 @@ class AppNotificationManager(val context: Context) {
         }
     }
 
-    fun sendAlarmNotification(locationAlarm: LocationAlarm, alarm: Alarm){
-        val builder = NotificationCompat.Builder(context, ENotificationChannel.ALARM_NOTIFY.channelId)
-            .setSmallIcon(R.drawable.ic_launcher)
-            .setContentTitle(String.format(context.getString(R.string.alarm_notification_tittle_distance),
-                locationAlarm.name, alarm.notifyDistanceMeters))
-            .setContentText(locationAlarm.note)
-            .setShowWhen(true)
-            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-            .setSound(defaultSoundUri)
-            .setCategory(Notification.CATEGORY_ALARM)
+    fun sendAlarmNotification(locationAlarm: LocationAlarm, alarmDistance: AlarmDistance) {
+        val builder =
+            NotificationCompat.Builder(context, ENotificationChannel.ALARM_NOTIFY.channelId)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle(
+                    String.format(context.getString(R.string.alarm_notification_tittle_distance),
+                        locationAlarm.name, alarmDistance.notifyDistanceMeters))
+                .setContentText(locationAlarm.note)
+                .setShowWhen(true)
+                .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+                .setSound(defaultSoundUri)
+                .setCategory(Notification.CATEGORY_ALARM)
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
             builder.priority = Notification.PRIORITY_HIGH

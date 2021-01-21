@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
     <data>
-
         <variable
             name="model"
-            type="com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.DistanceAlarmListViewModel" />
+            type="com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.AlarmDistanceListViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -17,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_alarm_block"
-        tools:context="com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.DistanceAlarmListFragment">
+        tools:context="com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.AlarmDistanceListFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -33,7 +31,7 @@
             style="@style/LocationAlarm.Text.EmptyText" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/locationAlarmCreateRvAlarmList"
+            android:id="@+id/alarmDistanceListRvAlarmList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
@@ -43,7 +41,7 @@
             tools:listitem="@layout/item_distance_alarm" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/alarmListFabAddButton"
+            android:id="@+id/alarmDistanceListFabAddButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/half_list_item_margin"
@@ -52,6 +50,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            style="@style/LocationAlarm.Button.ExtendedFab" />
+            style="@style/LocationAlarm.Button.Fab" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

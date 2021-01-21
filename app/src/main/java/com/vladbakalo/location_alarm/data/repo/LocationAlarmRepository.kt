@@ -6,10 +6,9 @@ import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.base.BaseRepository
 import com.vladbakalo.location_alarm.data.AppDatabase
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
-import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
+import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarmDistances
 import io.reactivex.Completable
 import io.reactivex.Single
-import java.lang.IllegalArgumentException
 
 
 open class LocationAlarmRepository(database: AppDatabase, val context: Context) :BaseRepository(database) {
@@ -19,11 +18,11 @@ open class LocationAlarmRepository(database: AppDatabase, val context: Context) 
         return locationAlarmDao.getAllSorted()
     }
 
-    fun getAllLocationAlarmsWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>{
+    fun getAllLocationAlarmsWithAlarms(): LiveData<List<LocationAlarmWithAlarmDistances>> {
         return locationAlarmDao.getAllLocationAlarmWithAlarms()
     }
 
-    fun getAllEnabledLocationAlarmsWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>{
+    fun getAllEnabledLocationAlarmsWithAlarms(): LiveData<List<LocationAlarmWithAlarmDistances>> {
         return locationAlarmDao.getAllEnabledLocationAlarmWithAlarms()
     }
 
@@ -33,7 +32,7 @@ open class LocationAlarmRepository(database: AppDatabase, val context: Context) 
         }
     }
 
-    fun getLocationAlarm(id: Long): Single<LocationAlarmWithAlarms>{
+    fun getLocationAlarm(id: Long): Single<LocationAlarmWithAlarmDistances> {
         return locationAlarmDao.getLocationAlarmsWithAlarmsById(id)
     }
 

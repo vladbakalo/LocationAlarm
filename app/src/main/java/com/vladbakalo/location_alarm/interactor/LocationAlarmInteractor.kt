@@ -3,9 +3,9 @@ package com.vladbakalo.location_alarm.interactor
 import androidx.lifecycle.LiveData
 import com.google.android.gms.maps.model.LatLng
 import com.vladbakalo.location_alarm.application.base.BaseInteractor
-import com.vladbakalo.location_alarm.data.models.Alarm
+import com.vladbakalo.location_alarm.data.models.AlarmDistance
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
-import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
+import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarmDistances
 import com.vladbakalo.location_alarm.data.repo.AlarmRepository
 import com.vladbakalo.location_alarm.data.repo.LocationAlarmRepository
 import io.reactivex.Completable
@@ -19,7 +19,7 @@ class LocationAlarmInteractor(private val locationAlarmRepo: LocationAlarmReposi
             .andThen { alarmRepo.deleteAlarmByLocationAlarmId(locationAlarmId) }
     }
 
-    fun getLocationAlarmWithAlarms(locationAlarmId: Long): Single<LocationAlarmWithAlarms> {
+    fun getLocationAlarmWithAlarms(locationAlarmId: Long): Single<LocationAlarmWithAlarmDistances> {
         return locationAlarmRepo.getLocationAlarm(locationAlarmId)
     }
 
@@ -27,7 +27,7 @@ class LocationAlarmInteractor(private val locationAlarmRepo: LocationAlarmReposi
         return locationAlarmRepo.getAllLocationAlarm()
     }
 
-    fun getAllLocationAlarmWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>{
+    fun getAllLocationAlarmWithAlarms(): LiveData<List<LocationAlarmWithAlarmDistances>> {
         return locationAlarmRepo.getAllLocationAlarmsWithAlarms()
     }
 
@@ -48,10 +48,11 @@ class LocationAlarmInteractor(private val locationAlarmRepo: LocationAlarmReposi
         return locationAlarmRepo.update(locationAlarm).ignoreElement()
     }
 
-    fun createOrUpdateLocationAlarm(locationAlarm: LocationAlarm, alarmList: List<Alarm>): Completable{
+    fun createOrUpdateLocationAlarm(locationAlarm: LocationAlarm,
+                                    alarmDistanceList: List<AlarmDistance>): Completable {
         return locationAlarmRepo.createOrUpdate(locationAlarm)
             .flatMapCompletable {
-                alarmRepo.createOrUpdateAlarmsById(alarmList, it.id)
+                alarmRepo.createOrUpdateAlarmsById(alarmDistanceList, it.id)
             }
     }
 }

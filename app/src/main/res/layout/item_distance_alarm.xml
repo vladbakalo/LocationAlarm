@@ -8,11 +8,11 @@
 
         <variable
             name="actionListener"
-            type="com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.adapter.DistanceAlarmAdapter.OnAlarmActionListener" />
+            type="com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.adapter.DistanceAlarmListAdapter.OnAlarmActionListener" />
 
         <variable
             name="model"
-            type="com.vladbakalo.location_alarm.data.common.AlarmData" />
+            type="com.vladbakalo.location_alarm.data.common.AlarmDistanceData" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -6,8 +6,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.vladbakalo.location_alarm.application.base.BaseDao
 import com.vladbakalo.location_alarm.data.models.LocationAlarm
-import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
-import io.reactivex.Flowable
+import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarmDistances
 import io.reactivex.Single
 
 @Dao
@@ -27,15 +26,15 @@ abstract class LocationAlarmDao: BaseDao<LocationAlarm> {
 
     @Transaction
     @Query("SELECT * FROM location_alarm")
-    abstract fun getAllLocationAlarmWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>
+    abstract fun getAllLocationAlarmWithAlarms(): LiveData<List<LocationAlarmWithAlarmDistances>>
 
     @Transaction
     @Query("SELECT * FROM location_alarm WHERE enabled is 1")
-    abstract fun getAllEnabledLocationAlarmWithAlarms(): LiveData<List<LocationAlarmWithAlarms>>
+    abstract fun getAllEnabledLocationAlarmWithAlarms(): LiveData<List<LocationAlarmWithAlarmDistances>>
 
     @Transaction
     @Query("SELECT * FROM location_alarm WHERE id is :alarmId")
-    abstract fun getLocationAlarmsWithAlarmsById(alarmId: Long): Single<LocationAlarmWithAlarms>
+    abstract fun getLocationAlarmsWithAlarmsById(alarmId: Long): Single<LocationAlarmWithAlarmDistances>
 
     @Query("DELETE FROM location_alarm WHERE id is :alarmId")
     abstract fun delete(alarmId: Long)

@@ -3,7 +3,7 @@ package com.vladbakalo.location_alarm.manager
 import android.location.Location
 import androidx.lifecycle.Observer
 import com.vladbakalo.location_alarm.common.MyLogger
-import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarms
+import com.vladbakalo.location_alarm.data.models.LocationAlarmWithAlarmDistances
 import com.vladbakalo.location_alarm.data.repo.LocationAlarmRepository
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -15,10 +15,10 @@ class LocationAlarmManager(private val notificationManager: AppNotificationManag
                            private val locationAlarmRepo: LocationAlarmRepository) {
 
     private val activeLocationAlarmLive = locationAlarmRepo.getAllEnabledLocationAlarmsWithAlarms()
-    private val activeLocationAlarmObserver = Observer<List<LocationAlarmWithAlarms>> {
+    private val activeLocationAlarmObserver = Observer<List<LocationAlarmWithAlarmDistances>> {
         onLocationAlarmUpdate(it)
     }
-    private var activeLocationAlarmList: List<LocationAlarmWithAlarms> = ArrayList()
+    private var activeLocationAlarmList: List<LocationAlarmWithAlarmDistances> = ArrayList()
 
     private val locationAlarmIdsFocus = HashSet<Long>()
     private val notifiedAlarmIds = HashSet<Long>()
@@ -57,7 +57,7 @@ class LocationAlarmManager(private val notificationManager: AppNotificationManag
             distanceToAlarm = item.locationAlarm.getLocation().distanceTo(location)
 
             MyLogger.dt(TAG, "checkLocationAlarmDistance : distance : $distanceToAlarm")
-            for (alarm in item.alarms){
+            for (alarm in item.alarmDistances) {
                 isAlarmAlreadyNotified = notifiedAlarmIds.contains(alarm.id)
                 MyLogger.dt(TAG, "checkLocationAlarmDistance : alarm : ${alarm.id} id")
                 MyLogger.dt(TAG,
@@ -82,7 +82,7 @@ class LocationAlarmManager(private val notificationManager: AppNotificationManag
         }
     }
 
-    private fun onLocationAlarmUpdate(data: List<LocationAlarmWithAlarms>){
+    private fun onLocationAlarmUpdate(data: List<LocationAlarmWithAlarmDistances>) {
         activeLocationAlarmList = data
     }
 

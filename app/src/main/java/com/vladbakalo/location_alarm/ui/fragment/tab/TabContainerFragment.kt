@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.vladbakalo.location_alarm.R
 import com.vladbakalo.location_alarm.application.base.BaseActivity
 import com.vladbakalo.location_alarm.application.base.BaseFragment
-import com.vladbakalo.location_alarm.common.BackButtonListener
 import com.vladbakalo.location_alarm.navigation.LocalCiceroneHolder
 import com.vladbakalo.location_alarm.navigation.Screens
 import com.vladbakalo.location_alarm.navigation.TabAppNavigator
@@ -89,8 +88,8 @@ class TabContainerFragment :BaseFragment(),
 
     override fun onBackPressed(): Boolean {
         val fragment = childFragmentManager.findFragmentById(R.id.fragmentTabFlContainer)
-
-        return (fragment != null && fragment is BackButtonListener && fragment.onBackPressed())
+        getCiceroneRouter().router.exit()
+        return true
     }
 
     private fun getContainerTag(): String {
