@@ -1,38 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
 
-    <color name="black_overlay">#66000000</color>
-
-    <color name="mainColor">#FFCB00</color>
-    <color name="mainColorBg">#FFE373</color>
-    <color name="mainColorA">#6C0AAB</color>
-    <color name="mainColorB">#0D56A6</color>
-    <color name="mainColorBBg">#689AD3</color>
-
-    <color name="white">#FFFF</color>
-    <color name="dark">#000</color>
-    <color name="hint_text">#000</color>
-    <color name="red">#d81920</color>
-    <color name="grey">#949494</color>
-    <color name="google_bg">#CD2A00</color>
-    <color name="blockStrokeColor">#949494</color>
-
-    <color name="inputTextColor">#DE000000</color>
-    <color name="labelTextColor">#99000000</color>
-    <color name="containerTextColor">#1F000000</color>
-
-    <color name="textDark">#DE000000</color>
-    <color name="textGrey">#99000000</color>
-    <color name="textDisabled">#61000000</color>
-    <color name="textEmpty">#40000000</color>
-
-    <color name="primaryActionTextColor">@color/colorPrimary</color>
-    <color name="primaryTextColor">@color/textDark</color>
-    <color name="secondaryTextColor">@color/textGrey</color>
-
-    <color name="circle_active_color">#8800574B</color>
-    <color name="circle_inactive_color">#8B949494</color>
 </resources>

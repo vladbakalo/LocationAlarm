@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath gradlePlugins.build_gradle
         classpath gradlePlugins.kotlin_gradle
+        classpath gradlePlugins.navigation_args
         classpath gradlePlugins.google_services
 
         classpath gradlePlugins.crashlytics_gradle

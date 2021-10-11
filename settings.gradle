@@ -1,1 +1,7 @@
 include ':app'
+include ':core'
+include ':map'
+include ':create_location_alarm'
+include ':location_alarm_list'
+include ':settings'
+include ':location_service'

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_alarm_block"
+    tools:context="com.vladbakalo.alarm_distance_list.ui.fragment.distance_alarm_list.AlarmDistanceListFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/alarmDistanceListTvNoListItemsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/list_item_margin_large"
+        android:layout_gravity="center"
+        android:text="@string/no_alarms"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/LocationAlarm.Text.EmptyText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/alarmDistanceListRvAlarmList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_distance_alarm" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/alarmDistanceListFabAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/half_list_item_margin"
+        android:onClick="@{() -> model.onAddDistanceAlarmClick()}"
+        app:icon="@drawable/ic_add_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/LocationAlarm.Button.Fab" />
+</androidx.constraintlayout.widget.ConstraintLayout>

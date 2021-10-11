@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/alarmMapFrMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/list_item_margin"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/alarmMapIvZoomInButton"
+            android:layout_width="@dimen/zoom_button_size"
+            android:layout_height="@dimen/zoom_button_size"
+            android:background="@drawable/bg_fab_button_top"
+            android:src="@drawable/ic_plus"
+            style="@style/LocationAlarm.Button.MapZoom" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:elevation="@dimen/fab_button_elevation"
+            android:foreground="@color/colorPrimaryDark" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/alarmMapIvZoomOutButton"
+            android:layout_width="@dimen/zoom_button_size"
+            android:layout_height="@dimen/zoom_button_size"
+            android:background="@drawable/bg_fab_button_bottom"
+            android:src="@drawable/ic_minus"
+            style="@style/LocationAlarm.Button.MapZoom" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/alarmMapFabMyLocationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/list_item_margin"
+            app:srcCompat="@drawable/ic_my_location"
+            style="@style/LocationAlarm.Button.Fab" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

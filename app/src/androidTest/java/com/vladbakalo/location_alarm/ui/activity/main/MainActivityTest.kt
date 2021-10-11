@@ -18,8 +18,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.AndroidJUnit4
+import com.vladbakalo.create_location_alarm.ui.fragment.alarm_create.adapter.DistanceAlarmListAdapter
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.ui.fragment.distance_alarm_list.adapter.DistanceAlarmListAdapter
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf

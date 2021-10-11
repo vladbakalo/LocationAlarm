@@ -8,26 +8,24 @@ import android.os.IBinder
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
 import com.google.android.material.snackbar.Snackbar
+import com.vladbakalo.core.base.BaseActivity
+import com.vladbakalo.core.common.MyLogger
+import com.vladbakalo.core.common.utils.ActivityUtils
+import com.vladbakalo.core.common.utils.IntentUtils
+import com.vladbakalo.core.common.utils.PermissionUtils
+import com.vladbakalo.core.navigation.NavControllerProvider
 import com.vladbakalo.location_alarm.R
-import com.vladbakalo.location_alarm.application.base.BaseActivity
-import com.vladbakalo.location_alarm.application.service.LocationUpdatesService
-import com.vladbakalo.location_alarm.common.BackButtonListener
-import com.vladbakalo.location_alarm.common.MyLogger
-import com.vladbakalo.location_alarm.common.utils.ActivityUtils
-import com.vladbakalo.location_alarm.common.utils.IntentUtils
-import com.vladbakalo.location_alarm.common.utils.PermissionUtils
-import com.vladbakalo.location_alarm.navigation.Screens
-import com.vladbakalo.location_alarm.ui.fragment.list.AlarmListFragment
-import com.vladbakalo.location_alarm.ui.fragment.map.AlarmMapFragment
-import com.vladbakalo.location_alarm.ui.fragment.settings.SettingsFragment
-import kotlinx.android.synthetic.main.activity_main.*
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import com.vladbakalo.location_alarm.databinding.ActivityMainBinding
+import com.vladbakalo.location_alarm.ui.fragment.LocationAlarmListRootNavigationFragment
+import com.vladbakalo.location_alarm.ui.fragment.MapRootNavigationFragment
+import com.vladbakalo.location_service.service.LocationUpdatesService
+import com.vladbakalo.settings.ui.fragment.settings.SettingsFragment
 
 class MainActivity :BaseActivity() {
 
-    override val navigator = SupportAppNavigator(this, R.id.mainActivityFlContainer)
-
+    private lateinit var binding: ActivityMainBinding
     private var locationUpdatesService: LocationUpdatesService? = null
     private var isServiceBinned: Boolean = false
 
@@ -51,19 +49,21 @@ class MainActivity :BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setSupportActionBar(mainActivityToolbar)
+        setSupportActionBar(binding.mainActivityToolbar)
         if (savedInstanceState == null) {
-            selectTab(AlarmMapFragment.TAG)
+            selectTab(MapRootNavigationFragment.TAG)
         }
 
         setListeners()
     }
 
     override fun getToolBar(): Toolbar {
-        return mainActivityToolbar
+        return binding.mainActivityToolbar
     }
 
     override fun onStart() {
@@ -84,11 +84,12 @@ class MainActivity :BaseActivity() {
                                             permissions: Array<out String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (!::binding.isInitialized) return
 
         if (PermissionUtils.checkLocationPermission(this)){
             checkPermissionAndStartService()
         } else {
-            Snackbar.make(mainActivityFlContainer,
+            Snackbar.make(binding.mainActivityFlContainer,
                 R.string.permission_denied_explanation,
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.settings){
@@ -100,36 +101,28 @@ class MainActivity :BaseActivity() {
             ?.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    override fun getNavController(): NavController? {
+        return (getCurrentFragment(supportFragmentManager) as NavControllerProvider).getNavController()
+    }
+
     override fun onBackPressed() {
-        val fm = supportFragmentManager
-        var fragment: Fragment? = null
-        val allFragments = fm.fragments
-
-        for (item in allFragments) {
-            if (item.isVisible) {
-                fragment = item
-                break
-            }
-        }
-
-        if (fragment != null
-            && fragment is BackButtonListener
-            && (fragment as BackButtonListener).onBackPressed()) {
+        if (getNavController()?.popBackStack() == true){
             return
-        } else {
-            super.onBackPressed()
+        }
+        if (isCurrentFragmentTagEquals(supportFragmentManager, MapRootNavigationFragment.TAG) == false){
+            binding.mainActivityBnvContainer.selectedItemId = R.id.bottomNavigationMenuMap
         }
     }
 
     private fun setListeners() {
-        mainActivityBnvContainer.setOnNavigationItemSelectedListener {
+        binding.mainActivityBnvContainer.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.bottomNavigationMenuMap -> selectTab(AlarmMapFragment.TAG)
-                R.id.bottomNavigationMenuList -> selectTab(AlarmListFragment.TAG)
+                R.id.bottomNavigationMenuMap -> selectTab(MapRootNavigationFragment.TAG)
+                R.id.bottomNavigationMenuList -> selectTab(LocationAlarmListRootNavigationFragment.TAG)
                 R.id.bottomNavigationMenuSettings -> selectTab(SettingsFragment.TAG)
             }
 
-            return@setOnNavigationItemSelectedListener true
+            return@setOnItemSelectedListener true
         }
     }
 
@@ -144,7 +137,7 @@ class MainActivity :BaseActivity() {
 
         val transaction = fm.beginTransaction()
         if (newFragment == null) {
-            transaction.add(R.id.mainActivityFlContainer, Screens.TabScreen(tag).fragment, tag)
+            transaction.add(R.id.mainActivityFlContainer, getFragmentByTag(tag), tag)
         }
 
         if (currFragment != null) {
@@ -153,6 +146,7 @@ class MainActivity :BaseActivity() {
 
         if (newFragment != null) {
             transaction.show(newFragment)
+            invalidateOptionsMenu()
         }
         transaction.commitNow()
     }
@@ -170,6 +164,19 @@ class MainActivity :BaseActivity() {
         return currFragment
     }
 
+    private fun isCurrentFragmentTagEquals(fm: FragmentManager, tag: String): Boolean{
+        val currFragment = getCurrentFragment(fm)
+        return currFragment?.tag == tag
+    }
+
+    private fun getFragmentByTag(tag: String): Fragment{
+        return when(tag){
+            LocationAlarmListRootNavigationFragment.TAG -> LocationAlarmListRootNavigationFragment()
+            MapRootNavigationFragment.TAG -> MapRootNavigationFragment()
+            else -> throw IllegalArgumentException("Fragment with tag '$tag' not found")
+        }
+    }
+
     private fun checkPermissionAndStartService(){
         if (PermissionUtils.checkLocationPermission(this).not()){
             requestLocationPermissions()
@@ -182,7 +189,7 @@ class MainActivity :BaseActivity() {
 
     private fun requestLocationPermissions(){
         if (PermissionUtils.shouldShowRequestLocationPermissionRationale(this)){
-            Snackbar.make(mainActivityFlContainer,
+            Snackbar.make(binding.mainActivityFlContainer,
                 R.string.permission_rationale,
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.ok){

@@ -3,10 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.vladbakalo.location_alarm">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -15,31 +12,22 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme.Launcher">
-
-        <activity
-            android:name="com.vladbakalo.location_alarm.ui.fragment.auth.auth.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme"/>
+        android:theme="@style/AppTheme">
 
         <activity
             android:name="com.vladbakalo.location_alarm.ui.activity.main.MainActivity"
+            android:theme="@style/AppTheme.Launcher"
             android:label="@string/app_name"
             android:configChanges="screenSize"
-            android:windowSoftInputMode="adjustPan">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".application.service.LocationUpdatesService"
-            android:foregroundServiceType="location"
-            android:enabled="true"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -54,6 +42,5 @@
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
     </application>
-
 </manifest>
 

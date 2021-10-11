@@ -3,9 +3,9 @@ package com.vladbakalo.location_alarm.repo
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.vladbakalo.location_alarm.data.AppDatabase
-import com.vladbakalo.location_alarm.data.models.AlarmDistance
-import com.vladbakalo.location_alarm.data.repo.AlarmRepository
+import com.vladbakalo.core.db.AppDatabase
+import com.vladbakalo.core.db.models.AlarmDistanceDb
+import com.vladbakalo.core.db.repo.AlarmDistanceRepository
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -17,14 +17,14 @@ import java.io.IOException
 class AlarmRepoTest {
     lateinit var context: Context
     lateinit var db: AppDatabase
-    lateinit var repo: AlarmRepository
+    lateinit var repo: AlarmDistanceRepository
 
     @Before
     fun setUp(){
         context = ApplicationProvider.getApplicationContext()
         db = Room.inMemoryDatabaseBuilder(
             context, AppDatabase::class.java).build()
-        repo = AlarmRepository(db)
+        repo = AlarmDistanceRepository(db)
     }
 
     @After
@@ -36,8 +36,8 @@ class AlarmRepoTest {
     @Test
     fun testCreation() {
         val locationAlarmId = 1L
-        val alarmList = arrayOf(AlarmDistance(0, true, locationAlarmId, 100),
-            AlarmDistance(0, true, locationAlarmId, 200)).toList()
+        val alarmList = arrayOf(AlarmDistanceDb(0, true, locationAlarmId, 100),
+            AlarmDistanceDb(0, true, locationAlarmId, 200)).toList()
         repo.createOrUpdateAlarmsById(alarmList, locationAlarmId)
             .test()
             .assertNoErrors()
@@ -49,13 +49,13 @@ class AlarmRepoTest {
     @Test
     fun testDeletion() {
         val locationAlarmId = 1L
-        val alarmList = arrayOf(AlarmDistance(0, true, locationAlarmId, 100),
-            AlarmDistance(0, true, locationAlarmId, 200)).toList()
+        val alarmList = arrayOf(AlarmDistanceDb(0, true, locationAlarmId, 100),
+            AlarmDistanceDb(0, true, locationAlarmId, 200)).toList()
         repo.createOrUpdateAlarmsById(alarmList, locationAlarmId)
             .test()
             .assertNoErrors()
 
-        repo.deleteAlarmByLocationAlarmId(locationAlarmId)
+        repo.deleteAlarmDistancesByLocationAlarmId(locationAlarmId)
             .test()
             .assertNoErrors()
 
@@ -67,11 +67,11 @@ class AlarmRepoTest {
     fun testDeletionV2() {
         val locationAlarmId = 1L
         val locationAlarmId2 = 2L
-        val alarmList = arrayOf(AlarmDistance(0, true, locationAlarmId, 100),
-            AlarmDistance(0, true, locationAlarmId, 200),
-            AlarmDistance(0, true, locationAlarmId2, 200)).toList()
+        val alarmList = arrayOf(AlarmDistanceDb(0, true, locationAlarmId, 100),
+            AlarmDistanceDb(0, true, locationAlarmId, 200),
+            AlarmDistanceDb(0, true, locationAlarmId2, 200)).toList()
 
-        val alarmList2 = arrayOf(AlarmDistance(0, true, locationAlarmId2, 200)).toList()
+        val alarmList2 = arrayOf(AlarmDistanceDb(0, true, locationAlarmId2, 200)).toList()
 
         repo.createOrUpdateAlarmsById(alarmList, locationAlarmId)
             .test()
@@ -81,7 +81,7 @@ class AlarmRepoTest {
             .test()
             .assertNoErrors()
 
-        repo.deleteAlarmByLocationAlarmId(locationAlarmId)
+        repo.deleteAlarmDistancesByLocationAlarmId(locationAlarmId)
             .test()
             .assertNoErrors()
 

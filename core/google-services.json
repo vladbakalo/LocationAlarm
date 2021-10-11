@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "604042474688",
+    "firebase_url": "https://location-alarm-dev.firebaseio.com",
+    "project_id": "location-alarm-dev",
+    "storage_bucket": "location-alarm-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604042474688:android:1b431cda8864292ef3a925",
+        "android_client_info": {
+          "package_name": "com.vladbakalo.location_alarm.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "604042474688-9bghpjnijeum5f1b5oscoebqokaue100.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2q2KbT2aabcpplgRrHJ3TYuQ5a8ZBcok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "604042474688-9bghpjnijeum5f1b5oscoebqokaue100.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

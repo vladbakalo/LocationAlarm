@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="deeplink_create_location_alarm_screen"
+        translatable="false">android-app://vladbakalo.location_alarm.app/create_location_alarm_screen
+    </string><string name="deeplink_alarm_distance_list_screen"
+        translatable="false">android-app://vladbakalo.location_alarm.app/alarm_distance_list_screen</string>
+</resources>

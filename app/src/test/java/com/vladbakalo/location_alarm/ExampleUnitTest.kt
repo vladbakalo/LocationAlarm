@@ -1,6 +1,5 @@
 package com.vladbakalo.location_alarm
 
-import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**

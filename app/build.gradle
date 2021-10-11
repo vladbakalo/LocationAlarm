@@ -1,11 +1,12 @@
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: 'com.google.firebase.firebase-perf'
-apply plugin: 'com.google.gms.google-services'
-
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+plugins{
+    id 'com.android.application'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
 
 apply from: '../config.gradle'
 apply from: '../dependencies.gradle'
@@ -25,18 +26,22 @@ android {
         config {
             keyAlias KEY_ALIAS
             storeFile STORE_FILE
-            storePassword 'Vladik_Bakalo1998'
-            keyPassword 'Vladik_Bakalo1998'
+            storePassword STORE_PASS
+            keyPassword KEY_PASS
         }
     }
-    compileSdkVersion sdk_versions.compileSdk
+
+    buildToolsVersion sdk_versions.build_tools
 
     defaultConfig {
         applicationId APPLICATION_ID
         minSdkVersion sdk_versions.minSdk
         targetSdkVersion sdk_versions.targetSdk
+        compileSdkVersion sdk_versions.compileSdk
+
         versionCode computedVersionCode()
         versionName computedVersionName()
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
@@ -65,9 +70,8 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     buildFeatures {
-        dataBinding = true
+        viewBinding true
     }
-    buildToolsVersion sdk_versions.build_tools
 //    lintOptions {
 //        checkReleaseBuilds false
 //        // Or, if you prefer, you can continue to check for errors in release builds,
@@ -77,80 +81,52 @@ android {
 }
 
 dependencies {
+    implementation project(":core")
+    implementation project(":map")
+    implementation project(":settings")
+    implementation project(":create_location_alarm")
+    implementation project(":location_alarm_list")
+    implementation project(':location_service')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation platform(libraries_platform.firebase_bom)
 
-
-    implementation      libraries.androidx_appcompat
-    implementation      libraries.androidx_legacy_support
-    implementation      libraries.androidx_core
-    implementation      libraries.androidx_activity
-    implementation      libraries.androidx_fragment
-    implementation      libraries.jetbrains_kotlin
-
-    //DataBinding
-    implementation      libraries.androidx_lifecycle_ext
-    implementation      libraries.androidx_lifecycle_viewmodel
-    kapt                libraries.databinding_compiler
-
-    //Android-Arch
-    implementation      libraries.lifecycle_runtime
-    implementation      libraries.lifecycle_ext
-    kapt                libraries.lifecycle_compiler
-
-    //Navigation
-    implementation      libraries.cicerone
+    implementation(libraries.androidx_appcompat)
+    implementation(libraries.androidx_legacy_support)
+    implementation(libraries.jetbrains_kotlin)
 
     //UI
-    implementation      libraries.androidx_constraintlayout
-    implementation      libraries.androidx_recyclerview
-    implementation      libraries.androidx_cardview
-    implementation      libraries.google_material
+    implementation(libraries.androidx_constraintlayout)
+    implementation(libraries.androidx_recyclerview)
+    implementation(libraries.androidx_cardview)
+    implementation(libraries.google_material)
 
-    //Firebase-Core
-    implementation      libraries.firebase_core
-    implementation      libraries.firebase_firestore
-    implementation      libraries.firebase_auth
+    //KTX
+    implementation(libraries.ktx_activity)
+    implementation(libraries.ktx_fragment)
+    implementation(libraries.ktx_core)
+    implementation(libraries.ktx_lifecycle_viewmodel)
 
-    //Firebase-Secondary
-    implementation      libraries.firebase_auth_ui
-    implementation      libraries.firebase_crashlytics
-    implementation      libraries.firebase_analytics
-    implementation      libraries.firebase_perf
+    //Navigation
+    implementation(libraries.navigation_fragment)
+    implementation(libraries.navigation_ui)
 
-    //Maps
-    implementation      libraries.google_maps
-    implementation      libraries.google_location
-
-    //Retrofit
-//    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-//    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-
-    //Rx
-    implementation      libraries.rxjava
-    implementation      libraries.rxandroid
+    //Multi-threading
+    implementation(libraries.coroutines)
 
     //Di
-    implementation      libraries.dagger
-    implementation      libraries.dagger_android
-    implementation      libraries.dagger_android_support
-    kapt                libraries.dagger_compiler
-    kapt                libraries.dagger_android_processor
-
-    //Room
-    implementation      libraries.androidx_room
-    kapt                libraries.androidx_room_compiler
-    implementation      libraries.androidx_room_rxjava
-    testImplementation  libraries.androidx_room_testing
-
+    implementation(libraries.dagger)
+//    implementation(libraries.dagger_android)
+//    implementation(libraries.dagger_android_support)
+    kapt(libraries.dagger_compiler)
+    kapt(libraries.dagger_android_processor)
 
     //Test
-    testImplementation  libraries.junit
-    testImplementation  libraries.mockito
-    testImplementation  libraries.androidx_test_core
-    androidTestImplementation libraries.androidx_test_ext
-    androidTestImplementation libraries.androidx_test_runner
-    androidTestImplementation libraries.androidx_test_espresso
-    androidTestImplementation libraries.android_test_espresso
-    androidTestImplementation libraries.androidx_test_ext
+    testImplementation(libraries.junit)
+    testImplementation(libraries.mockito)
+    testImplementation(libraries.androidx_test_core)
+    androidTestImplementation(libraries.androidx_test_ext)
+    androidTestImplementation(libraries.androidx_test_runner)
+    androidTestImplementation(libraries.androidx_test_espresso)
+    androidTestImplementation(libraries.android_test_espresso)
+    androidTestImplementation(libraries.androidx_test_ext)
 }

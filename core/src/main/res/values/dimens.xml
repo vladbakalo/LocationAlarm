@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="login_launcher_icon_height_width">160dp</dimen>
+
+    <dimen name="text_xxl">20sp</dimen>     <!-- header -->
+    <dimen name="text_xl">18sp</dimen>      <!-- title -->
+    <dimen name="text_x">16sp</dimen>       <!-- subtitle -->
+    <dimen name="text_l">14sp</dimen>       <!-- labels -->
+    <dimen name="text_m">12sp</dimen>       <!-- message & buttons & main links -->
+    <dimen name="text_s">10sp</dimen>       <!-- hint & input fields & additional links & errors -->
+    <dimen name="text_xs">8sp</dimen>       <!-- additional unimportant information -->
+
+    <dimen name="button_elevation">2dp</dimen>
+    <dimen name="fab_button_elevation">6dp</dimen>
+    <dimen name="card_view_elevation">8dp</dimen>
+    <dimen name="button_text_size">14sp</dimen>
+
+    <dimen name="list_item_margin">16dp</dimen>
+    <dimen name="list_item_margin_large">32dp</dimen>
+    <dimen name="half_list_item_margin">8dp</dimen>
+    <dimen name="recycler_view_bottom_padding">@dimen/mtrl_extended_fab_min_height</dimen>
+
+    <dimen name="card_image_size">50dp</dimen>
+    <dimen name="action_image_size">36dp</dimen>
+    <dimen name="card_view_margin">16dp</dimen>
+    <dimen name="card_view_tittle_text_size">16dp</dimen>
+    <dimen name="card_view_body_text_size">16dp</dimen>
+    <dimen name="zoom_button_size">50dp</dimen>
+    <dimen name="fab_button_radius">6dp</dimen>
+</resources>

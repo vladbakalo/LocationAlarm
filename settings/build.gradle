@@ -1,0 +1,74 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+apply from: '../config.gradle'
+apply from: '../dependencies.gradle'
+
+android {
+
+    defaultConfig {
+        minSdkVersion sdk_versions.minSdk
+        targetSdkVersion sdk_versions.targetSdk
+        compileSdkVersion sdk_versions.compileSdk
+
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation project(":core")
+
+    //UI
+    implementation(libraries.androidx_constraintlayout)
+    implementation(libraries.google_material)
+
+    //KTX
+    implementation(libraries.ktx_activity)
+    implementation(libraries.ktx_fragment)
+    implementation(libraries.ktx_core)
+    implementation(libraries.ktx_lifecycle_viewmodel)
+
+    //Multi-threading
+    implementation(libraries.coroutines)
+
+    //Di
+    implementation(libraries.dagger)
+//    implementation(libraries.dagger_android)
+//    implementation(libraries.dagger_android_support)
+    kapt(libraries.dagger_compiler)
+    kapt(libraries.dagger_android_processor)
+
+    //Test
+    testImplementation(libraries.junit)
+    testImplementation(libraries.mockito)
+    testImplementation(libraries.androidx_test_core)
+    androidTestImplementation(libraries.androidx_test_ext)
+    androidTestImplementation(libraries.androidx_test_runner)
+    androidTestImplementation(libraries.androidx_test_espresso)
+    androidTestImplementation(libraries.android_test_espresso)
+    androidTestImplementation(libraries.androidx_test_ext)
+}

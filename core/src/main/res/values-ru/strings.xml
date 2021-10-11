@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="app_name">Location Alarm</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="title_activity_start">StartActivity</string>
+
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+
+    <!--Login-->
+    <string name="login">Log In</string>
+    <string name="register">Register</string>
+    <string name="registration">Registration</string>
+    <string name="email">Имейл</string>
+    <string name="password">Пароль</string>
+    <string name="password_re">Повтор пароля</string>
+    <string name="name">Имя</string>
+    <string name="forgot_password_question">Забыли пароль?</string>
+    <string name="alarm_deletion_question">Удалиьт Location-Alarm?</string>
+    <string name="alarm_creation_question">Создать Location-Alarm здесь?</string>
+    <string name="map">Карта</string>
+    <string name="list">Список</string>
+    <string name="settings">Настройки</string>
+    <string name="enabled">Включено</string>
+    <string name="disabled">Отклчючено</string>
+    <string name="enable">Включить</string>
+    <string name="disable">Выключить</string>
+    <string name="pause">Пауза</string>
+    <string name="resume">Возобновить</string>
+    <string name="remove">Убрать</string>
+    <string name="delete">Удалить</string>
+    <string name="create">Создать</string>
+    <string name="alarm_list_empty">Список будильников пуст</string>
+    <string name="no_alarms">Нет будильников</string>
+    <string name="add_alarm">Добавить будильник</string>
+    <string name="meters">Метры</string>
+    <string name="set_meters">Введите занчение в метрах</string>
+    <string name="text">Текст</string>
+    <string name="address">Адресс</string>
+    <string name="latitude">Широта</string>
+    <string name="longitude">Долгота</string>
+    <string name="note">Заметка</string>
+    <string name="alarms">Будильники</string>
+    <string name="alarm_distance">Дистанция будильника</string>
+    <string name="distance">Дистанция</string>
+    <string name="map_settings">Настройки карты</string>
+
+    <string name="create_alarm">Создать будильник</string>
+
+    <string name="service_channel_name">Location-Alarm Channel</string>
+    <string name="location_alarm_running">Location Alarm запущено</string>
+    <string name="location_alarm_stopped">Location Alarm на паузе</string>
+
+    <string name="permission_denied_explanation">Приложение не будет работать без локаций в фоне</string>
+    <string name="permission_rationale">Разрешение на использывание локации необходимо для работы приложения</string>
+
+    <string name="location_alarm_name_already_exists">Location-Alarm с таким именем уже существует</string>
+    <string name="failed_get_address">Ошибка при получении адреса</string>
+    <string name="field_empty">Поле пустое</string>
+    <string name="value_not_valid">Значение не правильное</string>
+    <string name="add_at_list_one_alarm">Пожалуйста, добавьте хотя-бы 1 будильник</string>
+    <string name="must_contains_more_d">Должно содержать больше чем %d символа</string>
+    <string name="min_distance_d">Минимальная дистанция %d метров</string>
+    <string name="max_distance_d">Максимальная дистанция %d метров</string>
+    <string name="valid_latitude_example">Пример 90.0000</string>
+    <string name="valid_longitude_example">Пример 180.0000</string>
+
+    <string name="alarm_notification_tittle_distance">\"%s\" локация в %d метрах от вас</string>
+</resources>

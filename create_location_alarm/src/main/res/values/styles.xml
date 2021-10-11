@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LocationAlarm.CreateLocationAlarm"/>
+
+    <style name="LocationAlarm.CreateLocationAlarm.AddButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/bg_login_button_selector</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

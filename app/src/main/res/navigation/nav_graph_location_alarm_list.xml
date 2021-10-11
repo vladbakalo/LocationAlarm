@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_location_alarm_list"
+    app:startDestination="@id/locationAlarmListScreen">
+
+    <fragment
+        android:id="@+id/locationAlarmListScreen"
+        android:name="com.vladbakalo.location_alarm_list.ui.fragment.list.LocationAlarmListFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_location_alarm_list" >
+        <action
+            android:id="@+id/action_locationAlarmListScreen_to_createLocationAlarmScreen"
+            app:destination="@id/createLocationAlarmScreen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createLocationAlarmScreen"
+        android:name="com.vladbakalo.create_location_alarm.ui.fragment.alarm_create.CreateLocationAlarmFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_create_location_alarm">
+
+        <deepLink
+            app:uri="@string/deeplink_create_location_alarm_screen" />
+        <action
+            android:id="@+id/action_createLocationAlarmScreen_to_alarmDistanceListScreen"
+            app:destination="@id/alarmDistanceListScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/alarmDistanceListScreen"
+        android:name="com.vladbakalo.alarm_distance_list.ui.fragment.distance_alarm_list.AlarmDistanceListFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_alarm_distance_list">
+
+        <deepLink
+            app:uri="@string/deeplink_alarm_distance_list_screen" />
+    </fragment>
+</navigation>
